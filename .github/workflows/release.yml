@@ -1,0 +1,77 @@
+# Bump "version" in package.json, push to master, done.
+#
+# When the version is newer than the latest v* tag, this publishes the package to
+# GitHub Packages, then creates the tag and a GitHub release with generated notes.
+# Versions with a suffix (1.2.0-beta.1) become pre-releases. Anything else that
+# touches package.json is checked and skipped.
+#
+# GitHub Packages only accepts a scope that matches the repository owner, so the
+# scope here and in package.json is @joshicodes (npm scopes are lowercase).
+
+name: Release
+
+on:
+  push:
+    branches: [master]
+    paths: [package.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+# Two quick pushes must not race each other to the same tag.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Tags are needed to compare against the last release.
+          fetch-depth: 0
+
+      - name: Compare with the last release
+        id: version
+        run: .github/scripts/should-release.sh
+
+      - uses: oven-sh/setup-bun@v2
+        if: steps.version.outputs.release == 'true'
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v4
+        if: steps.version.outputs.release == 'true'
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@joshicodes'
+
+      - name: Install
+        if: steps.version.outputs.release == 'true'
+        run: bun install --frozen-lockfile
+
+      - name: Types
+        if: steps.version.outputs.release == 'true'
+        run: bun run check
+
+      # npm runs the prepack script, which builds dist/ and runs publint.
+      - name: Publish to GitHub Packages
+        if: steps.version.outputs.release == 'true'
+        run: npm publish ${{ steps.version.outputs.prerelease == 'true' && '--tag next' || '' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Tag and release
+        if: steps.version.outputs.release == 'true'
+        run: >
+          gh release create "${{ steps.version.outputs.tag }}"
+          --target "$GITHUB_SHA"
+          --title "${{ steps.version.outputs.tag }}"
+          --generate-notes
+          ${{ steps.version.outputs.prerelease == 'true' && '--prerelease' || '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -299,10 +299,3 @@ That binds the container to `127.0.0.1:3000` only. Point the proxy there, and ke
 SEO lives in `src/routes/seo.ts` (URL, title, description) and
 `src/routes/showcase/Seo.svelte` (meta tags, Open Graph, JSON-LD). `robots.txt` and
 `sitemap.xml` are prerendered routes; the social preview image is `static/og.png`.
-
-## Releasing
-
-`.github/workflows/ci.yml` runs types, formatting and a build on every push and PR.
-`.github/workflows/publish.yml` publishes to GitHub Packages when a release is
-published, taking the version from the tag. It also accepts a manual version through
-`workflow_dispatch`.
