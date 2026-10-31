@@ -1,0 +1,11 @@
+services:
+  site:
+    build: .
+    image: cock-site
+    restart: unless-stopped
+    # Only reachable from this machine; the reverse proxy forwards to it.
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      # The public URL, so SvelteKit accepts form posts coming through the proxy.
+      ORIGIN: https://cock.joshicodes.de

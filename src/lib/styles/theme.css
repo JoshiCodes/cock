@@ -1,0 +1,303 @@
+/* ---------------------------------------------------------------------------
+   cock — design tokens.
+
+   Import after Tailwind:
+
+     @import 'tailwindcss';
+     @import 'cock/theme.css';
+
+   Three colours are set by hand: --ck-bg, --ck-fg and --ck-accent. Surfaces,
+   borders and secondary text are mixed from them, so changing the background is
+   enough to re-skin the kit. Override any single token if you want it exact.
+
+   Themes apply to <html> by default. Put data-ck-theme="light" or "dark" on any
+   element to give that subtree its own theme; set --ck-* variables on it and the
+   derived tokens are recomputed there.
+   --------------------------------------------------------------------------- */
+
+@source '../';
+
+@custom-variant dark (&:where(.dark, .dark *, [data-ck-theme='dark'], [data-ck-theme='dark'] *):not(:where([data-ck-theme='light'], [data-ck-theme='light'] *)));
+
+:root,
+[data-ck-theme='light'] {
+	color-scheme: light;
+
+	--ck-bg: oklch(0.985 0 0);
+	--ck-fg: oklch(0.205 0 0);
+
+	--ck-accent: oklch(0.52 0.18 316);
+	--ck-accent-hover: oklch(0.47 0.18 316);
+	--ck-accent-fg: oklch(0.99 0 0);
+
+	/* How much of the accent bleeds into the neutrals. 0% is a grey page.
+	   --ck-tint-base is what gets mixed in: on dark backgrounds a deepened
+	   accent, so the page picks up the hue without getting lighter. */
+	--ck-tint: 1.5%;
+	--ck-tint-base: var(--ck-accent);
+
+	/* Multiplies Tailwind's radius scale. 0 squares everything off. */
+	--ck-radius-scale: 1;
+
+	--ck-font-sans:
+		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	--ck-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+	/* Mix ratios for the derived tokens. Tune contrast here, once. */
+	--ck-elevate: 72%;
+	--ck-mix-muted: 5%;
+	--ck-mix-border: 11%;
+	--ck-mix-border-strong: 24%;
+	--ck-mix-fg-muted: 66%;
+	--ck-mix-fg-subtle: 48%;
+	--ck-mix-accent-soft: 13%;
+
+	--ck-success: oklch(0.55 0.14 150);
+	--ck-warning: oklch(0.58 0.13 68);
+	--ck-danger: oklch(0.55 0.21 25);
+	--ck-info: oklch(0.55 0.15 250);
+
+	--ck-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.06);
+	--ck-shadow: 0 1px 2px oklch(0 0 0 / 0.05), 0 6px 16px -6px oklch(0 0 0 / 0.12);
+	--ck-shadow-lg: 0 2px 4px oklch(0 0 0 / 0.04), 0 16px 40px -12px oklch(0 0 0 / 0.2);
+
+	/* Code panels stay dark in both modes, so they read as a different material. */
+	--ck-code-bg: oklch(0.145 0.016 265);
+	--ck-code-fg: oklch(0.89 0.012 265);
+	--ck-code-line: oklch(0.28 0.018 265);
+	--ck-code-tag: oklch(0.75 0.14 25);
+	--ck-code-attr: oklch(0.84 0.1 92);
+	--ck-code-string: oklch(0.78 0.1 165);
+	--ck-code-keyword: oklch(0.74 0.11 295);
+	--ck-code-comment: oklch(0.56 0.02 265);
+	--ck-code-punct: oklch(0.66 0.025 265);
+}
+
+.dark,
+[data-ck-theme='dark'] {
+	color-scheme: dark;
+
+	--ck-bg: oklch(0.155 0 0);
+	--ck-fg: oklch(0.96 0 0);
+
+	--ck-accent: oklch(0.74 0.14 316);
+	--ck-accent-hover: oklch(0.8 0.12 316);
+	--ck-accent-fg: oklch(0.2 0.05 316);
+
+	--ck-tint: 7%;
+	--ck-tint-base: color-mix(in oklab, var(--ck-accent) 28%, black);
+	--ck-elevate: 5.5%;
+	--ck-mix-muted: 10%;
+	--ck-mix-border: 15%;
+	--ck-mix-border-strong: 30%;
+	--ck-mix-fg-muted: 72%;
+	--ck-mix-fg-subtle: 52%;
+	--ck-mix-accent-soft: 20%;
+
+	--ck-success: oklch(0.76 0.16 150);
+	--ck-warning: oklch(0.81 0.14 78);
+	--ck-danger: oklch(0.7 0.18 25);
+	--ck-info: oklch(0.73 0.14 250);
+
+	--ck-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+	--ck-shadow: 0 1px 2px oklch(0 0 0 / 0.3), 0 6px 16px -6px oklch(0 0 0 / 0.5);
+	--ck-shadow-lg: 0 2px 4px oklch(0 0 0 / 0.3), 0 16px 40px -12px oklch(0 0 0 / 0.6);
+
+	--ck-code-bg: oklch(0.085 0.014 265);
+	--ck-code-line: oklch(0.22 0.014 265);
+}
+
+/* Derived from --ck-bg, --ck-fg and --ck-accent. Both modes reuse the formulas;
+   only the ratios above differ. --ck-canvas is the page colour everything else
+   is mixed against, which is how the accent reaches the neutrals.
+
+   Custom properties resolve where they are declared, so these have to be
+   declared again on every element that starts a theme — otherwise a subtree
+   would inherit surfaces computed from the root's colours. */
+:root,
+.dark,
+[data-ck-theme] {
+	--ck-canvas: color-mix(in oklab, var(--ck-tint-base) var(--ck-tint), var(--ck-bg));
+	--ck-surface: color-mix(in oklab, white var(--ck-elevate), var(--ck-canvas));
+	--ck-muted: color-mix(in oklab, var(--ck-fg) var(--ck-mix-muted), var(--ck-canvas));
+	--ck-border: color-mix(in oklab, var(--ck-fg) var(--ck-mix-border), var(--ck-canvas));
+	--ck-border-strong: color-mix(
+		in oklab,
+		var(--ck-fg) var(--ck-mix-border-strong),
+		var(--ck-canvas)
+	);
+	--ck-fg-muted: color-mix(in oklab, var(--ck-fg) var(--ck-mix-fg-muted), var(--ck-canvas));
+	--ck-fg-subtle: color-mix(in oklab, var(--ck-fg) var(--ck-mix-fg-subtle), var(--ck-canvas));
+	--ck-accent-soft: color-mix(
+		in oklab,
+		var(--ck-accent) var(--ck-mix-accent-soft),
+		var(--ck-canvas)
+	);
+	--ck-ring: var(--ck-accent);
+}
+
+/* A themed subtree paints its own canvas. */
+[data-ck-theme] {
+	background-color: var(--ck-canvas);
+	color: var(--ck-fg);
+}
+
+/* ---------------------------------------------------------------------------
+   Accent presets. Set data-accent on <html> (or a themed subtree).
+   Plum is the default and needs no attribute.
+   --------------------------------------------------------------------------- */
+
+[data-accent='ember'] {
+	--ck-accent: oklch(0.6 0.19 35);
+	--ck-accent-hover: oklch(0.55 0.19 35);
+}
+:is(.dark, [data-ck-theme='dark'])[data-accent='ember'] {
+	--ck-accent: oklch(0.72 0.16 40);
+	--ck-accent-hover: oklch(0.78 0.14 42);
+	--ck-accent-fg: oklch(0.2 0.04 40);
+}
+
+[data-accent='cobalt'] {
+	--ck-accent: oklch(0.55 0.19 256);
+	--ck-accent-hover: oklch(0.5 0.19 256);
+}
+:is(.dark, [data-ck-theme='dark'])[data-accent='cobalt'] {
+	--ck-accent: oklch(0.71 0.16 254);
+	--ck-accent-hover: oklch(0.77 0.14 254);
+	--ck-accent-fg: oklch(0.19 0.04 256);
+}
+
+[data-accent='pine'] {
+	--ck-accent: oklch(0.56 0.15 158);
+	--ck-accent-hover: oklch(0.51 0.15 158);
+}
+:is(.dark, [data-ck-theme='dark'])[data-accent='pine'] {
+	--ck-accent: oklch(0.76 0.16 158);
+	--ck-accent-hover: oklch(0.81 0.15 158);
+	--ck-accent-fg: oklch(0.19 0.04 158);
+}
+
+[data-accent='gold'] {
+	--ck-accent: oklch(0.76 0.16 84);
+	--ck-accent-hover: oklch(0.71 0.16 84);
+	--ck-accent-fg: oklch(0.23 0.05 84);
+}
+:is(.dark, [data-ck-theme='dark'])[data-accent='gold'] {
+	--ck-accent: oklch(0.84 0.16 86);
+	--ck-accent-hover: oklch(0.89 0.15 86);
+	--ck-accent-fg: oklch(0.21 0.05 86);
+}
+
+[data-accent='ink'] {
+	--ck-accent: oklch(0.3 0 0);
+	--ck-accent-hover: oklch(0.22 0 0);
+}
+:is(.dark, [data-ck-theme='dark'])[data-accent='ink'] {
+	--ck-accent: oklch(0.93 0 0);
+	--ck-accent-hover: oklch(1 0 0);
+	--ck-accent-fg: oklch(0.2 0 0);
+}
+
+/* ---------------------------------------------------------------------------
+   Tailwind bindings. `inline` keeps the vars unresolved, so dark mode and
+   data-accent overrides reach every utility.
+   --------------------------------------------------------------------------- */
+
+@theme inline {
+	--color-bg: var(--ck-canvas);
+	--color-surface: var(--ck-surface);
+	--color-muted: var(--ck-muted);
+	--color-border: var(--ck-border);
+	--color-border-strong: var(--ck-border-strong);
+
+	--color-fg: var(--ck-fg);
+	--color-fg-muted: var(--ck-fg-muted);
+	--color-fg-subtle: var(--ck-fg-subtle);
+
+	--color-accent: var(--ck-accent);
+	--color-accent-hover: var(--ck-accent-hover);
+	--color-accent-fg: var(--ck-accent-fg);
+	--color-accent-soft: var(--ck-accent-soft);
+
+	--color-success: var(--ck-success);
+	--color-warning: var(--ck-warning);
+	--color-danger: var(--ck-danger);
+	--color-info: var(--ck-info);
+
+	--color-code-bg: var(--ck-code-bg);
+	--color-code-fg: var(--ck-code-fg);
+	--color-code-line: var(--ck-code-line);
+
+	--radius-xs: calc(0.125rem * var(--ck-radius-scale));
+	--radius-sm: calc(0.25rem * var(--ck-radius-scale));
+	--radius-md: calc(0.375rem * var(--ck-radius-scale));
+	--radius-lg: calc(0.5rem * var(--ck-radius-scale));
+	--radius-xl: calc(0.75rem * var(--ck-radius-scale));
+	--radius-2xl: calc(1rem * var(--ck-radius-scale));
+	--radius-3xl: calc(1.5rem * var(--ck-radius-scale));
+
+	--shadow-xs: var(--ck-shadow-sm);
+	--shadow-sm: var(--ck-shadow-sm);
+	--shadow-md: var(--ck-shadow);
+	--shadow-lg: var(--ck-shadow-lg);
+
+	--font-sans: var(--ck-font-sans);
+	--font-mono: var(--ck-font-mono);
+}
+
+@layer base {
+	html {
+		-webkit-text-size-adjust: 100%;
+		scrollbar-color: var(--ck-border-strong) transparent;
+	}
+
+	body {
+		background-color: var(--ck-canvas);
+		color: var(--ck-fg);
+		font-family: var(--ck-font-sans);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	::selection {
+		background-color: color-mix(in oklab, var(--ck-accent) 24%, transparent);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--ck-ring);
+		outline-offset: 2px;
+	}
+
+	:focus:not(:focus-visible) {
+		outline: none;
+	}
+}
+
+/* Added for a moment when the theme or accent changes, so the page (or a themed
+   subtree) crossfades instead of snapping. */
+@layer base {
+	.ck-theming,
+	.ck-theming *,
+	.ck-theming *::before,
+	.ck-theming *::after {
+		transition:
+			background-color 320ms ease,
+			border-color 320ms ease,
+			color 320ms ease,
+			fill 320ms ease,
+			stroke 320ms ease,
+			box-shadow 320ms ease,
+			outline-color 320ms ease !important;
+	}
+}
+
+@layer base {
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+		}
+	}
+}

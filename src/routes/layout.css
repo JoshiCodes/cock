@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@import '../lib/styles/theme.css';
+
+/* The preview page sets its own typeface. The kit itself defaults to the
+   system stack, so this is also the example of swapping it. */
+:root {
+	--ck-font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+}
