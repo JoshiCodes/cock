@@ -10,6 +10,8 @@
 		cellSize?: number;
 		/** Stretch the cells so the grid fills its container's width. */
 		fit?: boolean;
+		/** Smallest a cell may get while fitting. Below that the grid scrolls. */
+		minCell?: number;
 		gap?: number;
 		/** Number of colour steps above zero. */
 		levels?: number;
@@ -28,6 +30,7 @@
 		rows = 7,
 		cellSize = 11,
 		fit = false,
+		minCell = 7,
 		gap = 3,
 		levels = 4,
 		max,
@@ -52,22 +55,27 @@
 </script>
 
 <div class={cn('flex-col gap-2', fit ? 'flex w-full' : 'inline-flex', className)}>
-	<div
-		role="img"
-		aria-label={label}
-		class="grid grid-flow-col"
-		style:grid-template-rows="repeat({rows}, {fit ? 'auto' : `${cellSize}px`})"
-		style:grid-template-columns={fit ? `repeat(${columns}, minmax(0, 1fr))` : undefined}
-		style:grid-auto-columns={fit ? undefined : `${cellSize}px`}
-		style:gap="{gap}px"
-	>
-		{#each data as value, index (index)}
-			<span
-				title={describe(value, index)}
-				class={cn('rounded-xs', fit && 'aspect-square')}
-				style:background={color(level(value))}
-			></span>
-		{/each}
+	<!-- Fitting to the container is fine until the cells get too small to read;
+	     past that the grid keeps its minimum and this scrolls. -->
+	<div class={cn(fit && 'overflow-x-auto')}>
+		<div
+			role="img"
+			aria-label={label}
+			class="grid grid-flow-col"
+			style:grid-template-rows="repeat({rows}, {fit ? 'auto' : `${cellSize}px`})"
+			style:grid-template-columns={fit ? `repeat(${columns}, minmax(0, 1fr))` : undefined}
+			style:grid-auto-columns={fit ? undefined : `${cellSize}px`}
+			style:min-width={fit ? `${columns * (minCell + gap)}px` : undefined}
+			style:gap="{gap}px"
+		>
+			{#each data as value, index (index)}
+				<span
+					title={describe(value, index)}
+					class={cn('rounded-xs', fit && 'aspect-square')}
+					style:background={color(level(value))}
+				></span>
+			{/each}
+		</div>
 	</div>
 
 	{#if legend}

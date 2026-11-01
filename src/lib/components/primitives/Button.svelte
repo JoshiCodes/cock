@@ -39,14 +39,14 @@
 
 	const variants: Record<ButtonVariant, string> = {
 		solid:
-			'border-black/10 bg-accent text-accent-fg hover:bg-accent-hover dark:border-white/10 shadow-[inset_0_1px_0_rgb(255_255_255/0.2),inset_0_-1px_0_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.1)] active:translate-y-px active:shadow-[inset_0_1px_2px_rgb(0_0_0/0.2)]',
+			'border-transparent bg-accent text-accent-fg shadow-xs hover:bg-accent-hover active:translate-y-px',
 		soft: 'border-transparent bg-accent/12 text-accent hover:bg-accent/20 active:translate-y-px',
 		outline:
-			'border-border bg-surface text-fg shadow-[inset_0_-1px_0_var(--ck-border)] hover:border-border-strong hover:bg-muted active:translate-y-px active:shadow-none',
+			'border-border bg-surface text-fg shadow-xs hover:border-border-strong hover:bg-muted active:translate-y-px',
 		ghost: 'border-transparent bg-transparent text-fg-muted hover:bg-muted hover:text-fg',
 		link: 'h-auto border-transparent bg-transparent p-0 text-accent underline-offset-4 hover:underline',
 		danger:
-			'border-black/10 bg-danger text-white hover:brightness-110 dark:text-bg shadow-[inset_0_1px_0_rgb(255_255_255/0.2),inset_0_-1px_0_rgb(0_0_0/0.14),0_1px_2px_rgb(0_0_0/0.1)] active:translate-y-px active:shadow-[inset_0_1px_2px_rgb(0_0_0/0.2)]'
+			'border-transparent bg-danger text-white shadow-xs hover:brightness-110 active:translate-y-px dark:text-bg'
 	};
 
 	const sizes: Record<ButtonSize, string> = {

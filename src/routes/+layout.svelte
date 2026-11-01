@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '@fontsource-variable/hanken-grotesk';
 	import './layout.css';
-	import { Toaster } from '#lib';
+	import { Toaster } from '@joshicodes/cock';
 	import SiteHeader from './showcase/SiteHeader.svelte';
 
 	const { children } = $props();

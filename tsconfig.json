@@ -1,7 +1,12 @@
 {
 	"extends": "$app/tsconfig",
 	"compilerOptions": {
-		"strict": true
+		"strict": true,
+		"paths": {
+			"@joshicodes/cock": ["./src/lib/index.ts"],
+			"@joshicodes/cock/theme.css": ["./src/lib/styles/theme.css"]
+		},
+		"types": ["$app/types", "node"]
 	},
 	"include": ["src", "vite.config.ts", "prettier.config.js"]
 }

@@ -12,7 +12,7 @@
 		TabList,
 		Table,
 		Tabs
-	} from '#lib';
+	} from '@joshicodes/cock';
 	import { styleAttribute, type Theme } from './generate.js';
 
 	interface Props {

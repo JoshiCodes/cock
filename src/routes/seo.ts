@@ -11,8 +11,15 @@ export const site = {
 	imageAlt: 'The cock logo, a rooster drawn as the letter c, next to the wordmark.'
 };
 
-/** Pages listed in the sitemap. */
+/** Everything that belongs in the sitemap, built from the component catalog. */
+import { components } from './components/catalog.js';
+
 export const pages = [
 	{ path: '/', priority: 1 },
-	{ path: '/themes', priority: 0.8 }
+	{ path: '/docs/getting-started', priority: 0.9 },
+	{ path: '/docs/theming', priority: 0.9 },
+	{ path: '/docs/comparison', priority: 0.7 },
+	{ path: '/components', priority: 0.9 },
+	{ path: '/themes', priority: 0.8 },
+	...components.map((entry) => ({ path: `/components/${entry.slug}`, priority: 0.6 }))
 ];

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '#lib';
+	import { cn } from '@joshicodes/cock';
 
 	// Same drawing as static/brand/*.svg, in theme colours so it follows the accent.
 	interface Props {

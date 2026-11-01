@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { accents, theme, Button, Modal, Slider, Switch, ThemeToggle, cn } from '#lib';
+	import { accents, theme, Button, Modal, Slider, Switch, ThemeToggle, cn } from '@joshicodes/cock';
 	import CodeBlock from './CodeBlock.svelte';
 	import { exportTheme } from './exportTheme.js';
 	import { luminance, shift, tokenHex } from './color.js';

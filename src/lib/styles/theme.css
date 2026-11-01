@@ -43,13 +43,15 @@
 		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	--ck-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-	/* Mix ratios for the derived tokens. Tune contrast here, once. */
+	/* Mix ratios for the derived tokens. Tune contrast here, once.
+	   border-strong and fg-subtle are set where they clear WCAG AA against the
+	   canvas: 3:1 for control outlines, 4.5:1 for placeholder text. */
 	--ck-elevate: 72%;
 	--ck-mix-muted: 5%;
 	--ck-mix-border: 11%;
-	--ck-mix-border-strong: 24%;
+	--ck-mix-border-strong: 44%;
 	--ck-mix-fg-muted: 66%;
-	--ck-mix-fg-subtle: 48%;
+	--ck-mix-fg-subtle: 56%;
 	--ck-mix-accent-soft: 13%;
 
 	--ck-success: oklch(0.55 0.14 150);
@@ -89,9 +91,9 @@
 	--ck-elevate: 5.5%;
 	--ck-mix-muted: 10%;
 	--ck-mix-border: 15%;
-	--ck-mix-border-strong: 30%;
+	--ck-mix-border-strong: 42%;
 	--ck-mix-fg-muted: 72%;
-	--ck-mix-fg-subtle: 52%;
+	--ck-mix-fg-subtle: 54%;
 	--ck-mix-accent-soft: 20%;
 
 	--ck-success: oklch(0.76 0.16 150);

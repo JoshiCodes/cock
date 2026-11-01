@@ -1,4 +1,4 @@
-import { theme } from '#lib';
+import { theme } from '@joshicodes/cock';
 
 const always = [
 	'--ck-bg',

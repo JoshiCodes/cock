@@ -83,7 +83,8 @@ export { default as Terminal } from './components/effects/Terminal.svelte';
 export { default as Typewriter } from './components/effects/Typewriter.svelte';
 
 /* -- state ---------------------------------------------------------------- */
-export { theme, themeScript, accents, type ThemeMode, type Accent } from './state/theme.svelte.js';
+export { theme, accents, type ThemeMode, type Accent } from './state/theme.svelte.js';
+export { themeScript, themeScriptTag, themeHandle } from './state/theme-script.js';
 export {
 	toast,
 	toasts,

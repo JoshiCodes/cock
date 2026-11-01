@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 	import { page } from '$app/state';
-	import { Button, ThemeToggle, cn } from '#lib';
+	import { Button, ThemeToggle, cn } from '@joshicodes/cock';
 	import ControlPanel from './ControlPanel.svelte';
 	import Logo from './Logo.svelte';
 	import { site } from './site.svelte.js';
 
+	function isActive(href: string) {
+		const section = href.split('/')[1];
+		return page.url.pathname.split('/')[1] === section;
+	}
+
 	const links = [
-		{ href: '/', label: 'Components' },
-		{ href: '/themes', label: 'Theme generator' }
+		{ href: '/components', label: 'Components' },
+		{ href: '/docs/getting-started', label: 'Docs' },
+		{ href: '/themes', label: 'Themes' }
 	];
 </script>
 
@@ -22,7 +28,7 @@
 			{#each links as link (link.href)}
 				<a
 					href={link.href}
-					aria-current={page.url.pathname === link.href ? 'page' : undefined}
+					aria-current={isActive(link.href) ? 'page' : undefined}
 					class={cn(
 						'transition-colors',
 						page.url.pathname === link.href ? 'font-medium text-fg' : 'text-fg-muted hover:text-fg'
@@ -60,7 +66,7 @@
 			<a
 				href="https://github.com/JoshiCodes/cock"
 				aria-label="Source on GitHub"
-				class="inline-flex size-8 items-center justify-center rounded-md border border-border bg-surface text-fg-muted shadow-[inset_0_-1px_0_var(--ck-border)] transition-colors hover:bg-muted hover:text-fg"
+				class="inline-flex size-8 items-center justify-center rounded-md border border-border bg-surface text-fg-muted shadow-xs transition-colors hover:bg-muted hover:text-fg"
 			>
 				<svg viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true">
 					<path

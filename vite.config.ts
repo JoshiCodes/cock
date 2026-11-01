@@ -1,9 +1,21 @@
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	resolve: {
+		alias: {
+			// The docs examples import the package by its published name, so the
+			// code shown under a demo is the code a reader would paste. In here it
+			// has to point back at the sources.
+			'@joshicodes/cock/theme.css': fileURLToPath(
+				new URL('./src/lib/styles/theme.css', import.meta.url)
+			),
+			'@joshicodes/cock': fileURLToPath(new URL('./src/lib/index.ts', import.meta.url))
+		}
+	},
 	plugins: [
 		tailwindcss(),
 		sveltekit({

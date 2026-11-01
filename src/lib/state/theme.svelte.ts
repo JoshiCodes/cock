@@ -1,8 +1,6 @@
 export type ThemeMode = 'light' | 'dark' | 'system';
 
-const MODE_KEY = 'ck-theme';
-const ACCENT_KEY = 'ck-accent';
-const TOKEN_KEY = 'ck-tokens';
+import { ACCENT_KEY, MODE_KEY, TOKEN_KEY } from './theme-keys.js';
 
 /** Built-in accent presets. Any other string works if you define it yourself. */
 export const accents = ['plum', 'cobalt', 'pine', 'ember', 'gold', 'ink'] as const;
@@ -183,9 +181,3 @@ class ThemeState {
 }
 
 export const theme = new ThemeState();
-
-/**
- * Inline this in `app.html` before the body renders so the stored theme is in
- * place on first paint.
- */
-export const themeScript = `(()=>{try{var d=document.documentElement,m=localStorage.getItem('${MODE_KEY}')||'system',k=m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);d.classList.toggle('dark',k);var a=localStorage.getItem('${ACCENT_KEY}');if(a)d.dataset.accent=a;var t=JSON.parse(localStorage.getItem('${TOKEN_KEY}')||'{}')[k?'dark':'light']||{};for(var n in t)d.style.setProperty(n,t[n]);}catch(e){}})()`;

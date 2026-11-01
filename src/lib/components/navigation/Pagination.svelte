@@ -57,27 +57,32 @@
 		</svg>
 	</button>
 
-	{#each pages as item, index (index)}
-		{#if item === 'gap'}
-			<span class="px-1 text-sm text-fg-subtle">…</span>
-		{:else}
-			<button
-				type="button"
-				aria-current={item === page ? 'page' : undefined}
-				onclick={() => go(item)}
-				class={cn(
-					base,
-					transition,
-					focusRing,
-					item === page
-						? 'border-accent bg-accent text-accent-fg'
-						: 'border-border bg-surface text-fg-muted hover:bg-muted'
-				)}
-			>
-				{item}
-			</button>
-		{/if}
-	{/each}
+	<!-- Numbered buttons need room; a phone gets the position instead. -->
+	<span class="text-sm text-fg-muted tabular-nums sm:hidden">{page} / {total}</span>
+
+	<span class="hidden items-center gap-1 sm:flex">
+		{#each pages as item, index (index)}
+			{#if item === 'gap'}
+				<span class="px-1 text-sm text-fg-subtle">…</span>
+			{:else}
+				<button
+					type="button"
+					aria-current={item === page ? 'page' : undefined}
+					onclick={() => go(item)}
+					class={cn(
+						base,
+						transition,
+						focusRing,
+						item === page
+							? 'border-accent bg-accent text-accent-fg'
+							: 'border-border bg-surface text-fg-muted hover:bg-muted'
+					)}
+				>
+					{item}
+				</button>
+			{/if}
+		{/each}
+	</span>
 
 	<button
 		type="button"

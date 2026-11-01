@@ -108,7 +108,7 @@
 			onpaste={(event) => onpaste(index, event)}
 			onfocus={(event) => event.currentTarget.select()}
 			class={cn(
-				'size-11 rounded-md border border-border bg-surface text-center text-lg font-medium text-fg caret-accent shadow-[inset_0_-1px_0_var(--ck-border)]',
+				'size-11 rounded-md border border-border bg-surface text-center text-lg font-medium text-fg caret-accent shadow-xs',
 				'disabled:cursor-not-allowed disabled:opacity-60',
 				transition,
 				focusRingInset,

@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
-	import { Button, Kbd, theme as site, toast, cn } from '#lib';
+	import { Alert, Button, Kbd, Switch, Table, theme as site, toast, cn } from '@joshicodes/cock';
 	import CodeBlock from '../showcase/CodeBlock.svelte';
 	import Seo from '../showcase/Seo.svelte';
 	import ThemePreview from './ThemePreview.svelte';
+	import { audit, passesAA } from './contrast.js';
 	import {
 		decode,
 		encode,
@@ -19,6 +20,14 @@
 	let theme = $state<Theme>(decode(page.url.searchParams.get('t') ?? '') ?? generate());
 	let locks = $state<Locks>({ accent: false, background: false, shape: false });
 	let history = $state<Theme[]>([]);
+	let accessibleOnly = $state(false);
+
+	// Re-measured whenever the theme changes; the audit reads painted colours.
+	let reports = $derived([
+		{ scheme: 'light' as const, report: audit(theme, 'light') },
+		{ scheme: 'dark' as const, report: audit(theme, 'dark') }
+	]);
+	let failing = $derived(reports.flatMap((entry) => entry.report.checks.filter((c) => !c.passes)));
 	let fading = $state(false);
 	let timer: ReturnType<typeof setTimeout>;
 
@@ -37,7 +46,16 @@
 
 	function roll() {
 		history = [theme, ...history].slice(0, 12);
-		show(generate(theme, locks));
+
+		let next = generate(theme, locks);
+		if (accessibleOnly) {
+			// Rerolling is cheap; after this many tries the locks are probably
+			// what is making it impossible, so keep the last one and say so.
+			for (let tries = 0; tries < 40 && !passesAA(next); tries++) {
+				next = generate(theme, locks);
+			}
+		}
+		show(next);
 	}
 
 	function restore(index: number) {
@@ -147,7 +165,19 @@
 		</div>
 	</div>
 
-	<div class={cn('mt-8 grid gap-6 lg:grid-cols-2', fading && 'ck-theming')}>
+	<div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+		<Switch bind:checked={accessibleOnly} description="Rerolls until every contrast check passes.">
+			Only accessible themes
+		</Switch>
+
+		<p class="text-sm {failing.length ? 'text-warning' : 'text-success'}">
+			{failing.length === 0
+				? 'Passes WCAG AA in both schemes'
+				: `${failing.length} contrast ${failing.length === 1 ? 'check falls' : 'checks fall'} short of AA`}
+		</p>
+	</div>
+
+	<div class={cn('mt-6 grid gap-6 lg:grid-cols-2', fading && 'ck-theming')}>
 		{#each ['light', 'dark'] as const as scheme (scheme)}
 			<figure>
 				<figcaption class="mb-2.5 text-sm text-fg-muted capitalize">{scheme}</figcaption>
@@ -174,6 +204,63 @@
 			{/each}
 		</div>
 	{/if}
+
+	<section class="mt-16">
+		<h2 class="text-2xl font-semibold tracking-tight text-fg">Contrast</h2>
+		<p class="mt-2 max-w-2xl text-sm leading-relaxed text-fg-muted">
+			Measured on the colours the browser actually paints, including the ones mixed with color-mix.
+			WCAG AA asks for 4.5:1 on text and 3:1 on borders and controls.
+		</p>
+
+		<div class="mt-5 grid gap-5 lg:grid-cols-2">
+			{#each reports as entry (entry.scheme)}
+				<div class="space-y-2">
+					<p class="text-sm font-medium text-fg capitalize">
+						{entry.scheme}
+						<span class="ml-1 font-normal text-fg-muted">
+							{entry.report.passed} of {entry.report.checks.length} pass
+						</span>
+					</p>
+
+					<Table dense>
+						<thead>
+							<tr>
+								<th>Check</th>
+								<th class="text-right">Ratio</th>
+								<th class="w-16 text-right">Needs</th>
+							</tr>
+						</thead>
+						<tbody>
+							{#each entry.report.checks as check (check.label)}
+								<tr>
+									<td>
+										<span class={check.passes ? 'text-fg' : 'text-warning'}>{check.label}</span>
+										<p class="mt-0.5 text-xs text-fg-subtle">{check.hint}</p>
+									</td>
+									<td
+										class="text-right tabular-nums {check.passes
+											? 'text-fg-muted'
+											: 'text-warning'}"
+									>
+										{check.ratio.toFixed(2)}
+									</td>
+									<td class="text-right text-fg-subtle tabular-nums">{check.required}</td>
+								</tr>
+							{/each}
+						</tbody>
+					</Table>
+				</div>
+			{/each}
+		</div>
+
+		{#if failing.length}
+			<Alert variant="warning" title="Worth a second look" class="mt-5">
+				Placeholder text failing at 4.5:1 is common and often acceptable, since it repeats the
+				label. A failing body text or button label is not — turn on "only accessible themes" and
+				roll again.
+			</Alert>
+		{/if}
+	</section>
 
 	<section class="mt-16">
 		<div class="flex flex-wrap items-end justify-between gap-4">

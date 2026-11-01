@@ -16,13 +16,6 @@ I am very much commited to keep this Kit simple and easy to use, while also prov
 
 ## Install
 
-The package lives in GitHub Packages, so the scope needs a registry first:
-
-```ini
-# .npmrc
-@joshicodes:registry=https://npm.pkg.github.com
-```
-
 ```bash
 bun add @joshicodes/cock
 ```
@@ -51,29 +44,18 @@ That one import brings the tokens, the `dark` variant, the base layer and a
 
 ### Dark mode without a flash
 
-Dark mode is a `dark` class on `<html>`. Put this in `src/app.html` inside `<head>`
-so the stored preference lands before first paint:
+Dark mode is a `dark` class on `<html>` and the preference lives in local storage,
+which a server cannot read. Without help the page renders in the wrong scheme and
+corrects itself a frame later. The kit ships a hook that writes the class before
+anything paints:
 
-```html
-<script>
-	(() => {
-		try {
-			const d = document.documentElement;
-			const m = localStorage.getItem('ck-theme') || 'system';
-			const dark =
-				m === 'dark' || (m === 'system' && matchMedia('(prefers-color-scheme:dark)').matches);
-			d.classList.toggle('dark', dark);
-			const a = localStorage.getItem('ck-accent');
-			if (a) d.dataset.accent = a;
-			const t =
-				JSON.parse(localStorage.getItem('ck-tokens') || '{}')[dark ? 'dark' : 'light'] || {};
-			for (const n in t) d.style.setProperty(n, t[n]);
-		} catch (e) {}
-	})();
-</script>
+```js
+// src/hooks.server.js
+export { themeHandle as handle } from '@joshicodes/cock';
 ```
 
-The same snippet is exported as `themeScript` if you would rather inject it.
+Already have a `handle`? Put it in `sequence(themeHandle, yourHandle)`. Outside
+SvelteKit, inline the exported `themeScript` or `themeScriptTag` in your template.
 
 ### Toasts
 

@@ -40,10 +40,11 @@
 	tabindex={-1}
 	{onkeydown}
 	class={cn(
-		'flex items-center',
+		// Tabs never wrap; on a narrow screen the strip scrolls instead.
+		'flex [scrollbar-width:none] items-center overflow-x-auto [&::-webkit-scrollbar]:hidden',
 		tabs.variant === 'line'
 			? 'gap-1 border-b border-border'
-			: 'w-fit gap-1 rounded-lg bg-muted p-1',
+			: 'w-fit max-w-full gap-1 rounded-lg bg-muted p-1',
 		className
 	)}
 >

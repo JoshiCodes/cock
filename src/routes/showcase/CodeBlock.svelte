@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '#lib';
+	import { cn } from '@joshicodes/cock';
 	import { highlight } from './highlight.js';
 
 	interface Props {
@@ -25,7 +25,9 @@
 </script>
 
 <div class={cn('relative overflow-hidden bg-code-bg text-code-fg', className)}>
-	<div class="absolute top-2 right-2 flex items-center gap-2">
+	<div
+		class="absolute top-2 right-2 flex items-center gap-2 rounded-md bg-code-bg/92 pl-2 backdrop-blur-[2px]"
+	>
 		{#if label}
 			<span class="font-mono text-xs text-white/35">{label}</span>
 		{/if}

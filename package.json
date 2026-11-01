@@ -1,6 +1,53 @@
 {
 	"name": "@joshicodes/cock",
 	"version": "0.1.0",
+	"description": "Svelte 5 and Tailwind 4 component kit: 63 accessible components, dark mode and theming from three CSS variables.",
+	"license": "MIT",
+	"author": "JoshiCodes (https://github.com/JoshiCodes)",
+	"homepage": "https://cock.joshicodes.de",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/JoshiCodes/cock.git"
+	},
+	"bugs": {
+		"url": "https://github.com/JoshiCodes/cock/issues"
+	},
+	"keywords": [
+		"svelte",
+		"svelte5",
+		"sveltekit",
+		"tailwindcss",
+		"tailwind4",
+		"components",
+		"component-library",
+		"ui",
+		"design-system",
+		"runes",
+		"accessible",
+		"dark-mode"
+	],
+	"type": "module",
+	"engines": {
+		"node": ">=18"
+	},
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		},
+		"./theme.css": "./dist/styles/theme.css",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && bun run prepack",
@@ -13,23 +60,9 @@
 		"lint": "prettier --check .",
 		"format": "prettier --write ."
 	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
-	],
-	"sideEffects": [
-		"**/*.css"
-	],
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		},
-		"./theme.css": "./dist/styles/theme.css"
+	"dependencies": {
+		"clsx": "^2.1.1",
+		"tailwind-merge": "^3.7.0"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0",
@@ -42,6 +75,7 @@
 		"@sveltejs/package": "^2.5.8",
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"@tailwindcss/vite": "^4.3.0",
+		"@types/node": "^26.6.6",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
 		"prettier-plugin-tailwindcss": "^0.8.0",
@@ -52,30 +86,8 @@
 		"typescript": "^6.0.3",
 		"vite": "^8.3.0"
 	},
-	"keywords": [
-		"svelte",
-		"sveltekit",
-		"tailwindcss",
-		"components",
-		"ui",
-		"design-system"
-	],
-	"imports": {
-		"#lib": "./src/lib/index.js",
-		"#lib/*": "./src/lib/*"
-	},
-	"description": "cock \u2014 core component kit. SvelteKit components on Svelte 5 runes and Tailwind 4.",
-	"dependencies": {
-		"clsx": "^2.1.1",
-		"tailwind-merge": "^3.7.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/JoshiCodes/cock.git"
-	},
 	"publishConfig": {
-		"registry": "https://npm.pkg.github.com",
-		"access": "restricted"
-	},
-	"license": "MIT"
+		"access": "public",
+		"provenance": true
+	}
 }
