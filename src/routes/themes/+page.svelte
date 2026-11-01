@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
-	import { replaceState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { Alert, Button, Kbd, Switch, Table, theme as site, toast, cn } from '@joshicodes/cock';
 	import CodeBlock from '../showcase/CodeBlock.svelte';
 	import Seo from '../showcase/Seo.svelte';
@@ -17,16 +18,38 @@
 		type Theme
 	} from './generate.js';
 
-	let theme = $state<Theme>(decode(page.url.searchParams.get('t') ?? '') ?? generate());
+	/**
+	 * What the page opens on when nothing is shared in the URL. A random theme
+	 * here would be one theme on the server and a different one in the browser,
+	 * and hydration would tear, so the roll waits until `onMount`.
+	 */
+	const first =
+		'WzEyNi4yNCwiY29vbCIsMixbWzAuOTcyOCwwLjAxMzMsMjUwXSxbMC4xODIyLDAuMDEwOCwyNTBdLFswLjU2OTgsMC4xNDMyLDEyNi4yMzYyXSxbMC41MTk4LDAuMTMxMiwxMjYuMjM2Ml0sWzAuMiwwLjA0LDEyNi4yMzYyXSwwXSxbWzAuMTc4NywwLjAxNiwyNTBdLFswLjk2MzQsMC4wMDYxLDI1MF0sWzAuNzQ2OSwwLjE3LDEyNi4yMzYyXSxbMC44MDY5LDAuMTU2NCwxMjYuMjM2Ml0sWzAuMiwwLjA0LDEyNi4yMzYyXSwyXV0';
+
+	const shared = decode(page.url.searchParams.get('t') ?? '');
+
+	let theme = $state<Theme>(shared ?? decode(first)!);
 	let locks = $state<Locks>({ accent: false, background: false, shape: false });
 	let history = $state<Theme[]>([]);
 	let accessibleOnly = $state(false);
+	let mounted = $state(false);
 
-	// Re-measured whenever the theme changes; the audit reads painted colours.
-	let reports = $derived([
-		{ scheme: 'light' as const, report: audit(theme, 'light') },
-		{ scheme: 'dark' as const, report: audit(theme, 'dark') }
-	]);
+	onMount(() => {
+		mounted = true;
+		// Arriving without a shared theme should still feel like a roll of the dice.
+		if (!shared) theme = generate();
+	});
+
+	// The audit measures painted colours, so it can only run in the browser. The
+	// flag keeps the server's empty result and the first client frame identical.
+	let reports = $derived(
+		mounted
+			? [
+					{ scheme: 'light' as const, report: audit(theme, 'light') },
+					{ scheme: 'dark' as const, report: audit(theme, 'dark') }
+				]
+			: []
+	);
 	let failing = $derived(reports.flatMap((entry) => entry.report.checks.filter((c) => !c.passes)));
 	let fading = $state(false);
 	let timer: ReturnType<typeof setTimeout>;
@@ -87,9 +110,13 @@
 		roll();
 	}
 
-	// Keep the URL in step so the theme can be shared or reloaded.
+	// Keep the URL in step so the theme can be shared or reloaded. Shallow, so
+	// the load function does not re-run and the history stays one entry long.
 	$effect(() => {
-		replaceState(`?t=${encode(theme)}`, {});
+		const code = encode(theme);
+		if (page.url.searchParams.get('t') !== code) {
+			goto(`?t=${code}`, { replace: true, shallow: true });
+		}
 	});
 
 	let css = $derived(stylesheet(theme));
@@ -98,7 +125,7 @@
 <svelte:window {onkeydown} />
 
 <Seo
-	title="Theme generator"
+	title="Svelte theme generator: OKLCH light and dark"
 	path="/themes"
 	description="Generate light and dark themes for cock in OKLCH, preview them on real components and copy the CSS. Every theme comes in both schemes."
 />

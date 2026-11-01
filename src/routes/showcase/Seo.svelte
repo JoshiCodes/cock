@@ -2,7 +2,10 @@
 	import { site } from '../seo.js';
 
 	interface Props {
-		/** Page title without the site name; leave out for the home page. */
+		/**
+		 * The whole `<title>`, written for what people search for rather than
+		 * for the brand. Left out on the home page, which uses the site title.
+		 */
 		title?: string;
 		description?: string;
 		/** Path of this page, used for the canonical URL. */
@@ -20,7 +23,7 @@
 		structured = []
 	}: Props = $props();
 
-	let fullTitle = $derived(title ? `${title} — ${site.name}` : site.title);
+	let fullTitle = $derived(title ?? site.title);
 	let url = $derived(new URL(path, site.url).href);
 	const image = new URL(site.image, site.url).href;
 

@@ -57,10 +57,18 @@ export const handle = async ({ event, resolve }) =>
 	const sources = `@import 'tailwindcss';
 @source '../node_modules/@joshicodes/cock/dist';
 @import '@joshicodes/cock/theme.css';`;
+
+	let { data } = $props();
+
+	const csp = (hash: string) => `Content-Security-Policy: script-src 'self' '${hash}'`;
+
+	const nonce =
+		`<!-- src/app.html, inside <head> -->
+<script nonce="%sveltekit.nonce%">%cock.theme%<` + `/script>`;
 </script>
 
 <Seo
-	title="Getting started"
+	title="Getting started with cock: Svelte 5 + Tailwind 4"
 	path="/docs/getting-started"
 	description="Install the cock component kit in a SvelteKit project: Tailwind 4 setup, the dark mode fix that avoids a flash of the wrong theme, and your first component."
 />
@@ -70,6 +78,22 @@ export const handle = async ({ event, resolve }) =>
 	<p class="text-lg">
 		Five minutes from an empty SvelteKit project to working components. You need Svelte 5 and
 		Tailwind 4; everything else comes with the package.
+	</p>
+
+	<dl
+		class="mt-6 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3"
+	>
+		{#each data.requires as item (item.label)}
+			<div class="bg-surface px-4 py-3">
+				<dt class="text-sm text-fg-muted">{item.label}</dt>
+				<dd class="mt-0.5 font-mono text-sm text-fg">{item.range}</dd>
+			</div>
+		{/each}
+	</dl>
+	<p class="mt-3 text-sm text-fg-subtle">
+		Svelte and Tailwind are peer dependencies, so your project keeps control of the exact versions.
+		The Node range only applies to the SvelteKit server; the components themselves run wherever
+		Svelte does.
 	</p>
 
 	<h2 id="install">1. Install</h2>
@@ -133,6 +157,33 @@ export const handle = async ({ event, resolve }) =>
 		already correct.
 	</Alert>
 
+	<h3>If you send a Content-Security-Policy</h3>
+	<p>
+		The script is inline, so a policy without <Code>'unsafe-inline'</Code> drops it. Nothing breaks loudly
+		— you get a console warning and the flash back. Allow it by its hash:
+	</p>
+	<div class="mt-5 overflow-hidden rounded-lg border border-border">
+		<CodeBlock code={csp(data.scriptHash)} label="response header" />
+	</div>
+	<p>
+		That hash is this version's script, printed from the package at build time. It changes when the
+		script does, which is rare but does happen on an update, so re-read it here when you upgrade.
+	</p>
+	<p>
+		A nonce works too, but only if you put the script in <Code>app.html</Code> yourself, because SvelteKit
+		cannot nonce a tag a hook injected afterwards:
+	</p>
+	<div class="mt-5 overflow-hidden rounded-lg border border-border">
+		<CodeBlock code={nonce} label="src/app.html" />
+	</div>
+	<p>
+		With <Code>csp.mode: 'nonce'</Code> in <Code>svelte.config.js</Code>, SvelteKit fills the
+		placeholder and adds the nonce to the header. The catch is that a nonce has to be new on every
+		request, so a page carrying one cannot be prerendered — SvelteKit refuses the build with
+		<em>cannot use prerendering if page template contains %sveltekit.nonce%</em>. On a prerendered
+		site, use the hash.
+	</p>
+
 	<h2 id="toaster">4. Mount the toaster</h2>
 	<p>
 		Only needed if you want toasts. One instance in the root layout serves the whole app, and
@@ -147,6 +198,21 @@ export const handle = async ({ event, resolve }) =>
 		<CodeBlock code={usage} label="src/routes/+page.svelte" />
 	</div>
 
+	<h2 id="editors">Editors</h2>
+	<p>
+		The package ships a <Code>.d.ts</Code> next to every component, so props, variants and their defaults
+		complete themselves — as long as your editor speaks Svelte. In VS Code that is the official Svelte
+		extension. In WebStorm and the other JetBrains IDEs it is the bundled Svelte plugin.
+	</p>
+	<p>
+		If WebStorm marks the import as unresolved and offers nothing, it is usually the IDE reading the
+		conditional <Code>exports</Code> map rather than anything in your project — see
+		<a href="https://youtrack.jetbrains.com/issue/WEB-75046">WEB-75046</a>, fixed in the 2025.3.1
+		builds. The package lists a plain <Code>default</Code> entry alongside the
+		<Code>svelte</Code> one for that reason. On an older build, updating and then
+		<em>File → Invalidate Caches</em> is the fix.
+	</p>
+
 	<h2 id="next">Where to go next</h2>
 	<ul>
 		<li>
@@ -155,6 +221,13 @@ export const handle = async ({ event, resolve }) =>
 		</li>
 		<li>
 			<a href="/components">Components</a> — every component with examples, props and keyboard behaviour.
+		</li>
+		<li>
+			<a href="/docs/utilities">Helpers and actions</a> — the exports that are not components:
+			<Code>cn</Code>, hotkeys, confetti and the four actions.
+		</li>
+		<li>
+			<a href="/docs/types">Types</a> — every exported type, written out in full.
 		</li>
 		<li>
 			<a href="/themes">Theme generator</a> — roll a palette and copy the CSS.

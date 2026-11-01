@@ -2,10 +2,11 @@
 	import { Card } from '@joshicodes/cock';
 	import Seo from '../showcase/Seo.svelte';
 	import { components, grouped } from './catalog.js';
+	import { stats } from '../facts.js';
 </script>
 
 <Seo
-	title="Components"
+	title="{stats.components} Svelte 5 components for Tailwind 4"
 	path="/components"
 	description="All {components.length} pages of the cock component kit: buttons, forms, overlays, navigation, data and effects, each with examples and a full prop table."
 />
@@ -14,8 +15,9 @@
 	<header class="space-y-4">
 		<h1 class="text-3xl font-semibold tracking-tight text-fg">Components</h1>
 		<p class="text-lg leading-relaxed text-fg-muted">
-			Sixty-three components across {components.length} pages. Each one documents its props, its keyboard
-			behaviour and the things worth knowing before you use it.
+			{stats.components} components across {components.length} pages — a few, like the card and its header,
+			are documented together. Each page covers the props, the keyboard behaviour and the things worth
+			knowing before you use it.
 		</p>
 	</header>
 

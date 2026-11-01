@@ -41,7 +41,7 @@
 </script>
 
 <Seo
-	title="How it compares"
+	title="cock vs shadcn-svelte, Bits UI and Skeleton"
 	path="/docs/comparison"
 	description="Where the cock component kit sits next to shadcn-svelte, Bits UI and Skeleton, with measured bundle sizes and an honest look at what it does not do."
 />

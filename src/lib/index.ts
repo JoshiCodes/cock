@@ -27,11 +27,14 @@ export { default as EmptyState } from './components/layout/EmptyState.svelte';
 /* -- forms ---------------------------------------------------------------- */
 export { default as Checkbox } from './components/forms/Checkbox.svelte';
 export { default as Field } from './components/forms/Field.svelte';
+export { default as FileDrop } from './components/forms/FileDrop.svelte';
 export { default as Input } from './components/forms/Input.svelte';
 export { default as Label } from './components/forms/Label.svelte';
+export { default as NumberInput } from './components/forms/NumberInput.svelte';
 export { default as PinInput } from './components/forms/PinInput.svelte';
 export { default as Radio } from './components/forms/Radio.svelte';
 export { default as RadioGroup } from './components/forms/RadioGroup.svelte';
+export { default as SegmentedControl } from './components/forms/SegmentedControl.svelte';
 export { default as Select } from './components/forms/Select.svelte';
 export { default as Slider } from './components/forms/Slider.svelte';
 export { default as Switch } from './components/forms/Switch.svelte';
@@ -111,6 +114,7 @@ export { focusRing, focusRingInset, disabled, transition } from './utils/styles.
 export type { ButtonVariant, ButtonSize } from './components/primitives/Button.svelte';
 export type { BadgeVariant } from './components/primitives/Badge.svelte';
 export type { AlertVariant } from './components/feedback/Alert.svelte';
+export type { SegmentedOption } from './components/forms/SegmentedControl.svelte';
 export type { SelectOption } from './components/forms/Select.svelte';
 export type { Crumb } from './components/navigation/Breadcrumb.svelte';
 export type { TabsVariant } from './components/navigation/Tabs.svelte';

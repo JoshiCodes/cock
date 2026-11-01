@@ -5,6 +5,14 @@
 FROM oven/bun:1 AS build
 WORKDIR /app
 
+# The sitemap dates every page from the last commit that touched it, which needs
+# the repository and a git to read it with. The image ships without one. If this
+# is ever built from a tarball instead of a checkout, the build still succeeds —
+# the sitemap simply goes out without <lastmod>.
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends git \
+	&& rm -rf /var/lib/apt/lists/*
+
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 

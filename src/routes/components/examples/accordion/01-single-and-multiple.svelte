@@ -25,7 +25,7 @@
 				Yes. Maybe call it "the component kit" in the standup.
 			</AccordionItem>
 			<AccordionItem value="size" title="Does size matter?">
-				Not at all. That said, it ships 63 components.
+				Not at all. That said, it ships more than sixty components.
 			</AccordionItem>
 		</Accordion>
 	</div>

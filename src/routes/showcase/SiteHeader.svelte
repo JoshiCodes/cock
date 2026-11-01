@@ -24,7 +24,7 @@
 			<Logo wordmark />
 		</a>
 
-		<nav class="hidden items-center gap-6 text-sm sm:flex">
+		<nav class="hidden items-center gap-6 text-sm sm:flex" aria-label="Main">
 			{#each links as link (link.href)}
 				<a
 					href={link.href}
@@ -46,6 +46,7 @@
 				variant={site.customizing ? 'solid' : 'soft'}
 				size="sm"
 				aria-expanded={site.customizing}
+				aria-controls="customize-panel"
 				onclick={() => (site.customizing = !site.customizing)}
 			>
 				<svg viewBox="0 0 24 24" fill="none" class="size-4" aria-hidden="true">
@@ -77,8 +78,31 @@
 		</div>
 	</div>
 
+	<!-- Under 640px the bar is full, so the links get a line of their own. -->
+	<nav
+		class="flex items-center gap-5 border-t border-border px-5 py-2.5 text-sm sm:hidden"
+		aria-label="Main"
+	>
+		{#each links as link (link.href)}
+			<a
+				href={link.href}
+				aria-current={isActive(link.href) ? 'page' : undefined}
+				class={cn(
+					'transition-colors',
+					isActive(link.href) ? 'font-medium text-fg' : 'text-fg-muted'
+				)}
+			>
+				{link.label}
+			</a>
+		{/each}
+	</nav>
+
 	{#if site.customizing}
-		<div transition:slide={{ duration: 220 }} class="border-t border-border bg-surface">
+		<div
+			id="customize-panel"
+			transition:slide={{ duration: 220 }}
+			class="border-t border-border bg-surface"
+		>
 			<div class="mx-auto max-w-7xl px-5 py-7 lg:px-8">
 				<ControlPanel />
 			</div>

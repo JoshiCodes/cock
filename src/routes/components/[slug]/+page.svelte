@@ -4,7 +4,7 @@
 	import ExampleBlock from '../../showcase/ExampleBlock.svelte';
 	import PropsTable from '../../showcase/PropsTable.svelte';
 	import Seo from '../../showcase/Seo.svelte';
-	import { categoryOf, bySlug } from '../catalog.js';
+	import { categoryOf, bySlug, pageTitle } from '../catalog.js';
 	import { examplesFor } from '../examples.js';
 
 	let { data } = $props();
@@ -25,7 +25,7 @@
 </script>
 
 <Seo
-	title={meta.name}
+	title={pageTitle(meta)}
 	path="/components/{meta.slug}"
 	description="{meta.name} for Svelte 5 and Tailwind 4. {meta.summary} Props, examples and keyboard behaviour."
 />
@@ -103,6 +103,7 @@
 						<PropsTable
 							title={data.docs.length > 1 ? label : `${label} of ${doc.name}`}
 							{rows}
+							types={data.typeNames}
 							forwards={kind === 'prop' ? doc.forwards : undefined}
 						/>
 					{/if}
