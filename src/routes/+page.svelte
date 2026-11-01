@@ -10,7 +10,7 @@
 	import FormExample from './components/examples/field/01-label-and-error.svelte';
 	import TableExample from './components/examples/table/02-dense.svelte';
 	import StatExample from './components/examples/sparkline/01-trends.svelte';
-	import MenuExample from './components/examples/dropdown-menu/01-menu.svelte';
+	import TabsExample from './components/examples/tabs/01-variants.svelte';
 
 	const theming = `:root {
 	--ck-bg: oklch(0.985 0 0);
@@ -22,15 +22,17 @@
 		{ title: 'Forms that wire themselves up', href: '/components/field', demo: FormExample },
 		{ title: 'Tables in your theme colour', href: '/components/table', demo: TableExample },
 		{ title: 'Numbers without a chart library', href: '/components/sparkline', demo: StatExample },
-		{ title: 'Menus with the keyboard done', href: '/components/dropdown-menu', demo: MenuExample }
+		{ title: 'Tabs that answer to the arrow keys', href: '/components/tabs', demo: TabsExample }
 	];
 
-	const numbers = [
-		{ value: String(stats.components), label: 'components' },
-		{ value: `${bundle.rows[1].gzip} kB`, label: 'gzipped for your first one' },
-		{ value: String(stats.runtimeDependencies), label: 'runtime dependencies' },
-		{ value: '3', label: 'variables to re-theme it' }
-	];
+	// The bars are relative to the largest row, which is the whole package.
+	const heaviest = Math.max(...bundle.rows.map((row) => row.gzip));
+
+	const measured = new Date(bundle.measuredAt).toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric'
+	});
 </script>
 
 <Seo
@@ -156,21 +158,39 @@
 			<Badge variant="outline">Measured</Badge>
 			<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">What it costs</h2>
 			<p class="mt-4 max-w-2xl leading-relaxed text-fg-muted">
-				Real bundles, not estimates: the package built, minified and gzipped. Importing one
-				component does not pull in the other sixty-two.
+				Real bundles, not estimates: the package built, minified and gzipped, with Svelte left out
+				of the total. Importing one component does not pull in the other sixty-two.
 			</p>
 		</div>
 
-		<dl class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-			{#each numbers as item (item.label)}
-				<div class="rounded-lg border border-border bg-surface p-5">
-					<dt class="text-sm text-fg-muted">{item.label}</dt>
-					<dd class="mt-1 text-3xl font-semibold tracking-tight text-fg tabular-nums">
-						{item.value}
+		<dl class="overflow-hidden rounded-lg border border-border bg-surface">
+			{#each bundle.rows as row (row.label)}
+				<div
+					class="grid gap-x-5 gap-y-2 border-b border-border px-5 py-4 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_minmax(0,12rem)_4rem] sm:items-center"
+				>
+					<dt class="text-sm text-fg">
+						{row.label}
+						<span class="text-fg-subtle">
+							&middot; {row.exports === 1 ? '1 export' : `${row.exports} exports`}
+						</span>
+					</dt>
+					<div class="h-1.5 rounded-full bg-muted sm:order-last sm:col-start-2">
+						<div
+							class="h-full rounded-full bg-accent"
+							style="width: {Math.max((row.gzip / heaviest) * 100, 4)}%"
+						></div>
+					</div>
+					<dd class="text-sm font-medium text-fg tabular-nums sm:col-start-3 sm:text-right">
+						{row.gzip} kB
 					</dd>
 				</div>
 			{/each}
 		</dl>
+
+		<p class="max-w-2xl text-sm leading-relaxed text-fg-subtle">
+			Plus {bundle.css.gzip} kB of CSS for the whole kit. Measured on {measured} against {bundle.version},
+			on top of the {stats.runtimeDependencies} runtime dependencies the components share: clsx and tailwind-merge.
+		</p>
 
 		<Button variant="outline" href="/docs/comparison">The full numbers, and how it compares</Button>
 	</section>

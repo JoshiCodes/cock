@@ -1,0 +1,64 @@
+name: Bug report
+description: Something in the kit does not behave the way it is documented.
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. A small reproduction beats a long description —
+        if you can shrink it to one component and a handful of props, do that.
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which export misbehaves? `toast`, the theme object and the actions count too.
+      placeholder: DropdownMenu
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happens
+    attributes:
+      label: What happens
+      description: And what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: >
+        The markup that triggers it, or a link to a repo or a REPL. This is rendered
+        as Svelte, so no backticks needed.
+      render: svelte
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: The kit, Svelte and Tailwind. `bun pm ls | grep -E 'cock|svelte|tailwind'`
+      placeholder: '@joshicodes/cock 0.1.1, svelte 5.57.2, tailwindcss 4.3.0'
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and OS
+      placeholder: Firefox 145, Linux
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you post
+      options:
+        - label: I am on the latest version of the kit.
+          required: false
+        - label: It also happens with the default theme, not only with my own tokens.
+          required: false

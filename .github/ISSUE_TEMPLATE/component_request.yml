@@ -1,0 +1,42 @@
+name: New component
+description: Something the kit does not ship yet.
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The kit stays small on purpose. The components that get in are the ones most
+        projects end up writing by hand anyway, so say what you needed it for.
+
+  - type: input
+    id: name
+    attributes:
+      label: What would it be called
+      placeholder: Combobox
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What you were building when you missed it
+      description: The actual screen, not the abstract case. That is what decides the API.
+    validations:
+      required: true
+
+  - type: textarea
+    id: api
+    attributes:
+      label: How you would like to use it
+      description: Rough markup is fine. Props and names will move around.
+      render: svelte
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do instead today
+      description: Another library, your own version, or living without it.
+    validations:
+      required: false

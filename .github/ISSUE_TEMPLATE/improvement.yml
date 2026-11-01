@@ -1,0 +1,29 @@
+name: Improvement
+description: A missing prop, a rough edge, a keyboard or screen reader problem.
+labels: ['enhancement']
+body:
+  - type: input
+    id: area
+    attributes:
+      label: Where
+      description: A component, the theming, the docs site, the build — whatever it touches.
+      placeholder: Table
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is awkward right now
+      description: >
+        What you are trying to do and where the kit gets in the way. Accessibility
+        problems belong here too: say which key, which screen reader, what it announced.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would fix it
+    validations:
+      required: false

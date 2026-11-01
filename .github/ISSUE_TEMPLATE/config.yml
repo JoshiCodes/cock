@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation and live examples
+    url: https://cock.joshicodes.de
+    about: Every component with its props, keyboard behaviour and copyable examples.
+  - name: Theming
+    url: https://cock.joshicodes.de/docs/theming
+    about: The three variables, what is mixed from them, and the theme generator.
+  - name: Contributing
+    url: https://github.com/JoshiCodes/cock/blob/master/CONTRIBUTING.md
+    about: How the repo fits together, and what a pull request needs to pass.
