@@ -19,6 +19,8 @@ export function GET() {
 		section('Docs', [
 			`- [Getting started](${site.url}/docs/getting-started): install, Tailwind setup, and the hook that prevents a dark-mode flash`,
 			`- [Theming](${site.url}/docs/theming): the token system, scoped themes and the runtime API`,
+			`- [Helpers and actions](${site.url}/docs/utilities): cn, uid, lockScroll, confetti, hotkeys and the four actions`,
+			`- [Types](${site.url}/docs/types): every exported type, written out`,
 			`- [How it compares](${site.url}/docs/comparison): next to shadcn-svelte, Bits UI and Skeleton, with measured bundle sizes`,
 			`- [Component index](${site.url}/components): all components with examples and props`,
 			`- [Theme generator](${site.url}/themes): generate a palette and copy the CSS`,

@@ -5,8 +5,14 @@ export interface ConfettiOptions {
 	count?: number;
 	/** Width of the cone, in degrees. */
 	spread?: number;
+	/** Middle of the cone, in degrees: -90 is straight up, 0 is to the right. */
+	angle?: number;
 	/** Launch speed; around 10 clears a button, 16 clears the screen. */
 	velocity?: number;
+	/** How hard the pieces fall. Below 1 they hang about, above 1 they drop. */
+	gravity?: number;
+	/** Size of the pieces, as a multiplier. */
+	scale?: number;
 	/** CSS colours. Defaults to the theme's accent and status colours. */
 	colors?: string[];
 	/** Milliseconds until every piece has faded. */
@@ -45,7 +51,10 @@ export function confetti(options: ConfettiOptions = {}): Promise<void> {
 	const {
 		count = 120,
 		spread = 70,
+		angle = -90,
 		velocity = 11,
+		gravity = 1,
+		scale = 1,
 		duration = 2400,
 		colors = themeColors()
 	} = options;
@@ -74,17 +83,17 @@ export function confetti(options: ConfettiOptions = {}): Promise<void> {
 
 	const palette = colors.length ? colors : ['#7c4dff'];
 	const pieces: Piece[] = Array.from({ length: count }, () => {
-		const angle = (-90 + (Math.random() - 0.5) * spread) * (Math.PI / 180);
+		const direction = (angle + (Math.random() - 0.5) * spread) * (Math.PI / 180);
 		const speed = velocity * (0.55 + Math.random() * 0.75);
 		return {
 			x,
 			y,
-			vx: Math.cos(angle) * speed,
-			vy: Math.sin(angle) * speed,
+			vx: Math.cos(direction) * speed,
+			vy: Math.sin(direction) * speed,
 			rotation: Math.random() * Math.PI * 2,
 			spin: (Math.random() - 0.5) * 0.35,
-			width: 5 + Math.random() * 5,
-			height: 7 + Math.random() * 7,
+			width: (5 + Math.random() * 5) * scale,
+			height: (7 + Math.random() * 7) * scale,
 			color: palette[Math.floor(Math.random() * palette.length)],
 			round: Math.random() < 0.3,
 			wobble: Math.random() * Math.PI * 2
@@ -105,7 +114,7 @@ export function confetti(options: ConfettiOptions = {}): Promise<void> {
 			context.globalAlpha = progress > 0.7 ? Math.max(0, 1 - (progress - 0.7) / 0.3) : 1;
 
 			for (const piece of pieces) {
-				piece.vy += 0.32 * step;
+				piece.vy += 0.32 * gravity * step;
 				piece.vx *= 0.985 ** step;
 				piece.vy *= 0.985 ** step;
 				piece.wobble += 0.12 * step;

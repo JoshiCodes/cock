@@ -8,6 +8,8 @@
 	const guides = [
 		{ href: '/docs/getting-started', label: 'Getting started' },
 		{ href: '/docs/theming', label: 'Theming' },
+		{ href: '/docs/utilities', label: 'Helpers and actions' },
+		{ href: '/docs/types', label: 'Types' },
 		{ href: '/docs/comparison', label: 'How it compares' },
 		{ href: '/themes', label: 'Theme generator' }
 	];

@@ -57,7 +57,9 @@ library and runs `publint` over the result.
    behaviour, what it is related to. Props are not listed there —
    `props.server.ts` reads them out of the component source, so the table on the
    page cannot drift from the real signature.
-3. Add at least one example under
+3. Bump `components` and `pages` in `src/routes/facts.ts`. The home page, the
+   SEO description and the component index all count from there.
+4. Add at least one example under
    `src/routes/components/examples/<slug>/01-name.svelte`. The number orders the
    examples and the rest of the filename becomes the heading; an opening HTML
    comment is used as the caption and left out of the displayed source.
@@ -89,9 +91,16 @@ release workflow publishes to npm, tags the commit and writes the GitHub release
 notes. A version with a suffix (`0.2.0-beta.1`) goes out under the `next` tag as
 a pre-release. Anything else that touches `package.json` is skipped.
 
-Bundle sizes quoted on the site come from `src/routes/facts.ts`. They are
-measured, not estimated, so re-measure them after a release rather than nudging
-the numbers.
+Bundle sizes quoted on the site come from `src/routes/facts.ts`, and they are
+measured rather than estimated:
+
+```bash
+bun run build && bun run measure
+```
+
+That prints a block to paste over the one in `facts.ts`. Do it after a release,
+not before — it bundles the packaged `dist`, so it measures what people actually
+install.
 
 ## Running the preview site
 

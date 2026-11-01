@@ -5,11 +5,23 @@
 	interface Props {
 		title: string;
 		rows: PropDoc[];
+		/** Names that have an entry on /docs/types; everything else stays plain text. */
+		types?: string[];
 		/** Shown when the component forwards the rest of its attributes. */
 		forwards?: string;
 	}
 
-	let { title, rows, forwards }: Props = $props();
+	let { title, rows, types = [], forwards }: Props = $props();
+
+	let known = $derived(new Set(types));
+
+	/**
+	 * Split a type into words so the documented ones can be links. `Placement |
+	 * undefined` links `Placement` and leaves the rest alone.
+	 */
+	function parts(type: string) {
+		return type.split(/\b/).map((text) => ({ text, link: known.has(text) }));
+	}
 
 	const columns: Record<string, string> = {
 		prop: 'Prop',
@@ -48,7 +60,9 @@
 						{/if}
 					</td>
 					<td class="align-top">
-						<code class="font-mono text-xs break-words text-accent">{row.type}</code>
+						<!-- One line on purpose: a break between the parts would show up as a space. -->
+						<!-- prettier-ignore -->
+						<code class="font-mono text-xs break-words text-accent">{#each parts(row.type) as part, index (index)}{#if part.link}<a href="/docs/types#{part.text}" class="underline underline-offset-2">{part.text}</a>{:else}{part.text}{/if}{/each}</code>
 					</td>
 					<td class="align-top">
 						{#if row.default}

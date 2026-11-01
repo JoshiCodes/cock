@@ -84,7 +84,7 @@ theme.clearTokens();                            // back to the stylesheet`;
 </script>
 
 <Seo
-	title="Theming"
+	title="Theme Svelte components with three CSS variables"
 	path="/docs/theming"
 	description="Theme the cock component kit by setting three CSS variables. Derived tokens, accent presets, scoped themes and the runtime theme API."
 />

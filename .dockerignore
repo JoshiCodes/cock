@@ -2,7 +2,8 @@ node_modules
 .svelte-kit
 build
 dist
-.git
+# .git is deliberately NOT ignored: the sitemap dates each page from the
+# commit that last touched it. Without the history there is no <lastmod>.
 .github
 .claude
 .vscode

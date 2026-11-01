@@ -85,7 +85,7 @@
 			startOnView={false}
 			lines={[
 				{ kind: 'command', text: 'bun add @joshicodes/cock', delay: 600 },
-				{ text: '+ @joshicodes/cock@0.1.0', tone: 'success' },
+				{ text: `+ @joshicodes/cock@${bundle.version}`, tone: 'success' },
 				{
 					text: `${stats.components} components, ${stats.runtimeDependencies} dependencies, no surprises`,
 					tone: 'muted'
@@ -132,7 +132,9 @@
 		<div class="flex flex-wrap items-end justify-between gap-4">
 			<div>
 				<Badge variant="outline">A look at it</Badge>
-				<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">Four of the sixty-three</h2>
+				<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">
+					Four of the {stats.components}
+				</h2>
 			</div>
 			<Button variant="outline" href="/components">See all {stats.components}</Button>
 		</div>
@@ -159,7 +161,7 @@
 			<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">What it costs</h2>
 			<p class="mt-4 max-w-2xl leading-relaxed text-fg-muted">
 				Real bundles, not estimates: the package built, minified and gzipped, with Svelte left out
-				of the total. Importing one component does not pull in the other sixty-two.
+				of the total. Importing one component does not pull in the other {stats.components - 1}.
 			</p>
 		</div>
 

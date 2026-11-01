@@ -193,6 +193,26 @@ export const components: ComponentMeta[] = [
 		related: ['field', 'textarea', 'tag-input']
 	},
 	{
+		name: 'NumberInput',
+		slug: 'number-input',
+		category: 'forms',
+		summary: 'A quantity field with step buttons that does not lose what you typed.',
+		description:
+			'A number field built on `type="text"`. A native number input empties itself the moment a stray letter lands in it, changes value when the scroll wheel passes over, and hands back an empty string for anything it considers invalid — so the component never sees what the person actually typed. This one parses the text itself.',
+		notes: [
+			'`value` is `number | null`. An empty field is `null`, which is not the same as `0`, and a form that treats them alike is a bug waiting for a quantity of zero.',
+			'Clamping to `min` and `max` happens on blur, not on every keystroke, or typing `100` into a field capped at 50 would stop at `5`.',
+			'`step` decides the decimal places, so a step of `0.25` keeps two and never shows `0.30000000000000004`.',
+			'The step buttons are out of the tab order: the field is already a spinbutton, and the arrow keys do the same job.'
+		],
+		keyboard: [
+			['↑ / ↓', 'One step'],
+			['Page Up / Page Down', 'Ten steps'],
+			['Home / End', 'Jumps to min or max, when they are set']
+		],
+		related: ['input', 'slider', 'field']
+	},
+	{
 		name: 'Textarea',
 		slug: 'textarea',
 		category: 'forms',
@@ -226,6 +246,25 @@ export const components: ComponentMeta[] = [
 			'`Radio` reads the group through context, so it has to sit inside a `RadioGroup`. On its own it throws with a readable message rather than silently doing nothing.'
 		],
 		related: ['checkbox', 'select']
+	},
+	{
+		name: 'SegmentedControl',
+		slug: 'segmented-control',
+		category: 'forms',
+		summary: 'A short list of options as one strip, for choices worth seeing.',
+		description:
+			'For three or four options that fit on screen, where a select would hide the answer behind a click. It is a radio group, not a tab list: it picks a value rather than swapping a panel, and the arrow keys select as they move, which is how a radio group is meant to behave.',
+		notes: [
+			'Reach for `Select` once the list gets long or the labels get wordy; this one stops being readable at about four.',
+			'The whole strip is one stop in the tab order. Tab moves past it, the arrows move inside it.',
+			'`stretch` fills the width, which is what you want in a narrow column or on a phone.'
+		],
+		keyboard: [
+			['← / → or ↑ / ↓', 'Moves to the next option and selects it'],
+			['Home / End', 'First or last option']
+		],
+		exports: ['SegmentedOption'],
+		related: ['radio-group', 'tabs', 'select']
 	},
 	{
 		name: 'Switch',
@@ -273,6 +312,22 @@ export const components: ComponentMeta[] = [
 			'A rejected tag — duplicate, over the limit or turned down by `validate` — flashes instead of disappearing silently, so Enter never looks broken.'
 		],
 		related: ['input', 'badge']
+	},
+	{
+		name: 'FileDrop',
+		slug: 'file-drop',
+		category: 'forms',
+		summary: 'A drop zone that is also a real file input.',
+		description:
+			'A `<label>` wrapped around a hidden file input, which is the whole trick: clicking, tabbing to it and pressing Enter all work because the browser already does them. The drag handling is the only part written by hand.',
+		notes: [
+			'`accept` is checked on dropped files too. The browser only enforces it in its own dialog, so a drop would otherwise hand you the PDF you said you did not want.',
+			'Files that fail `accept` are dropped quietly. Compare the count you get against what you expected if you want to say something about it.',
+			'The input is cleared after every pick, so choosing the same file again after removing it still fires.',
+			'`multiple` appends to the list rather than replacing it; a single-file drop zone replaces.'
+		],
+		keyboard: [['Tab, then Enter or Space', 'Opens the file dialog']],
+		related: ['tag-input', 'empty-state', 'progress']
 	},
 	{
 		name: 'Label',
@@ -595,6 +650,53 @@ export const components: ComponentMeta[] = [
 		related: ['reveal', 'typewriter']
 	}
 ];
+
+/**
+ * Page titles, for the handful of components whose own name is not the word
+ * anyone would search for. Everything else is derived below: "Svelte table
+ * component" is what people type, and it beats "Table — cock" by a mile.
+ */
+const titles: Record<string, string> = {
+	Avatar: 'Svelte avatar with initials fallback',
+	Caret: 'Blinking caret for Svelte',
+	Code: 'Inline code styling for Svelte',
+	CommandPalette: 'Svelte command palette, Ctrl+K search',
+	CopyButton: 'Copy to clipboard button for Svelte',
+	CountUp: 'Animated number counter for Svelte',
+	Drawer: 'Svelte drawer and slide-over panel',
+	DropdownMenu: 'Svelte dropdown menu with keyboard nav',
+	EmptyState: 'Empty state component for Svelte',
+	Field: 'Form field labels and errors in Svelte',
+	Heatmap: 'Contribution heatmap for Svelte',
+	Highlight: 'Text highlight marker for Svelte',
+	Kbd: 'Keyboard key badge for Svelte',
+	Marquee: 'Svelte marquee and logo ticker',
+	Modal: 'Svelte modal dialog component',
+	Odometer: 'Rolling odometer digits for Svelte',
+	PinInput: 'One-time code input for Svelte',
+	Reveal: 'Scroll reveal animation for Svelte',
+	Scramble: 'Text scramble effect for Svelte',
+	Separator: 'Svelte separator and divider',
+	Skeleton: 'Skeleton loading placeholder for Svelte',
+	Sparkline: 'Svelte sparkline, no chart library',
+	Spinner: 'Loading spinner for Svelte',
+	Stat: 'Stat tiles for Svelte dashboards',
+	Switch: 'Svelte toggle switch component',
+	Table: 'Svelte table component for Tailwind',
+	Terminal: 'Animated terminal for Svelte',
+	ThemeToggle: 'Dark mode toggle for Svelte',
+	Toaster: 'Svelte toast notifications',
+	Typewriter: 'Typewriter effect for Svelte'
+};
+
+/** The `<title>` of a component page. Kept under 60 characters; see `titles`. */
+export function pageTitle(entry: ComponentMeta): string {
+	const named = titles[entry.name];
+	if (named) return named;
+
+	const phrase = entry.name.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+	return `Svelte ${phrase} ${entry.category === 'effects' ? 'effect' : 'component'}`;
+}
 
 export const bySlug = new Map(components.map((entry) => [entry.slug, entry]));
 

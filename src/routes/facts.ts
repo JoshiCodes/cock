@@ -1,38 +1,38 @@
 /**
  * Measured, not estimated.
  *
- * Each row is a Vite library build against the packaged `dist`, minified, with
- * svelte external, gzipped. Re-measure after a release by bundling the same
- * entry points; the baseline row is clsx + tailwind-merge, which every
- * component shares.
+ * Produced by `bun run measure` — see scripts/measure-bundle.ts — which builds
+ * each entry point against the packaged `dist`, minified, with Svelte external,
+ * and gzips the result. Re-run it after a release and paste the block in;
+ * nudging a number by hand defeats the point of having it.
  */
 export const bundle = {
 	measuredAt: '2026-11-01',
-	version: '0.1.0',
+	version: '1.0.0',
 	rows: [
-		{ label: 'clsx + tailwind-merge (shared baseline)', exports: 0, raw: 37.7, gzip: 9.7 },
-		{ label: 'One Button', exports: 1, raw: 41.3, gzip: 11.0 },
+		{ label: 'clsx + tailwind-merge (shared baseline)', exports: 0, raw: 37.6, gzip: 9.6 },
+		{ label: 'One Button', exports: 1, raw: 41.2, gzip: 10.9 },
 		{
 			label: 'A form: Field, Input, Select, Checkbox, Switch, Button',
 			exports: 6,
-			raw: 53.0,
+			raw: 53,
 			gzip: 13.5
 		},
 		{
 			label: 'A typical app screen: card, table, modal, menu, tabs, toasts',
 			exports: 20,
-			raw: 76.5,
-			gzip: 19.5
+			raw: 68.5,
+			gzip: 17.9
 		},
-		{ label: 'Every export in the package', exports: 63, raw: 163.6, gzip: 39.2 }
+		{ label: 'Everything the package exports', exports: 88, raw: 173.4, gzip: 41.5 }
 	],
-	css: { raw: 9.2, gzip: 2.7 }
+	css: { raw: 9.4, gzip: 2.8 }
 };
 
 export const stats = {
-	components: 63,
-	pages: 50,
+	components: 66,
+	pages: 53,
 	runtimeDependencies: 2,
-	/** Beyond the shared baseline, averaged over all 63. */
-	perComponentGzipKb: 0.47
+	/** Beyond the shared baseline, averaged over all 66. */
+	perComponentGzipKb: 0.48
 };
