@@ -1,6 +1,6 @@
 {
 	"name": "@joshicodes/cock",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Svelte 5 and Tailwind 4 component kit: 63 accessible components, dark mode and theming from three CSS variables.",
 	"license": "MIT",
 	"author": "JoshiCodes (https://github.com/JoshiCodes)",
@@ -87,7 +87,6 @@
 		"vite": "^8.3.0"
 	},
 	"publishConfig": {
-		"access": "public",
-		"provenance": true
+		"access": "public"
 	}
 }
