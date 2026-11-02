@@ -166,6 +166,20 @@ export const components: ComponentMeta[] = [
 		summary: 'The dashed box for lists that have nothing in them yet.',
 		related: ['card', 'skeleton']
 	},
+	{
+		name: 'ScrollArea',
+		slug: 'scroll-area',
+		category: 'layout',
+		summary: 'Thin, themed scrollbars, with shadows where there is more to see.',
+		description:
+			'The native scrollbar, styled to match the theme, so scrolling, touch and the keyboard behave exactly as the platform does. Shadows on the edges show that there is more content in that direction, and fade out when there is not.',
+		notes: [
+			'Set the height on the component: a `max-h-*` grows with the content up to that size, a `h-*` is fixed.',
+			'While the content overflows, the region becomes focusable with `tabindex="0"`, so it can be scrolled with the arrow keys. Give it a `label`, since a focusable region needs a name.',
+			'Chrome, Edge and Firefox read the standard `scrollbar-color`; older Safari falls back to the prefixed pseudo-elements. Nothing is reimplemented in JavaScript.'
+		],
+		related: ['table', 'card']
+	},
 
 	/* -- forms --------------------------------------------------------------- */
 	{
@@ -230,6 +244,25 @@ export const components: ComponentMeta[] = [
 		related: ['combobox', 'field', 'dropdown-menu']
 	},
 	{
+		name: 'ColorPicker',
+		slug: 'color-picker',
+		category: 'forms',
+		summary: 'A small colour picker: one area, one hue slider, one text field.',
+		description:
+			'Drag in the area for saturation and lightness, slide for the hue, or type a value. It works in OKLCH like the theme does, and every point in the area is a colour a normal screen can show.',
+		exports: ['parseColor', 'formatOklch', 'oklchToHex'],
+		keyboard: [
+			['← →', 'Less or more saturation, in the area'],
+			['↑ ↓', 'Lighter or darker, in the area'],
+			['Shift', 'Held with an arrow, moves ten times as far']
+		],
+		notes: [
+			'`value` is an `oklch(…)` string. The text field also takes hex, and converts it.',
+			'It renders inline. For a swatch that opens a picker, put it in a `Popover`.'
+		],
+		related: ['popover', 'slider']
+	},
+	{
 		name: 'Combobox',
 		slug: 'combobox',
 		category: 'forms',
@@ -288,6 +321,21 @@ export const components: ComponentMeta[] = [
 		],
 		exports: ['SegmentedOption'],
 		related: ['radio-group', 'tabs', 'select']
+	},
+	{
+		name: 'Stepper',
+		slug: 'stepper',
+		category: 'forms',
+		summary: 'A multi-step form with progress, validation and a finish line.',
+		description:
+			'Splits a long form into steps. The progress row comes from a `steps` array, the content from a snippet that gets the current step, and Back, Next and Finish are built in. `validate` decides whether Next may move on, and both it and `onfinish` may be async.',
+		notes: [
+			'With `linear`, the default, only steps already reached can be clicked; the ones ahead wait. Turn it off for a form that can be filled in any order.',
+			'After every move focus goes to the new step, which is announced as "Step 2 of 3", so keyboard and screen reader users do not have to find their way back down.',
+			'While `validate` or `onfinish` is pending the button shows a spinner and the steps are locked, so nothing gets submitted twice.',
+			'On a phone only the current step keeps its title in the progress row; the others are numbers.'
+		],
+		related: ['field', 'tabs', 'progress']
 	},
 	{
 		name: 'Switch',
@@ -451,6 +499,28 @@ export const components: ComponentMeta[] = [
 		related: ['dropdown-menu', 'tooltip', 'modal']
 	},
 	{
+		name: 'ContextMenu',
+		slug: 'context-menu',
+		category: 'overlays',
+		summary: 'The right-click menu, built from the same items as the dropdown.',
+		description:
+			"Wrap an area, give it a `menu` snippet, and a right click opens it at the pointer instead of the browser's own. The items are the ones `DropdownMenu` uses, so a menu written for one works in the other.",
+		keyboard: [
+			['Shift+F10', 'Opens the menu for the focused area, below it'],
+			['↓ ↑', 'Moves between items'],
+			['Home / End', 'First and last item'],
+			['Esc', 'Closes and returns focus to where it was']
+		],
+		notes: [
+			'Opens at the pointer and slides back in rather than run off the edge of the screen. Scrolling, resizing or leaving the window closes it.',
+			'The area needs `tabindex="0"` for Shift+F10 to reach it; the component does not add one, because often the area is already a focusable thing.',
+			'Safari on iOS fires no context menu on a long press. Anything important should be reachable another way too, which is good advice for right-click menus anyway.',
+			"`disabled` lets the browser's own menu through, for example while someone is editing text inside the area.",
+			'Renders into `<body>`, so an `overflow: hidden` ancestor cannot clip it.'
+		],
+		related: ['dropdown-menu', 'command-palette']
+	},
+	{
 		name: 'DropdownMenu',
 		slug: 'dropdown-menu',
 		category: 'overlays',
@@ -554,6 +624,21 @@ export const components: ComponentMeta[] = [
 	},
 
 	/* -- data ---------------------------------------------------------------- */
+	{
+		name: 'DataTable',
+		slug: 'data-table',
+		category: 'data',
+		summary: 'Table with sorting, row selection, search and pages.',
+		description:
+			'`Table` with the behaviour most screens end up writing by hand. Give it rows and column definitions and it sorts, filters by a search string, selects rows by a key you choose, and pages with `Pagination`. Every cell can be rendered through one snippet, so badges and links still fit.',
+		notes: [
+			'Sorting compares numbers as numbers, dates as dates and text in natural order, so "Hen 10" comes after "Hen 9". Empty values stay at the bottom either way.',
+			'A third click on a sorted header returns the rows to the order they came in. The header carries `aria-sort`, so screen readers announce the direction.',
+			'Selection is a bound array of row keys. It survives sorting, searching and paging; "select all" covers every row that matches the search, not just the page on screen.',
+			'Everything happens in the browser. For thousands of rows or server-side paging, sort and slice on the server and give it one page at a time with `pageSize={0}`.'
+		],
+		related: ['table', 'pagination', 'checkbox']
+	},
 	{
 		name: 'Table',
 		slug: 'table',
@@ -702,6 +787,11 @@ const titles: Record<string, string> = {
 	Caret: 'Blinking caret for Svelte',
 	Code: 'Inline code styling for Svelte',
 	Combobox: 'Svelte combobox with search and multi-select',
+	ContextMenu: 'Svelte right-click context menu',
+	ScrollArea: 'Custom scrollbars for Svelte, themed',
+	Stepper: 'Svelte stepper and multi-step form wizard',
+	DataTable: 'Svelte data table: sorting, selection, paging',
+	ColorPicker: 'Svelte colour picker component',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',

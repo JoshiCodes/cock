@@ -23,9 +23,11 @@ export { default as CardDescription } from './components/layout/CardDescription.
 export { default as CardContent } from './components/layout/CardContent.svelte';
 export { default as CardFooter } from './components/layout/CardFooter.svelte';
 export { default as EmptyState } from './components/layout/EmptyState.svelte';
+export { default as ScrollArea } from './components/layout/ScrollArea.svelte';
 
 /* -- forms ---------------------------------------------------------------- */
 export { default as Checkbox } from './components/forms/Checkbox.svelte';
+export { default as ColorPicker } from './components/forms/ColorPicker.svelte';
 export { default as Combobox } from './components/forms/Combobox.svelte';
 export { default as Field } from './components/forms/Field.svelte';
 export { default as FileDrop } from './components/forms/FileDrop.svelte';
@@ -38,6 +40,7 @@ export { default as RadioGroup } from './components/forms/RadioGroup.svelte';
 export { default as SegmentedControl } from './components/forms/SegmentedControl.svelte';
 export { default as Select } from './components/forms/Select.svelte';
 export { default as Slider } from './components/forms/Slider.svelte';
+export { default as Stepper } from './components/forms/Stepper.svelte';
 export { default as Switch } from './components/forms/Switch.svelte';
 export { default as TagInput } from './components/forms/TagInput.svelte';
 export { default as Textarea } from './components/forms/Textarea.svelte';
@@ -51,6 +54,7 @@ export { default as Tooltip } from './components/feedback/Tooltip.svelte';
 
 /* -- overlays ------------------------------------------------------------- */
 export { default as CommandPalette } from './components/overlays/CommandPalette.svelte';
+export { default as ContextMenu } from './components/overlays/ContextMenu.svelte';
 export { default as Drawer } from './components/overlays/Drawer.svelte';
 export { default as DropdownMenu } from './components/overlays/DropdownMenu.svelte';
 export { default as MenuItem } from './components/overlays/MenuItem.svelte';
@@ -74,6 +78,7 @@ export { default as Tabs } from './components/navigation/Tabs.svelte';
 
 /* -- data ----------------------------------------------------------------- */
 export { default as Stat } from './components/data/Stat.svelte';
+export { default as DataTable } from './components/data/DataTable.svelte';
 export { default as Heatmap } from './components/data/Heatmap.svelte';
 export { default as Sparkline } from './components/data/Sparkline.svelte';
 export { default as Table } from './components/data/Table.svelte';
@@ -113,6 +118,7 @@ export { lockScroll } from './utils/scrollLock.js';
 export { confetti, type ConfettiOptions } from './utils/confetti.js';
 export { onHotkey, matchesHotkey, formatHotkey } from './utils/hotkey.js';
 export { focusRing, focusRingInset, disabled, transition } from './utils/styles.js';
+export { parseColor, formatOklch, oklchToHex, type Oklch } from './utils/oklch.js';
 
 /* -- component types ------------------------------------------------------ */
 export type { ButtonVariant, ButtonSize } from './components/primitives/Button.svelte';
@@ -121,6 +127,12 @@ export type { AlertVariant } from './components/feedback/Alert.svelte';
 export type { SegmentedOption } from './components/forms/SegmentedControl.svelte';
 export type { SelectOption } from './components/forms/Select.svelte';
 export type { ComboboxOption } from './components/forms/Combobox.svelte';
+export type { StepperStep } from './components/forms/Stepper.svelte';
+export type {
+	DataTableColumn,
+	DataTableSort,
+	SortDirection
+} from './components/data/DataTable.svelte';
 export type { Crumb } from './components/navigation/Breadcrumb.svelte';
 export type { TabsVariant } from './components/navigation/Tabs.svelte';
 export type { NavbarOrientation, NavbarCollapse } from './components/navigation/Navbar.svelte';
