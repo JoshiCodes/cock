@@ -16,6 +16,8 @@ export default defineConfig({
 			'@joshicodes/cock': fileURLToPath(new URL('./src/lib/index.ts', import.meta.url))
 		}
 	},
+	// A native binary, used only to prerender the link previews; it cannot be bundled.
+	ssr: { external: ['@resvg/resvg-js'] },
 	plugins: [
 		tailwindcss(),
 		sveltekit({
