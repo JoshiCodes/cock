@@ -62,6 +62,9 @@ export { default as Popover } from './components/overlays/Popover.svelte';
 export { default as Accordion } from './components/navigation/Accordion.svelte';
 export { default as AccordionItem } from './components/navigation/AccordionItem.svelte';
 export { default as Breadcrumb } from './components/navigation/Breadcrumb.svelte';
+export { default as Navbar } from './components/navigation/Navbar.svelte';
+export { default as NavbarGroup } from './components/navigation/NavbarGroup.svelte';
+export { default as NavbarLink } from './components/navigation/NavbarLink.svelte';
 export { default as Pagination } from './components/navigation/Pagination.svelte';
 export { default as Tab } from './components/navigation/Tab.svelte';
 export { default as TabList } from './components/navigation/TabList.svelte';
@@ -118,6 +121,7 @@ export type { SegmentedOption } from './components/forms/SegmentedControl.svelte
 export type { SelectOption } from './components/forms/Select.svelte';
 export type { Crumb } from './components/navigation/Breadcrumb.svelte';
 export type { TabsVariant } from './components/navigation/Tabs.svelte';
+export type { NavbarOrientation, NavbarCollapse } from './components/navigation/Navbar.svelte';
 export type { TriggerAttrs } from './components/overlays/Popover.svelte';
 export type { Command } from './components/overlays/CommandPalette.svelte';
 export type { TerminalLine } from './components/effects/Terminal.svelte';

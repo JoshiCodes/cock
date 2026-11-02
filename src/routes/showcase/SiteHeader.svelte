@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 	import { page } from '$app/state';
-	import { Button, ThemeToggle, cn } from '@joshicodes/cock';
+	import { Button, Navbar, NavbarLink, ThemeToggle } from '@joshicodes/cock';
 	import ControlPanel from './ControlPanel.svelte';
 	import Logo from './Logo.svelte';
 	import { site } from './site.svelte.js';
@@ -19,35 +19,26 @@
 </script>
 
 <header class="sticky top-0 z-30 border-b border-border bg-bg">
-	<div class="mx-auto flex h-16 max-w-7xl items-center gap-8 px-5 lg:px-8">
-		<a href="/" aria-label="cock, home">
-			<Logo wordmark />
-		</a>
+	<!-- Docs spans several paths, so the links compare by section rather than by `current`. -->
+	<Navbar collapse="sm" class="mx-auto max-w-7xl border-b-0 lg:px-8">
+		{#snippet brand()}
+			<a href="/" aria-label="cock, home">
+				<Logo wordmark />
+			</a>
+		{/snippet}
 
-		<nav class="hidden items-center gap-6 text-sm sm:flex" aria-label="Main">
-			{#each links as link (link.href)}
-				<a
-					href={link.href}
-					aria-current={isActive(link.href) ? 'page' : undefined}
-					class={cn(
-						'transition-colors',
-						page.url.pathname === link.href ? 'font-medium text-fg' : 'text-fg-muted hover:text-fg'
-					)}
-				>
-					{link.label}
-				</a>
-			{/each}
-		</nav>
+		{#each links as link (link.href)}
+			<NavbarLink href={link.href} active={isActive(link.href)}>{link.label}</NavbarLink>
+		{/each}
 
-		<div class="flex-1"></div>
-
-		<div class="flex items-center gap-2">
+		{#snippet actions()}
 			<Button
 				variant={site.customizing ? 'solid' : 'soft'}
 				size="sm"
 				aria-expanded={site.customizing}
 				aria-controls="customize-panel"
 				onclick={() => (site.customizing = !site.customizing)}
+				class="max-sm:w-8 max-sm:px-0"
 			>
 				<svg viewBox="0 0 24 24" fill="none" class="size-4" aria-hidden="true">
 					<path
@@ -59,7 +50,8 @@
 					<circle cx="16" cy="7" r="2" stroke="currentColor" stroke-width="1.75" />
 					<circle cx="10" cy="17" r="2" stroke="currentColor" stroke-width="1.75" />
 				</svg>
-				Customize
+				<!-- On a phone the logo, these buttons and the menu toggle share one row. -->
+				<span class="max-sm:sr-only">Customize</span>
 			</Button>
 
 			<ThemeToggle class="size-8" />
@@ -75,27 +67,8 @@
 					/>
 				</svg>
 			</a>
-		</div>
-	</div>
-
-	<!-- Under 640px the bar is full, so the links get a line of their own. -->
-	<nav
-		class="flex items-center gap-5 border-t border-border px-5 py-2.5 text-sm sm:hidden"
-		aria-label="Main"
-	>
-		{#each links as link (link.href)}
-			<a
-				href={link.href}
-				aria-current={isActive(link.href) ? 'page' : undefined}
-				class={cn(
-					'transition-colors',
-					isActive(link.href) ? 'font-medium text-fg' : 'text-fg-muted'
-				)}
-			>
-				{link.label}
-			</a>
-		{/each}
-	</nav>
+		{/snippet}
+	</Navbar>
 
 	{#if site.customizing}
 		<div

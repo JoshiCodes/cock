@@ -100,7 +100,7 @@
 	<Marquee class="border-t border-border py-4 text-sm text-fg-subtle" speed={30} gap="1.25rem">
 		{#each components as item (item.slug)}
 			<a href="/components/{item.slug}" class="transition-colors hover:text-fg">{item.name}</a>
-			<span aria-hidden="true" class="size-1 rounded-full bg-border-strong"></span>
+			<span aria-hidden="true" class="size-1"></span>
 		{/each}
 	</Marquee>
 </div>

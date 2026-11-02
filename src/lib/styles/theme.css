@@ -64,12 +64,12 @@
 	--ck-shadow-lg: 0 2px 4px oklch(0 0 0 / 0.04), 0 16px 40px -12px oklch(0 0 0 / 0.2);
 
 	/* Code panels stay dark in both modes, so they read as a different material. */
-	--ck-code-bg: oklch(0.145 0.016 265);
+	--ck-code-bg: oklch(0.225 0.013 258.371);
 	--ck-code-fg: oklch(0.89 0.012 265);
-	--ck-code-line: oklch(0.28 0.018 265);
-	--ck-code-tag: oklch(0.75 0.14 25);
-	--ck-code-attr: oklch(0.84 0.1 92);
-	--ck-code-string: oklch(0.78 0.1 165);
+	--ck-code-line: oklch(0.309 0.011 236.973);
+	--ck-code-tag: oklch(0.697 0.152 25.571);
+	--ck-code-attr: oklch(0.816 0.114 90.556);
+	--ck-code-string: oklch(0.795 0.129 162.925);
 	--ck-code-keyword: oklch(0.74 0.11 295);
 	--ck-code-comment: oklch(0.56 0.02 265);
 	--ck-code-punct: oklch(0.66 0.025 265);

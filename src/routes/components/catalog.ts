@@ -494,6 +494,24 @@ export const components: ComponentMeta[] = [
 		related: ['tabs']
 	},
 	{
+		name: 'Navbar',
+		slug: 'navbar',
+		category: 'navigation',
+		summary: 'A top bar or a sidebar, from the same links.',
+		description:
+			'One component for both places a site keeps its links. `orientation="horizontal"` is a top bar that folds into a menu button on small screens; `vertical` is a sidebar with optional section headings. Pass the current path once and every link works out on its own whether it is the page you are on.',
+		parts: ['NavbarLink', 'NavbarGroup'],
+		keyboard: [['Esc', 'Closes the folded menu and returns focus to its button']],
+		notes: [
+			'Renders a `<nav>` with a real list inside, so screen readers announce the landmark and the number of links. Give each navbar on a page its own `label`.',
+			'The active link gets `aria-current="page"`. `match="prefix"` keeps a section lit on the pages below it; `active` overrides the comparison entirely. An `href` starting with `#` is compared whole, for hash routers.',
+			'A horizontal bar folds at `md` by default. The breakpoint follows the viewport, not the container, so in a narrow preview it only folds once the window does.',
+			'A sidebar does not hide itself on phones. Put the vertical navbar in a `Drawer` there, as in the last example.',
+			'Clicking a link closes the folded menu, which matters with client-side routing where the page never reloads.'
+		],
+		related: ['breadcrumb', 'tabs', 'drawer']
+	},
+	{
 		name: 'Breadcrumb',
 		slug: 'breadcrumb',
 		category: 'navigation',
@@ -672,6 +690,7 @@ const titles: Record<string, string> = {
 	Kbd: 'Keyboard key badge for Svelte',
 	Marquee: 'Svelte marquee and logo ticker',
 	Modal: 'Svelte modal dialog component',
+	Navbar: 'Svelte navbar and sidebar component',
 	Odometer: 'Rolling odometer digits for Svelte',
 	PinInput: 'One-time code input for Svelte',
 	Reveal: 'Scroll reveal animation for Svelte',
