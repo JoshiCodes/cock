@@ -304,6 +304,21 @@ export const components: ComponentMeta[] = [
 		related: ['radio-group', 'tabs', 'select']
 	},
 	{
+		name: 'Stepper',
+		slug: 'stepper',
+		category: 'forms',
+		summary: 'A multi-step form with progress, validation and a finish line.',
+		description:
+			'Splits a long form into steps. The progress row comes from a `steps` array, the content from a snippet that gets the current step, and Back, Next and Finish are built in. `validate` decides whether Next may move on, and both it and `onfinish` may be async.',
+		notes: [
+			'With `linear`, the default, only steps already reached can be clicked; the ones ahead wait. Turn it off for a form that can be filled in any order.',
+			'After every move focus goes to the new step, which is announced as "Step 2 of 3", so keyboard and screen reader users do not have to find their way back down.',
+			'While `validate` or `onfinish` is pending the button shows a spinner and the steps are locked, so nothing gets submitted twice.',
+			'On a phone only the current step keeps its title in the progress row; the others are numbers.'
+		],
+		related: ['field', 'tabs', 'progress']
+	},
+	{
 		name: 'Switch',
 		slug: 'switch',
 		category: 'forms',
@@ -740,6 +755,7 @@ const titles: Record<string, string> = {
 	Combobox: 'Svelte combobox with search and multi-select',
 	ContextMenu: 'Svelte right-click context menu',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
+	Stepper: 'Svelte stepper and multi-step form wizard',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',
