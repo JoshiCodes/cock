@@ -27,6 +27,7 @@ export { default as ScrollArea } from './components/layout/ScrollArea.svelte';
 
 /* -- forms ---------------------------------------------------------------- */
 export { default as Checkbox } from './components/forms/Checkbox.svelte';
+export { default as ColorPicker } from './components/forms/ColorPicker.svelte';
 export { default as Combobox } from './components/forms/Combobox.svelte';
 export { default as Field } from './components/forms/Field.svelte';
 export { default as FileDrop } from './components/forms/FileDrop.svelte';
@@ -117,6 +118,15 @@ export { lockScroll } from './utils/scrollLock.js';
 export { confetti, type ConfettiOptions } from './utils/confetti.js';
 export { onHotkey, matchesHotkey, formatHotkey } from './utils/hotkey.js';
 export { focusRing, focusRingInset, disabled, transition } from './utils/styles.js';
+export {
+	parseColor,
+	formatOklch,
+	oklchToHex,
+	oklchToRgb,
+	inGamut,
+	fitToGamut,
+	type Oklch
+} from './utils/oklch.js';
 
 /* -- component types ------------------------------------------------------ */
 export type { ButtonVariant, ButtonSize } from './components/primitives/Button.svelte';

@@ -244,6 +244,27 @@ export const components: ComponentMeta[] = [
 		related: ['combobox', 'field', 'dropdown-menu']
 	},
 	{
+		name: 'ColorPicker',
+		slug: 'color-picker',
+		category: 'forms',
+		summary: 'An OKLCH colour picker that shows where sRGB ends.',
+		description:
+			'Picks colours the way the theme is built: in OKLCH, where equal steps in lightness look equal. The area plots lightness against chroma for the current hue and draws everything a normal screen cannot show faintly, so the edge of sRGB is right there instead of a surprise later.',
+		exports: ['parseColor', 'formatOklch', 'oklchToHex', 'inGamut', 'fitToGamut'],
+		keyboard: [
+			['← →', 'Less or more chroma, in the area'],
+			['↑ ↓', 'Lighter or darker, in the area'],
+			['Shift', 'Held with an arrow, moves ten times as far']
+		],
+		notes: [
+			'`value` is an `oklch(…)` string. The text field also takes hex and percentages, and converts them.',
+			'A colour outside sRGB is allowed, since wide-gamut screens can show it. The picker says so and offers to lower the chroma until it fits; the hex readout is always the nearest sRGB colour.',
+			'The maths is exported too: `parseColor`, `formatOklch`, `oklchToHex`, `inGamut` and `fitToGamut` work without the component.',
+			'It renders inline. For a swatch that opens a picker, put it in a `Popover`.'
+		],
+		related: ['popover', 'slider']
+	},
+	{
 		name: 'Combobox',
 		slug: 'combobox',
 		category: 'forms',
@@ -772,6 +793,7 @@ const titles: Record<string, string> = {
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',
+	ColorPicker: 'OKLCH colour picker for Svelte',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',
