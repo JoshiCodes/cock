@@ -8,6 +8,7 @@
  */
 export const ACCORDION = 'ck:accordion';
 export const MENU = 'ck:menu';
+export const NAVBAR = 'ck:navbar';
 export const RADIO_GROUP = 'ck:radio-group';
 export const TABS = 'ck:tabs';
 

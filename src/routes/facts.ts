@@ -30,9 +30,9 @@ export const bundle = {
 };
 
 export const stats = {
-	components: 66,
-	pages: 53,
+	components: 69,
+	pages: 54,
 	runtimeDependencies: 2,
-	/** Beyond the shared baseline, averaged over all 66. */
+	/** Beyond the shared baseline, averaged over all 69. */
 	perComponentGzipKb: 0.48
 };
