@@ -1,4 +1,4 @@
-<!-- In an app, current is page.url.pathname and the click handler goes. Narrow the window and the links fold away. -->
+<!-- In an app, current is page.url.pathname and the click handler goes. Narrow the window and the links fold away; they are used to tight spaces. -->
 <script lang="ts">
 	import { Button, Navbar, NavbarLink } from '@joshicodes/cock';
 
@@ -22,7 +22,7 @@
 		<NavbarLink href="#ledger" onclick={go}>Egg ledger</NavbarLink>
 
 		{#snippet actions()}
-			<Button variant="ghost" size="sm">Sign in</Button>
+			<Button variant="ghost" size="sm">Come in</Button>
 			<Button size="sm">Start a flock</Button>
 		{/snippet}
 	</Navbar>

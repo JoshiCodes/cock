@@ -1,4 +1,4 @@
-<!-- On a phone the sidebar has no room of its own, so the same navbar moves into a Drawer. Picking a page closes it. -->
+<!-- On a phone the sidebar has no room of its own, so the same navbar slides into a Drawer. Pick a page and it pulls out. -->
 <script lang="ts">
 	import { Avatar, Badge, Button, Drawer, Navbar, NavbarGroup, NavbarLink } from '@joshicodes/cock';
 

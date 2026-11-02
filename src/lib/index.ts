@@ -26,6 +26,7 @@ export { default as EmptyState } from './components/layout/EmptyState.svelte';
 
 /* -- forms ---------------------------------------------------------------- */
 export { default as Checkbox } from './components/forms/Checkbox.svelte';
+export { default as Combobox } from './components/forms/Combobox.svelte';
 export { default as Field } from './components/forms/Field.svelte';
 export { default as FileDrop } from './components/forms/FileDrop.svelte';
 export { default as Input } from './components/forms/Input.svelte';
@@ -119,6 +120,7 @@ export type { BadgeVariant } from './components/primitives/Badge.svelte';
 export type { AlertVariant } from './components/feedback/Alert.svelte';
 export type { SegmentedOption } from './components/forms/SegmentedControl.svelte';
 export type { SelectOption } from './components/forms/Select.svelte';
+export type { ComboboxOption } from './components/forms/Combobox.svelte';
 export type { Crumb } from './components/navigation/Breadcrumb.svelte';
 export type { TabsVariant } from './components/navigation/Tabs.svelte';
 export type { NavbarOrientation, NavbarCollapse } from './components/navigation/Navbar.svelte';
