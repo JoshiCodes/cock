@@ -52,7 +52,10 @@
 		<meta name="robots" content="noindex" />
 	{/if}
 
+	<meta name="author" content={site.author.name} />
+
 	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_GB" />
 	<meta property="og:site_name" content={site.name} />
 	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={description} />

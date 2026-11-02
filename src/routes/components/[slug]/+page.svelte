@@ -34,6 +34,30 @@
 		}))
 	});
 
+	/**
+	 * The page as a technical article about one part of the library, so search
+	 * engines can tie it to the package and show its date.
+	 */
+	let article = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'TechArticle',
+		headline: pageTitle(meta),
+		description: meta.summary.replaceAll('`', ''),
+		url: new URL(`/components/${meta.slug}`, site.url).href,
+		image: new URL(`/og/${meta.slug}.png`, site.url).href,
+		...(data.modified ? { dateModified: data.modified } : {}),
+		inLanguage: 'en-GB',
+		proficiencyLevel: 'Beginner',
+		author: { '@type': 'Person', ...site.author },
+		isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+		about: {
+			'@type': 'SoftwareSourceCode',
+			name: '@joshicodes/cock',
+			codeRepository: site.repo,
+			programmingLanguage: ['TypeScript', 'Svelte']
+		}
+	});
+
 	/** Props, snippets and events get a table each, in that order. */
 	const kinds = [
 		{ kind: 'prop', label: 'Props' },
@@ -45,7 +69,7 @@
 <Seo
 	title={pageTitle(meta)}
 	path="/components/{meta.slug}"
-	structured={[breadcrumbs]}
+	structured={[breadcrumbs, article]}
 	image="/og/{meta.slug}.png"
 	imageAlt="{meta.name}, from cock: {meta.summary.replaceAll('`', '')}"
 	description="{meta.name} for Svelte 5 and Tailwind 4. {meta.summary.replaceAll(

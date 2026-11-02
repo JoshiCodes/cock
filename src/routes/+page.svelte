@@ -48,6 +48,10 @@
 			codeRepository: meta.repo,
 			programmingLanguage: ['TypeScript', 'Svelte'],
 			runtimePlatform: 'SvelteKit',
+			version,
+			keywords: 'Svelte 5, Tailwind CSS 4, component library, UI kit, accessible, dark mode, OKLCH',
+			image: new URL(meta.image, meta.url).href,
+			sameAs: [meta.repo, 'https://www.npmjs.com/package/@joshicodes/cock'],
 			license: 'https://opensource.org/licenses/MIT',
 			author: { '@type': 'Person', ...meta.author }
 		},
