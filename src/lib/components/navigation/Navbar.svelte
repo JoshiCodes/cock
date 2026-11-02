@@ -23,7 +23,7 @@
 	interface Props extends Omit<HTMLAttributes<HTMLElement>, 'class'> {
 		/** `horizontal` is a top bar, `vertical` a sidebar. */
 		orientation?: NavbarOrientation;
-		/** The current path, usually `page.url.pathname`. Links compare their `href` against it. */
+		/** The current path, usually `page.url.pathname`, or `location.hash` with a hash router. Links compare their `href` against it. */
 		current?: string;
 		/** Below this breakpoint a horizontal bar folds its links behind a menu button. */
 		collapse?: NavbarCollapse;

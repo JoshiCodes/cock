@@ -36,6 +36,8 @@
 
 	function matches(current: string | undefined): boolean {
 		if (current === undefined) return false;
+		// A hash router keeps the route in the fragment, so the whole thing counts.
+		if (href.startsWith('#')) return current === href;
 		const path = href.split(/[?#]/)[0];
 		if (current === path) return true;
 		if (match !== 'prefix') return false;

@@ -26,7 +26,16 @@ export default defineConfig({
 			},
 
 			// The preview site runs as a Node server in Docker; see Dockerfile.
-			adapter: adapter()
+			adapter: adapter(),
+
+			prerender: {
+				handleMissingId: ({ path, message }) => {
+					// The navbar demos route through #flock, #coops and so on, which
+					// are not anchors on the page and are not meant to be.
+					if (path === '/components/navbar') return;
+					throw new Error(message);
+				}
+			}
 		})
 	]
 });

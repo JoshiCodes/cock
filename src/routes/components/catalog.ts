@@ -504,7 +504,7 @@ export const components: ComponentMeta[] = [
 		keyboard: [['Esc', 'Closes the folded menu and returns focus to its button']],
 		notes: [
 			'Renders a `<nav>` with a real list inside, so screen readers announce the landmark and the number of links. Give each navbar on a page its own `label`.',
-			'The active link gets `aria-current="page"`. `match="prefix"` keeps a section lit on the pages below it; `active` overrides the comparison entirely.',
+			'The active link gets `aria-current="page"`. `match="prefix"` keeps a section lit on the pages below it; `active` overrides the comparison entirely. An `href` starting with `#` is compared whole, for hash routers.',
 			'A horizontal bar folds at `md` by default. The breakpoint follows the viewport, not the container, so in a narrow preview it only folds once the window does.',
 			'A sidebar does not hide itself on phones. Put the vertical navbar in a `Drawer` there, as in the last example.',
 			'Clicking a link closes the folded menu, which matters with client-side routing where the page never reloads.'
