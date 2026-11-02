@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { Badge, Button, Card, Marquee, Terminal } from '@joshicodes/cock';
+	import { Badge, Button, Card, Marquee, Terminal, cn } from '@joshicodes/cock';
 	import CodeBlock from './showcase/CodeBlock.svelte';
 	import Seo from './showcase/Seo.svelte';
 	import { bundle, stats } from './facts.js';
 	import { components } from './components/catalog.js';
+	import { rivals } from './docs/comparison/rivals.js';
 	import { site as meta } from './seo.js';
 
 	// The home page shows the same demos the component pages do.
@@ -73,6 +74,7 @@
 			<div class="mt-9 flex flex-wrap items-center gap-3">
 				<Button size="lg" href="/docs/getting-started">Get started</Button>
 				<Button size="lg" variant="outline" href="/components">Browse components</Button>
+				<Button size="lg" variant="ghost" href="/docs/comparison">How it compares</Button>
 			</div>
 
 			<p class="mt-8 text-sm text-fg-subtle">
@@ -156,6 +158,60 @@
 	</section>
 
 	<section class="space-y-8">
+		<div class="flex flex-wrap items-end justify-between gap-4">
+			<div>
+				<Badge variant="outline">Compared</Badge>
+				<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">
+					Next to shadcn-svelte, Bits UI and Skeleton
+				</h2>
+				<p class="mt-4 max-w-2xl leading-relaxed text-fg-muted">
+					They are all good, and they are not trying to be the same thing. Here is when each one is
+					the right call, this one included.
+				</p>
+			</div>
+			<Button variant="outline" href="/docs/comparison">The whole comparison</Button>
+		</div>
+
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+			{#each rivals as item (item.name)}
+				{@const ours = item.name === 'cock'}
+				<Card
+					padding="md"
+					class={cn('flex flex-col gap-4', ours && 'border-accent/40 bg-accent/6')}
+				>
+					<div>
+						<div class="flex items-center justify-between gap-2">
+							<p class="font-semibold text-fg">{item.name}</p>
+							{#if ours}<Badge variant="accent" size="sm">This one</Badge>{/if}
+						</div>
+						<p class="mt-1 text-xs text-fg-subtle">{item.scope}</p>
+					</div>
+
+					<dl class="space-y-2.5 text-sm">
+						<div>
+							<dt class="text-xs text-fg-subtle">You get it as</dt>
+							<dd class="text-fg-muted">{item.delivery}</dd>
+						</div>
+						<div>
+							<dt class="text-xs text-fg-subtle">Styling</dt>
+							<dd class="text-fg-muted">{item.styling}</dd>
+						</div>
+						<div>
+							<dt class="text-xs text-fg-subtle">Theming</dt>
+							<dd class="text-fg-muted">{item.theming}</dd>
+						</div>
+					</dl>
+
+					<p class="mt-auto border-t border-border pt-3 text-sm text-fg">
+						<span class="text-fg-subtle">Pick it when</span>
+						{item.pick}
+					</p>
+				</Card>
+			{/each}
+		</div>
+	</section>
+
+	<section class="space-y-8">
 		<div>
 			<Badge variant="outline">Measured</Badge>
 			<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">What it costs</h2>
@@ -194,6 +250,6 @@
 			on top of the {stats.runtimeDependencies} runtime dependencies the components share: clsx and tailwind-merge.
 		</p>
 
-		<Button variant="outline" href="/docs/comparison">The full numbers, and how it compares</Button>
+		<Button variant="outline" href="/docs/comparison#size">The full numbers</Button>
 	</section>
 </div>

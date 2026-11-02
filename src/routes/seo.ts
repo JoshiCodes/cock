@@ -4,7 +4,7 @@ export const site = {
 	name: 'cock',
 	title: 'cock — the Svelte 5 and Tailwind 4 component kit',
 	description:
-		'An open-source Svelte 5 and Tailwind 4 component kit: 70 accessible components, dark mode, theming from three colours and a theme generator.',
+		'An open-source Svelte 5 and Tailwind 4 component kit: 75 accessible components, dark mode, theming from three colours and a theme generator.',
 	repo: 'https://github.com/JoshiCodes/cock',
 	author: { name: 'JoshiCodes', url: 'https://github.com/JoshiCodes' },
 	image: '/og.png',
