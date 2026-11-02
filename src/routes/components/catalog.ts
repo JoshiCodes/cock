@@ -650,6 +650,29 @@ export const components: ComponentMeta[] = [
 		related: ['accordion', 'popover']
 	},
 	{
+		name: 'TreeView',
+		slug: 'tree-view',
+		category: 'navigation',
+		summary: 'Nested items that fold, with the full ARIA tree keyboard.',
+		description:
+			'File trees, nested settings, anything with branches. Give it nodes with `children`, bind which ones are open and which is selected, and the keyboard works the way screen reader users expect a tree to.',
+		keyboard: [
+			['↓ ↑', 'Next or previous visible item'],
+			['→', 'Opens a branch, or moves into an open one'],
+			['←', 'Closes a branch, or moves up to its parent'],
+			['Home / End', 'First and last visible item'],
+			['Enter / Space', 'Selects; Enter also opens or closes a branch'],
+			['*', 'Opens every branch on the same level'],
+			['a–z', 'Jumps to the next item starting with what you typed']
+		],
+		notes: [
+			'One item is in the tab order at a time, so Tab leaves the tree instead of walking through every row.',
+			'Every item reports its level, position and set size, so "item 2 of 3, level 2" is read out without you doing anything.',
+			"The `item` snippet replaces a row's label, for icons or badges; the chevron and indentation stay."
+		],
+		related: ['accordion', 'navbar']
+	},
+	{
 		name: 'Breadcrumb',
 		slug: 'breadcrumb',
 		category: 'navigation',
@@ -849,6 +872,7 @@ const titles: Record<string, string> = {
 	Rating: 'Star rating component for Svelte',
 	Timeline: 'Svelte timeline component',
 	Resizable: 'Resizable panels for Svelte',
+	TreeView: 'Svelte tree view with keyboard navigation',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',

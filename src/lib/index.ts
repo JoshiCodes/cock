@@ -80,6 +80,7 @@ export { default as Tab } from './components/navigation/Tab.svelte';
 export { default as TabList } from './components/navigation/TabList.svelte';
 export { default as TabPanel } from './components/navigation/TabPanel.svelte';
 export { default as Tabs } from './components/navigation/Tabs.svelte';
+export { default as TreeView } from './components/navigation/TreeView.svelte';
 
 /* -- data ----------------------------------------------------------------- */
 export { default as Stat } from './components/data/Stat.svelte';
@@ -136,6 +137,7 @@ export type { SelectOption } from './components/forms/Select.svelte';
 export type { ComboboxOption } from './components/forms/Combobox.svelte';
 export type { StepperStep } from './components/forms/Stepper.svelte';
 export type { CollapsibleTriggerAttrs } from './components/navigation/Collapsible.svelte';
+export type { TreeNode } from './components/navigation/TreeView.svelte';
 export type {
 	DataTableColumn,
 	DataTableSort,
