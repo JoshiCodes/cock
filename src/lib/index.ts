@@ -24,6 +24,9 @@ export { default as CardContent } from './components/layout/CardContent.svelte';
 export { default as CardFooter } from './components/layout/CardFooter.svelte';
 export { default as EmptyState } from './components/layout/EmptyState.svelte';
 export { default as ScrollArea } from './components/layout/ScrollArea.svelte';
+export { default as Resizable } from './components/layout/Resizable.svelte';
+export { default as ResizablePanel } from './components/layout/ResizablePanel.svelte';
+export { default as ResizableHandle } from './components/layout/ResizableHandle.svelte';
 
 /* -- forms ---------------------------------------------------------------- */
 export { default as Checkbox } from './components/forms/Checkbox.svelte';

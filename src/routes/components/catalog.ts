@@ -167,6 +167,26 @@ export const components: ComponentMeta[] = [
 		related: ['card', 'skeleton']
 	},
 	{
+		name: 'Resizable',
+		slug: 'resizable',
+		category: 'layout',
+		summary: 'Panels with a line between them you can drag.',
+		description:
+			'For layouts that people arrange themselves: a file tree beside an editor, a preview under the code. Put `ResizablePanel`s in a `Resizable` with a `ResizableHandle` between each pair, and nest groups for a grid.',
+		parts: ['ResizablePanel', 'ResizableHandle'],
+		keyboard: [
+			['← → / ↑ ↓', 'Moves the focused handle by 5%'],
+			['Home / End', 'Shrinks or grows the panel before it as far as it may go']
+		],
+		notes: [
+			'Sizes and limits are percentages of the group. Panels without a `size` share what the others leave.',
+			'Dragging respects both neighbours: a handle stops when either panel reaches its `min` or `max`.',
+			'Each handle is a focusable `separator` that reports the panel size, which is the ARIA pattern for a splitter.',
+			'The group fills its parent, so give the parent a height. `onresize` hands you the sizes to store if the layout should survive a reload.'
+		],
+		related: ['scroll-area', 'card']
+	},
+	{
 		name: 'ScrollArea',
 		slug: 'scroll-area',
 		category: 'layout',
@@ -828,6 +848,7 @@ const titles: Record<string, string> = {
 	Collapsible: 'Svelte collapsible section',
 	Rating: 'Star rating component for Svelte',
 	Timeline: 'Svelte timeline component',
+	Resizable: 'Resizable panels for Svelte',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',
