@@ -2,8 +2,10 @@
 	import { Button, Separator } from '@joshicodes/cock';
 	import CodeBlock from '../../showcase/CodeBlock.svelte';
 	import ExampleBlock from '../../showcase/ExampleBlock.svelte';
+	import Inline from '../../showcase/Inline.svelte';
 	import PropsTable from '../../showcase/PropsTable.svelte';
 	import Seo from '../../showcase/Seo.svelte';
+	import { site } from '../../seo.js';
 	import { categoryOf, bySlug, pageTitle } from '../catalog.js';
 	import { examplesFor } from '../examples.js';
 
@@ -16,6 +18,22 @@
 	let imports = $derived([meta.name, ...(meta.parts ?? []), ...(meta.exports ?? [])].join(', '));
 	let importLine = $derived(`import { ${imports} } from '@joshicodes/cock';`);
 
+	/** Components › Forms › Select in the search results, mirroring the link above the heading. */
+	let breadcrumbs = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			['Components', '/components'],
+			[category.title, `/components#${category.id}`],
+			[meta.name, `/components/${meta.slug}`]
+		].map(([name, path], index) => ({
+			'@type': 'ListItem',
+			position: index + 1,
+			name,
+			item: new URL(path, site.url).href
+		}))
+	});
+
 	/** Props, snippets and events get a table each, in that order. */
 	const kinds = [
 		{ kind: 'prop', label: 'Props' },
@@ -27,16 +45,25 @@
 <Seo
 	title={pageTitle(meta)}
 	path="/components/{meta.slug}"
-	description="{meta.name} for Svelte 5 and Tailwind 4. {meta.summary} Props, examples and keyboard behaviour."
+	structured={[breadcrumbs]}
+	description="{meta.name} for Svelte 5 and Tailwind 4. {meta.summary.replaceAll(
+		'`',
+		''
+	)} Props, examples and keyboard behaviour."
 />
 
 <article class="max-w-3xl space-y-12 py-10 lg:py-14">
 	<header class="space-y-4">
-		<a href="/components" class="text-sm text-fg-muted transition-colors hover:text-fg">
+		<a
+			href="/components#{category.id}"
+			class="text-sm text-fg-muted transition-colors hover:text-fg"
+		>
 			{category.title}
 		</a>
 		<h1 class="text-3xl font-semibold tracking-tight text-fg">{meta.name}</h1>
-		<p class="text-lg leading-relaxed text-fg-muted">{meta.description ?? meta.summary}</p>
+		<p class="text-lg leading-relaxed text-fg-muted">
+			<Inline text={meta.description ?? meta.summary} />
+		</p>
 
 		<div class="overflow-hidden rounded-lg border border-border">
 			<CodeBlock code={importLine} label="import" />
@@ -58,7 +85,7 @@
 				{#each meta.keyboard as [keys, what] (keys)}
 					<div class="flex flex-col gap-1 p-3 sm:flex-row sm:items-baseline sm:gap-4">
 						<dt class="shrink-0 font-mono text-xs text-accent sm:w-32">{keys}</dt>
-						<dd class="text-sm text-fg-muted">{what}</dd>
+						<dd class="text-sm text-fg-muted"><Inline text={what} /></dd>
 					</div>
 				{/each}
 			</dl>
@@ -72,7 +99,7 @@
 				{#each meta.notes as note (note)}
 					<li class="flex gap-3 text-sm leading-relaxed text-fg-muted">
 						<span class="mt-2 size-1 shrink-0 rounded-full bg-accent"></span>
-						<span>{note}</span>
+						<span><Inline text={note} /></span>
 					</li>
 				{/each}
 			</ul>

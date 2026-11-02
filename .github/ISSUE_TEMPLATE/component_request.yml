@@ -12,7 +12,7 @@ body:
     id: name
     attributes:
       label: What would it be called
-      placeholder: Combobox
+      placeholder: DatePicker
     validations:
       required: true
 

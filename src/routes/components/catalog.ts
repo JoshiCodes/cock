@@ -227,7 +227,30 @@ export const components: ComponentMeta[] = [
 		notes: [
 			'A real `<select>`, so the phone opens its own picker and the keyboard behaviour is the platform one.'
 		],
-		related: ['field', 'dropdown-menu', 'command-palette']
+		related: ['combobox', 'field', 'dropdown-menu']
+	},
+	{
+		name: 'Combobox',
+		slug: 'combobox',
+		category: 'forms',
+		summary: 'A select you can type into, for one value or several.',
+		description:
+			'For the lists that are too long to scroll: countries, people, tags. Typing narrows the options, ignoring case and accents, and the keyboard never has to leave the input. With `multiple` the choices become chips inside the field.',
+		keyboard: [
+			['↓ ↑', 'Opens the list, then moves through it, skipping disabled options'],
+			['Enter', 'Picks the highlighted option'],
+			['Esc', 'Closes the list without picking'],
+			['Backspace', 'With `multiple` and an empty input, removes the last chip']
+		],
+		notes: [
+			'Follows the ARIA combobox pattern: focus stays in the input and `aria-activedescendant` points at the highlighted option, so screen readers announce it as you move.',
+			'The list opens on a click, an arrow key or the first letter typed, not on focus, so tabbing through a form does not pop it open.',
+			'Reopening shows every option again; it only filters once you type. A single combobox puts its label back in the input when it closes.',
+			'Give it a `name` and it renders hidden inputs, one per value, so a plain form submit carries the selection.',
+			portalNote,
+			'Use `Select` when the list is short. A native select gets the phone its own picker, which is hard to beat.'
+		],
+		related: ['select', 'tag-input', 'command-palette']
 	},
 	{
 		name: 'Checkbox',
@@ -678,6 +701,7 @@ const titles: Record<string, string> = {
 	Avatar: 'Svelte avatar with initials fallback',
 	Caret: 'Blinking caret for Svelte',
 	Code: 'Inline code styling for Svelte',
+	Combobox: 'Svelte combobox with search and multi-select',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',

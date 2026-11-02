@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Badge, Code, Table } from '@joshicodes/cock';
 	import type { PropDoc } from '../components/props.server.js';
+	import Inline from './Inline.svelte';
 
 	interface Props {
 		title: string;
@@ -56,7 +57,9 @@
 							{/if}
 						</div>
 						{#if row.description}
-							<p class="mt-1.5 text-xs leading-relaxed text-fg-muted">{row.description}</p>
+							<p class="mt-1.5 text-xs leading-relaxed text-fg-muted">
+								<Inline text={row.description} />
+							</p>
 						{/if}
 					</td>
 					<td class="align-top">

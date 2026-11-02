@@ -3,8 +3,9 @@
 
 	interface Props {
 		/**
-		 * The whole `<title>`, written for what people search for rather than
-		 * for the brand. Left out on the home page, which uses the site title.
+		 * The `<title>`, written for what people search for rather than for the
+		 * brand; the name is appended so the result is still recognisable. Left
+		 * out on the home page, which uses the site title.
 		 */
 		title?: string;
 		description?: string;
@@ -23,7 +24,9 @@
 		structured = []
 	}: Props = $props();
 
-	let fullTitle = $derived(title ?? site.title);
+	let fullTitle = $derived(
+		!title ? site.title : title.includes(site.name) ? title : `${title} · ${site.name}`
+	);
 	let url = $derived(new URL(path, site.url).href);
 	const image = new URL(site.image, site.url).href;
 

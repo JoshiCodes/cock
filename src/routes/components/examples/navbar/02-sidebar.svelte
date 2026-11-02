@@ -1,4 +1,4 @@
-<!-- Groups give the sidebar its headings. The collapsible one remembers its state through bind:open. -->
+<!-- Groups give the sidebar its headings. The archive keeps its past to itself until you ask, through bind:open. -->
 <script lang="ts">
 	import { Avatar, Badge, Navbar, NavbarGroup, NavbarLink } from '@joshicodes/cock';
 
