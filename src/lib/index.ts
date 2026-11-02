@@ -37,6 +37,7 @@ export { default as NumberInput } from './components/forms/NumberInput.svelte';
 export { default as PinInput } from './components/forms/PinInput.svelte';
 export { default as Radio } from './components/forms/Radio.svelte';
 export { default as RadioGroup } from './components/forms/RadioGroup.svelte';
+export { default as Rating } from './components/forms/Rating.svelte';
 export { default as SegmentedControl } from './components/forms/SegmentedControl.svelte';
 export { default as Select } from './components/forms/Select.svelte';
 export { default as Slider } from './components/forms/Slider.svelte';
@@ -67,6 +68,7 @@ export { default as Popover } from './components/overlays/Popover.svelte';
 export { default as Accordion } from './components/navigation/Accordion.svelte';
 export { default as AccordionItem } from './components/navigation/AccordionItem.svelte';
 export { default as Breadcrumb } from './components/navigation/Breadcrumb.svelte';
+export { default as Collapsible } from './components/navigation/Collapsible.svelte';
 export { default as Navbar } from './components/navigation/Navbar.svelte';
 export { default as NavbarGroup } from './components/navigation/NavbarGroup.svelte';
 export { default as NavbarLink } from './components/navigation/NavbarLink.svelte';
@@ -82,6 +84,8 @@ export { default as DataTable } from './components/data/DataTable.svelte';
 export { default as Heatmap } from './components/data/Heatmap.svelte';
 export { default as Sparkline } from './components/data/Sparkline.svelte';
 export { default as Table } from './components/data/Table.svelte';
+export { default as Timeline } from './components/data/Timeline.svelte';
+export { default as TimelineItem } from './components/data/TimelineItem.svelte';
 
 /* -- effects -------------------------------------------------------------- */
 export { default as Caret } from './components/effects/Caret.svelte';
@@ -128,6 +132,7 @@ export type { SegmentedOption } from './components/forms/SegmentedControl.svelte
 export type { SelectOption } from './components/forms/Select.svelte';
 export type { ComboboxOption } from './components/forms/Combobox.svelte';
 export type { StepperStep } from './components/forms/Stepper.svelte';
+export type { CollapsibleTriggerAttrs } from './components/navigation/Collapsible.svelte';
 export type {
 	DataTableColumn,
 	DataTableSort,

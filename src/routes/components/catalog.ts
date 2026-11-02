@@ -304,6 +304,18 @@ export const components: ComponentMeta[] = [
 		related: ['checkbox', 'select']
 	},
 	{
+		name: 'Rating',
+		slug: 'rating',
+		category: 'forms',
+		summary: 'Stars to give, or to show an average.',
+		notes: [
+			'Built from real radio buttons, so the arrow keys, form submission and screen readers behave as they do for any radio group.',
+			'Clicking the current rating again clears it, which a plain radio group cannot do.',
+			'`readonly` draws fractions, so an average of 3.6 shows three stars and most of a fourth, and is announced as "3.6 out of 5".'
+		],
+		related: ['radio-group', 'slider']
+	},
+	{
 		name: 'SegmentedControl',
 		slug: 'segmented-control',
 		category: 'forms',
@@ -605,6 +617,19 @@ export const components: ComponentMeta[] = [
 		related: ['breadcrumb', 'tabs', 'drawer']
 	},
 	{
+		name: 'Collapsible',
+		slug: 'collapsible',
+		category: 'navigation',
+		summary: 'One section that opens and closes.',
+		description:
+			'A single disclosure: a trigger and the content it shows. Use it for "show more", advanced settings or a long answer, where an `Accordion` would be a whole list for one item.',
+		notes: [
+			'With `title` it renders a small chevron button. Pass a `trigger` snippet instead and spread the attrs onto your own button; `aria-expanded` and `aria-controls` come with them.',
+			'The content is only rendered while open.'
+		],
+		related: ['accordion', 'popover']
+	},
+	{
 		name: 'Breadcrumb',
 		slug: 'breadcrumb',
 		category: 'navigation',
@@ -652,6 +677,18 @@ export const components: ComponentMeta[] = [
 			'Everything happens in the browser. For thousands of rows or server-side paging, sort and slice on the server and give it one page at a time with `pageSize={0}`.'
 		],
 		related: ['table', 'pagination', 'checkbox']
+	},
+	{
+		name: 'Timeline',
+		slug: 'timeline',
+		category: 'data',
+		summary: 'Events in order, with a dot, a line and a time.',
+		parts: ['TimelineItem'],
+		notes: [
+			'An ordered list underneath, and `time` renders a `<time>` element; give it `datetime` and machines can read it too.',
+			'`tone` colours the marker; an `icon` snippet replaces the dot.'
+		],
+		related: ['stepper', 'stat']
 	},
 	{
 		name: 'Stat',
@@ -788,6 +825,9 @@ const titles: Record<string, string> = {
 	Code: 'Inline code styling for Svelte',
 	Combobox: 'Svelte combobox with search and multi-select',
 	ContextMenu: 'Svelte right-click context menu',
+	Collapsible: 'Svelte collapsible section',
+	Rating: 'Star rating component for Svelte',
+	Timeline: 'Svelte timeline component',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',
