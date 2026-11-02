@@ -3,9 +3,10 @@
  * comparison table come from here, which is the only reason they can be called
  * measured rather than estimated.
  *
- * Run `bun run build` first — this bundles the packaged `dist`, not the source
- * — then `bun run measure`, and paste the block it prints into
- * `src/routes/facts.ts`.
+ * It runs as part of `bun run build`, after the package is built and before
+ * the site is: it bundles the packaged `dist`, not the source, and writes
+ * `src/routes/bundle.json`, which the site reads. The numbers cannot fall
+ * behind the package, because the site is never built without measuring.
  *
  * Each row is a Vite library build of one entry point: minified, Svelte
  * left external (your app already has it), gzipped at the default level. The
@@ -13,7 +14,7 @@
  * shares them.
  */
 import { gzipSync } from 'node:zlib';
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
@@ -133,11 +134,21 @@ for (const row of rows) {
 }
 
 const css = readFileSync(join(root, 'dist/styles/theme.css'));
+const output = join(root, 'src/routes/bundle.json');
 
-console.log(`
-export const bundle = {
-	measuredAt: '${new Date().toISOString().slice(0, 10)}',
-	version: '${pkg.version}',
-	rows: ${JSON.stringify(measured, null, '\t').replace(/\n/g, '\n\t')},
-	css: { raw: ${kb(css.byteLength)}, gzip: ${kb(gzipSync(css).byteLength)} }
-};`);
+const result = {
+	measuredAt: new Date().toISOString().slice(0, 10),
+	version: pkg.version as string,
+	rows: measured,
+	css: { raw: kb(css.byteLength), gzip: kb(gzipSync(css).byteLength) }
+};
+
+// Keep the old date when nothing changed, so rebuilding does not churn the file.
+if (existsSync(output)) {
+	const previous = JSON.parse(readFileSync(output, 'utf8'));
+	const same = (value: typeof result) => JSON.stringify({ ...value, measuredAt: '' });
+	if (same(previous) === same(result)) result.measuredAt = previous.measuredAt;
+}
+
+writeFileSync(output, JSON.stringify(result, null, '\t') + '\n');
+console.error(`Wrote ${output}`);

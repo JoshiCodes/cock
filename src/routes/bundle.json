@@ -1,0 +1,40 @@
+{
+	"measuredAt": "2026-11-02",
+	"version": "1.1.2",
+	"rows": [
+		{
+			"label": "clsx + tailwind-merge (shared baseline)",
+			"exports": 0,
+			"raw": 37.6,
+			"gzip": 9.6
+		},
+		{
+			"label": "One Button",
+			"exports": 1,
+			"raw": 41.2,
+			"gzip": 10.9
+		},
+		{
+			"label": "A form: Field, Input, Select, Checkbox, Switch, Button",
+			"exports": 6,
+			"raw": 53,
+			"gzip": 13.5
+		},
+		{
+			"label": "A typical app screen: card, table, modal, menu, tabs, toasts",
+			"exports": 20,
+			"raw": 68.5,
+			"gzip": 17.9
+		},
+		{
+			"label": "Everything the package exports",
+			"exports": 110,
+			"raw": 242.5,
+			"gzip": 58.4
+		}
+	],
+	"css": {
+		"raw": 9.5,
+		"gzip": 2.9
+	}
+}
