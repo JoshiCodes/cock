@@ -91,16 +91,12 @@ release workflow publishes to npm, tags the commit and writes the GitHub release
 notes. A version with a suffix (`0.2.0-beta.1`) goes out under the `next` tag as
 a pre-release. Anything else that touches `package.json` is skipped.
 
-Bundle sizes quoted on the site come from `src/routes/facts.ts`, and they are
-measured rather than estimated:
-
-```bash
-bun run build && bun run measure
-```
-
-That prints a block to paste over the one in `facts.ts`. Do it after a release,
-not before — it bundles the packaged `dist`, so it measures what people actually
-install.
+Bundle sizes quoted on the site are measured, not estimated, and nobody has to
+remember to do it: `bun run build` packages the library, bundles each entry
+point of the packaged `dist` (`scripts/measure-bundle.ts`), writes
+`src/routes/bundle.json` and only then builds the site. Commit the JSON when it
+changes. The component and page counts come from the catalog, and the version
+from `package.json`.
 
 ## Running the preview site
 
