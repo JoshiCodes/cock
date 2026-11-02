@@ -166,6 +166,20 @@ export const components: ComponentMeta[] = [
 		summary: 'The dashed box for lists that have nothing in them yet.',
 		related: ['card', 'skeleton']
 	},
+	{
+		name: 'ScrollArea',
+		slug: 'scroll-area',
+		category: 'layout',
+		summary: 'Thin, themed scrollbars, with shadows where there is more to see.',
+		description:
+			'The native scrollbar, styled to match the theme, so scrolling, touch and the keyboard behave exactly as the platform does. Shadows on the edges show that there is more content in that direction, and fade out when there is not.',
+		notes: [
+			'Set the height on the component: a `max-h-*` grows with the content up to that size, a `h-*` is fixed.',
+			'While the content overflows, the region becomes focusable with `tabindex="0"`, so it can be scrolled with the arrow keys. Give it a `label`, since a focusable region needs a name.',
+			'Chrome, Edge and Firefox read the standard `scrollbar-color`; older Safari falls back to the prefixed pseudo-elements. Nothing is reimplemented in JavaScript.'
+		],
+		related: ['table', 'card']
+	},
 
 	/* -- forms --------------------------------------------------------------- */
 	{
@@ -451,6 +465,28 @@ export const components: ComponentMeta[] = [
 		related: ['dropdown-menu', 'tooltip', 'modal']
 	},
 	{
+		name: 'ContextMenu',
+		slug: 'context-menu',
+		category: 'overlays',
+		summary: 'The right-click menu, built from the same items as the dropdown.',
+		description:
+			"Wrap an area, give it a `menu` snippet, and a right click opens it at the pointer instead of the browser's own. The items are the ones `DropdownMenu` uses, so a menu written for one works in the other.",
+		keyboard: [
+			['Shift+F10', 'Opens the menu for the focused area, below it'],
+			['↓ ↑', 'Moves between items'],
+			['Home / End', 'First and last item'],
+			['Esc', 'Closes and returns focus to where it was']
+		],
+		notes: [
+			'Opens at the pointer and slides back in rather than run off the edge of the screen. Scrolling, resizing or leaving the window closes it.',
+			'The area needs `tabindex="0"` for Shift+F10 to reach it; the component does not add one, because often the area is already a focusable thing.',
+			'Safari on iOS fires no context menu on a long press. Anything important should be reachable another way too, which is good advice for right-click menus anyway.',
+			"`disabled` lets the browser's own menu through, for example while someone is editing text inside the area.",
+			'Renders into `<body>`, so an `overflow: hidden` ancestor cannot clip it.'
+		],
+		related: ['dropdown-menu', 'command-palette']
+	},
+	{
 		name: 'DropdownMenu',
 		slug: 'dropdown-menu',
 		category: 'overlays',
@@ -702,6 +738,8 @@ const titles: Record<string, string> = {
 	Caret: 'Blinking caret for Svelte',
 	Code: 'Inline code styling for Svelte',
 	Combobox: 'Svelte combobox with search and multi-select',
+	ContextMenu: 'Svelte right-click context menu',
+	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',

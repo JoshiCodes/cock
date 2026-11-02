@@ -23,6 +23,7 @@ export { default as CardDescription } from './components/layout/CardDescription.
 export { default as CardContent } from './components/layout/CardContent.svelte';
 export { default as CardFooter } from './components/layout/CardFooter.svelte';
 export { default as EmptyState } from './components/layout/EmptyState.svelte';
+export { default as ScrollArea } from './components/layout/ScrollArea.svelte';
 
 /* -- forms ---------------------------------------------------------------- */
 export { default as Checkbox } from './components/forms/Checkbox.svelte';
@@ -51,6 +52,7 @@ export { default as Tooltip } from './components/feedback/Tooltip.svelte';
 
 /* -- overlays ------------------------------------------------------------- */
 export { default as CommandPalette } from './components/overlays/CommandPalette.svelte';
+export { default as ContextMenu } from './components/overlays/ContextMenu.svelte';
 export { default as Drawer } from './components/overlays/Drawer.svelte';
 export { default as DropdownMenu } from './components/overlays/DropdownMenu.svelte';
 export { default as MenuItem } from './components/overlays/MenuItem.svelte';
