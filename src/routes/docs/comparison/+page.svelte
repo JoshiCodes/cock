@@ -109,9 +109,10 @@
 			compete with it.
 		</li>
 		<li>
-			<strong class="font-medium text-fg">Not as deep on hard widgets.</strong> There is no combobox,
-			date picker, virtualised list or tree. Those are months of accessibility work each, and the libraries
-			above have already done it.
+			<strong class="font-medium text-fg">Not as deep on hard widgets.</strong> The combobox is new and
+			filters a list you already have; it does not fetch as you type. There is no date picker, virtualised
+			list or tree. Those are months of accessibility work each, and the libraries above have already
+			done it.
 		</li>
 		<li>
 			<strong class="font-medium text-fg">Not battle-tested.</strong> It is new, and it is largely one
@@ -125,7 +126,7 @@
 
 	<Alert variant="info" title="A reasonable combination" class="mt-6">
 		Nothing stops you using this for layout, forms and feedback, and reaching for Bits UI the day
-		you need a real combobox. They do not fight: this kit styles its own elements and does not touch
+		you need a date picker. They do not fight: this kit styles its own elements and does not touch
 		Tailwind's class names.
 	</Alert>
 
