@@ -7,6 +7,7 @@
  * `getContext` for every child.
  */
 export const ACCORDION = 'ck:accordion';
+export const CAROUSEL = 'ck:carousel';
 export const MENU = 'ck:menu';
 export const NAVBAR = 'ck:navbar';
 export const RADIO_GROUP = 'ck:radio-group';

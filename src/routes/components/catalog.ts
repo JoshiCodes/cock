@@ -722,6 +722,22 @@ export const components: ComponentMeta[] = [
 		related: ['table', 'pagination', 'checkbox']
 	},
 	{
+		name: 'Carousel',
+		slug: 'carousel',
+		category: 'data',
+		summary: 'Slides that swipe, with buttons, dots and optional autoplay.',
+		description:
+			'Built on native scroll snapping, so swiping, trackpads and momentum behave as they do everywhere else on the device. Buttons and dots move it for everyone without a touch screen.',
+		parts: ['CarouselSlide'],
+		notes: [
+			'Follows the ARIA carousel pattern: the region and every slide carry a role description, and each slide is labelled "2 of 5".',
+			'`autoplay` stops while the pointer is over it or focus is inside, comes with a button to stop it for good, and never starts when the visitor prefers reduced motion.',
+			'A slide is full width by default. Give `CarouselSlide` a class like `basis-1/2` to show two at a time.',
+			'Use it for things people may skip. Anything they must see belongs on the page, not on slide four.'
+		],
+		related: ['marquee', 'card']
+	},
+	{
 		name: 'Timeline',
 		slug: 'timeline',
 		category: 'data',
@@ -873,6 +889,7 @@ const titles: Record<string, string> = {
 	Timeline: 'Svelte timeline component',
 	Resizable: 'Resizable panels for Svelte',
 	TreeView: 'Svelte tree view with keyboard navigation',
+	Carousel: 'Svelte carousel with swipe and autoplay',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',

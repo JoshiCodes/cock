@@ -88,6 +88,8 @@ export { default as DataTable } from './components/data/DataTable.svelte';
 export { default as Heatmap } from './components/data/Heatmap.svelte';
 export { default as Sparkline } from './components/data/Sparkline.svelte';
 export { default as Table } from './components/data/Table.svelte';
+export { default as Carousel } from './components/data/Carousel.svelte';
+export { default as CarouselSlide } from './components/data/CarouselSlide.svelte';
 export { default as Timeline } from './components/data/Timeline.svelte';
 export { default as TimelineItem } from './components/data/TimelineItem.svelte';
 

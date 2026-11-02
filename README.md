@@ -16,14 +16,17 @@
 </p>
 
 <p align="center">
-    <img alt="NPM Version" src="https://img.shields.io/npm/v/%40joshicodes%2Fcock">
-    <img alt="NPM Last Update" src="https://img.shields.io/npm/last-update/%40joshicodes%2Fcock">
-
+    <a href="https://www.npmjs.com/package/@joshicodes/cock">
+        <img alt="NPM Version" src="https://img.shields.io/npm/v/%40joshicodes%2Fcock">
+    </a>
+    <a href="https://www.npmjs.com/package/@joshicodes/cock">
+        <img alt="NPM Last Update" src="https://img.shields.io/npm/last-update/%40joshicodes%2Fcock">
+    </a>
 </p>
 
 ---
 
-75 components for Svelte 5 and Tailwind 4, written in TypeScript. Forms, dialogs,
+85 components for Svelte 5 and Tailwind 4, written in TypeScript. Forms, dialogs,
 menus, tables and a few effects, with the keyboard handling and dark mode already
 done. Two runtime dependencies: `clsx` and `tailwind-merge`.
 
