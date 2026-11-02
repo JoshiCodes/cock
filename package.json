@@ -24,7 +24,20 @@
 		"design-system",
 		"runes",
 		"accessible",
-		"dark-mode"
+		"dark-mode",
+		"svelte-components",
+		"svelte-ui",
+		"svelte-ui-library",
+		"tailwind-components",
+		"ui-kit",
+		"theming",
+		"oklch",
+		"modal",
+		"combobox",
+		"data-table",
+		"tree-view",
+		"carousel",
+		"toast"
 	],
 	"type": "module",
 	"engines": {

@@ -2,11 +2,26 @@
 	import { Card } from '@joshicodes/cock';
 	import Inline from '../showcase/Inline.svelte';
 	import Seo from '../showcase/Seo.svelte';
-	import { grouped } from './catalog.js';
+	import { components, grouped } from './catalog.js';
+	import { site } from '../seo.js';
 	import { stats } from '../facts.js';
 </script>
 
 <Seo
+	structured={[
+		{
+			'@context': 'https://schema.org',
+			'@type': 'ItemList',
+			name: 'cock components',
+			numberOfItems: components.length,
+			itemListElement: components.map((entry, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				name: entry.name,
+				url: new URL(`/components/${entry.slug}`, site.url).href
+			}))
+		}
+	]}
 	title="{stats.components} Svelte 5 components for Tailwind 4"
 	path="/components"
 	description="{stats.components} components on {stats.pages} pages: buttons, forms, overlays, navigation, data and effects, each with examples and a full prop table."
