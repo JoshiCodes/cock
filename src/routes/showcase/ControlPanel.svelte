@@ -1,5 +1,18 @@
 <script lang="ts">
-	import { accents, theme, Button, Modal, Slider, Switch, ThemeToggle, cn } from '@joshicodes/cock';
+	import {
+		accents,
+		theme,
+		Button,
+		ColorPicker,
+		Modal,
+		Popover,
+		Slider,
+		Switch,
+		ThemeToggle,
+		cn,
+		oklchToHex,
+		parseColor
+	} from '@joshicodes/cock';
 	import CodeBlock from './CodeBlock.svelte';
 	import { exportTheme } from './exportTheme.js';
 	import { luminance, shift, tokenHex } from './color.js';
@@ -47,9 +60,12 @@
 		// An accent needs a hover shade and readable text on top. Neither is
 		// worth deriving in CSS, so they are set alongside it.
 		if (token === '--ck-accent') {
+			const parsed = parseColor(value);
+			if (!parsed) return;
+			const hexValue = oklchToHex(parsed);
 			const dark = theme.resolved === 'dark';
-			theme.setToken('--ck-accent-hover', shift(value, dark ? 8 : -10));
-			theme.setToken('--ck-accent-fg', luminance(value) > 0.42 ? '#17181b' : '#ffffff');
+			theme.setToken('--ck-accent-hover', shift(hexValue, dark ? 8 : -10));
+			theme.setToken('--ck-accent-fg', luminance(hexValue) > 0.42 ? '#17181b' : '#ffffff');
 		}
 	}
 
@@ -129,22 +145,33 @@
 
 		<div class="grid gap-2 sm:grid-cols-3">
 			{#each colors as field (field.token)}
-				<label
-					class="flex cursor-pointer items-center gap-3 rounded-md border border-border bg-bg p-2.5 transition-colors hover:border-border-strong"
-				>
-					<span class="relative size-8 shrink-0 overflow-hidden rounded-md border border-black/10">
-						<input
-							type="color"
-							value={hex[field.token] ?? '#000000'}
-							oninput={(event) => setColor(field.token, event.currentTarget.value)}
-							class="absolute -inset-2 size-[calc(100%+1rem)] cursor-pointer border-0 bg-transparent p-0"
-						/>
-					</span>
-					<span class="min-w-0">
-						<span class="block text-sm text-fg">{field.label}</span>
-						<span class="block text-xs text-fg-subtle tabular-nums">{hex[field.token] ?? ''}</span>
-					</span>
-				</label>
+				<Popover placement="bottom-start">
+					{#snippet trigger(attrs)}
+						<button
+							type="button"
+							{...attrs}
+							aria-label="Change the {field.label.toLowerCase()} colour"
+							class="flex w-full cursor-pointer items-center gap-3 rounded-md border border-border bg-bg p-2.5 text-left transition-colors hover:border-border-strong"
+						>
+							<span
+								class="size-8 shrink-0 rounded-md border border-black/10"
+								style:background={hex[field.token] ?? 'transparent'}
+							></span>
+							<span class="min-w-0">
+								<span class="block text-sm text-fg">{field.label}</span>
+								<span class="block text-xs text-fg-subtle tabular-nums">
+									{hex[field.token] ?? ''}
+								</span>
+							</span>
+						</button>
+					{/snippet}
+
+					<ColorPicker
+						value={hex[field.token] ?? '#000000'}
+						label={field.label}
+						onchange={(value) => setColor(field.token, value)}
+					/>
+				</Popover>
 			{/each}
 		</div>
 	</div>

@@ -167,6 +167,26 @@ export const components: ComponentMeta[] = [
 		related: ['card', 'skeleton']
 	},
 	{
+		name: 'Resizable',
+		slug: 'resizable',
+		category: 'layout',
+		summary: 'Panels with a line between them you can drag.',
+		description:
+			'For layouts that people arrange themselves: a file tree beside an editor, a preview under the code. Put `ResizablePanel`s in a `Resizable` with a `ResizableHandle` between each pair, and nest groups for a grid.',
+		parts: ['ResizablePanel', 'ResizableHandle'],
+		keyboard: [
+			['← → / ↑ ↓', 'Moves the focused handle by 5%'],
+			['Home / End', 'Shrinks or grows the panel before it as far as it may go']
+		],
+		notes: [
+			'Sizes and limits are percentages of the group. Panels without a `size` share what the others leave.',
+			'Dragging respects both neighbours: a handle stops when either panel reaches its `min` or `max`.',
+			'Each handle is a focusable `separator` that reports the panel size, which is the ARIA pattern for a splitter.',
+			'The group fills its parent, so give the parent a height. `onresize` hands you the sizes to store if the layout should survive a reload.'
+		],
+		related: ['scroll-area', 'card']
+	},
+	{
 		name: 'ScrollArea',
 		slug: 'scroll-area',
 		category: 'layout',
@@ -302,6 +322,18 @@ export const components: ComponentMeta[] = [
 			'`Radio` reads the group through context, so it has to sit inside a `RadioGroup`. On its own it throws with a readable message rather than silently doing nothing.'
 		],
 		related: ['checkbox', 'select']
+	},
+	{
+		name: 'Rating',
+		slug: 'rating',
+		category: 'forms',
+		summary: 'Stars to give, or to show an average.',
+		notes: [
+			'Built from real radio buttons, so the arrow keys, form submission and screen readers behave as they do for any radio group.',
+			'Clicking the current rating again clears it, which a plain radio group cannot do.',
+			'`readonly` draws fractions, so an average of 3.6 shows three stars and most of a fourth, and is announced as "3.6 out of 5".'
+		],
+		related: ['radio-group', 'slider']
 	},
 	{
 		name: 'SegmentedControl',
@@ -605,6 +637,42 @@ export const components: ComponentMeta[] = [
 		related: ['breadcrumb', 'tabs', 'drawer']
 	},
 	{
+		name: 'Collapsible',
+		slug: 'collapsible',
+		category: 'navigation',
+		summary: 'One section that opens and closes.',
+		description:
+			'A single disclosure: a trigger and the content it shows. Use it for "show more", advanced settings or a long answer, where an `Accordion` would be a whole list for one item.',
+		notes: [
+			'With `title` it renders a small chevron button. Pass a `trigger` snippet instead and spread the attrs onto your own button; `aria-expanded` and `aria-controls` come with them.',
+			'The content is only rendered while open.'
+		],
+		related: ['accordion', 'popover']
+	},
+	{
+		name: 'TreeView',
+		slug: 'tree-view',
+		category: 'navigation',
+		summary: 'Nested items that fold, with the full ARIA tree keyboard.',
+		description:
+			'File trees, nested settings, anything with branches. Give it nodes with `children`, bind which ones are open and which is selected, and the keyboard works the way screen reader users expect a tree to.',
+		keyboard: [
+			['↓ ↑', 'Next or previous visible item'],
+			['→', 'Opens a branch, or moves into an open one'],
+			['←', 'Closes a branch, or moves up to its parent'],
+			['Home / End', 'First and last visible item'],
+			['Enter / Space', 'Selects; Enter also opens or closes a branch'],
+			['*', 'Opens every branch on the same level'],
+			['a–z', 'Jumps to the next item starting with what you typed']
+		],
+		notes: [
+			'One item is in the tab order at a time, so Tab leaves the tree instead of walking through every row.',
+			'Every item reports its level, position and set size, so "item 2 of 3, level 2" is read out without you doing anything.',
+			"The `item` snippet replaces a row's label, for icons or badges; the chevron and indentation stay."
+		],
+		related: ['accordion', 'navbar']
+	},
+	{
 		name: 'Breadcrumb',
 		slug: 'breadcrumb',
 		category: 'navigation',
@@ -625,6 +693,20 @@ export const components: ComponentMeta[] = [
 
 	/* -- data ---------------------------------------------------------------- */
 	{
+		name: 'Table',
+		slug: 'table',
+		category: 'data',
+		summary: 'Styling for plain table markup, in two tones.',
+		description:
+			'It styles `thead` and `tbody`; the markup stays yours. Sorting and selection are deliberately left out, because every project wants them slightly differently.',
+		notes: [
+			'`tone="accent"` carries the theme colour into the header, the stripes and the hover state.',
+			'`<tr aria-selected="true">` marks a selected row in either tone.',
+			'The wrapper scrolls sideways, so a wide table does not break the page on a phone.'
+		],
+		related: ['pagination', 'stat']
+	},
+	{
 		name: 'DataTable',
 		slug: 'data-table',
 		category: 'data',
@@ -640,18 +722,32 @@ export const components: ComponentMeta[] = [
 		related: ['table', 'pagination', 'checkbox']
 	},
 	{
-		name: 'Table',
-		slug: 'table',
+		name: 'Carousel',
+		slug: 'carousel',
 		category: 'data',
-		summary: 'Styling for plain table markup, in two tones.',
+		summary: 'Slides that swipe, with buttons, dots and optional autoplay.',
 		description:
-			'It styles `thead` and `tbody`; the markup stays yours. Sorting and selection are deliberately left out, because every project wants them slightly differently.',
+			'Built on native scroll snapping, so swiping, trackpads and momentum behave as they do everywhere else on the device. Buttons and dots move it for everyone without a touch screen.',
+		parts: ['CarouselSlide'],
 		notes: [
-			'`tone="accent"` carries the theme colour into the header, the stripes and the hover state.',
-			'`<tr aria-selected="true">` marks a selected row in either tone.',
-			'The wrapper scrolls sideways, so a wide table does not break the page on a phone.'
+			'Follows the ARIA carousel pattern: the region and every slide carry a role description, and each slide is labelled "2 of 5".',
+			'`autoplay` stops while the pointer is over it or focus is inside, comes with a button to stop it for good, and never starts when the visitor prefers reduced motion.',
+			'A slide is full width by default. Give `CarouselSlide` a class like `basis-1/2` to show two at a time.',
+			'Use it for things people may skip. Anything they must see belongs on the page, not on slide four.'
 		],
-		related: ['pagination', 'stat']
+		related: ['marquee', 'card']
+	},
+	{
+		name: 'Timeline',
+		slug: 'timeline',
+		category: 'data',
+		summary: 'Events in order, with a dot, a line and a time.',
+		parts: ['TimelineItem'],
+		notes: [
+			'An ordered list underneath, and `time` renders a `<time>` element; give it `datetime` and machines can read it too.',
+			'`tone` colours the marker; an `icon` snippet replaces the dot.'
+		],
+		related: ['stepper', 'stat']
 	},
 	{
 		name: 'Stat',
@@ -788,6 +884,12 @@ const titles: Record<string, string> = {
 	Code: 'Inline code styling for Svelte',
 	Combobox: 'Svelte combobox with search and multi-select',
 	ContextMenu: 'Svelte right-click context menu',
+	Collapsible: 'Svelte collapsible section',
+	Rating: 'Star rating component for Svelte',
+	Timeline: 'Svelte timeline component',
+	Resizable: 'Resizable panels for Svelte',
+	TreeView: 'Svelte tree view with keyboard navigation',
+	Carousel: 'Svelte carousel with swipe and autoplay',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',

@@ -63,16 +63,18 @@
 	--ck-shadow: 0 1px 2px oklch(0 0 0 / 0.05), 0 6px 16px -6px oklch(0 0 0 / 0.12);
 	--ck-shadow-lg: 0 2px 4px oklch(0 0 0 / 0.04), 0 16px 40px -12px oklch(0 0 0 / 0.2);
 
-	/* Code panels stay dark in both modes, so they read as a different material. */
-	--ck-code-bg: oklch(0.225 0.013 258.371);
+	/* Code panels stay dark in both modes, so they read as a different material.
+	   On a light page a softer dark, so the panel does not punch a hole in it;
+	   every colour below still clears 4.5:1 against it. */
+	--ck-code-bg: oklch(0.29 0.013 258);
 	--ck-code-fg: oklch(0.89 0.012 265);
-	--ck-code-line: oklch(0.309 0.011 236.973);
-	--ck-code-tag: oklch(0.697 0.152 25.571);
+	--ck-code-line: oklch(0.37 0.011 237);
+	--ck-code-tag: oklch(0.72 0.15 25.571);
 	--ck-code-attr: oklch(0.816 0.114 90.556);
 	--ck-code-string: oklch(0.795 0.129 162.925);
 	--ck-code-keyword: oklch(0.74 0.11 295);
-	--ck-code-comment: oklch(0.56 0.02 265);
-	--ck-code-punct: oklch(0.66 0.025 265);
+	--ck-code-comment: oklch(0.66 0.02 265);
+	--ck-code-punct: oklch(0.7 0.025 265);
 }
 
 .dark,
