@@ -25,8 +25,10 @@
 </script>
 
 <div class={cn('relative overflow-hidden bg-code-bg text-code-fg', className)}>
+	<!-- On a phone a line rarely fits, so the labels get a row of their own
+	     instead of sitting on top of the code. -->
 	<div
-		class="absolute top-2 right-2 flex items-center gap-2 rounded-md bg-code-bg/92 pl-2 backdrop-blur-[2px]"
+		class="flex items-center justify-end gap-2 px-2 pt-2 sm:absolute sm:top-2 sm:right-2 sm:rounded-md sm:bg-code-bg/92 sm:p-0 sm:pl-2 sm:backdrop-blur-[2px]"
 	>
 		{#if label}
 			<span class="font-mono text-xs text-white/35">{label}</span>
@@ -40,7 +42,8 @@
 		</button>
 	</div>
 
-	<pre class="overflow-x-auto p-4 pr-24 font-mono text-[0.78rem] leading-[1.7]"><code
+	<pre
+		class="overflow-x-auto p-4 pt-1 font-mono text-[0.78rem] leading-[1.7] sm:pt-4 sm:pr-24"><code
 			>{@html highlight(code)}</code
 		></pre>
 </div>

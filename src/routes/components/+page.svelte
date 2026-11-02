@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Card } from '@joshicodes/cock';
+	import Inline from '../showcase/Inline.svelte';
 	import Seo from '../showcase/Seo.svelte';
 	import { components, grouped } from './catalog.js';
 	import { stats } from '../facts.js';
@@ -22,7 +23,7 @@
 	</header>
 
 	{#each grouped as group (group.category.id)}
-		<section class="space-y-4">
+		<section id={group.category.id} class="scroll-mt-24 space-y-4">
 			<div>
 				<h2 class="text-xl font-semibold tracking-tight text-fg">{group.category.title}</h2>
 				<p class="mt-1 text-sm text-fg-muted">{group.category.blurb}</p>
@@ -33,7 +34,9 @@
 					<a href="/components/{item.slug}" class="group">
 						<Card variant="raised" padding="md" class="h-full">
 							<p class="font-medium text-fg group-hover:text-accent">{item.name}</p>
-							<p class="mt-1 text-sm leading-relaxed text-fg-muted">{item.summary}</p>
+							<p class="mt-1 text-sm leading-relaxed text-fg-muted">
+								<Inline text={item.summary} />
+							</p>
 						</Card>
 					</a>
 				{/each}
