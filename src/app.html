@@ -26,6 +26,13 @@
 		<meta name="theme-color" content="#faf9fa" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#121014" media="(prefers-color-scheme: dark)" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--
+			Opts in to the visitor's operating-system text size (Dynamic Type on iOS,
+			font size on Android): the browser scales the root font size, and every
+			rem follows. It only works while no stylesheet sets the root font-size,
+			so keep it that way. Chromium supports it so far; others ignore it.
+			https://developer.chrome.com/docs/modern-web-guidance/guides/accessibility/respect-os-text-scale
+		-->
 		<meta name="text-scale" content="scale" />
 		%sveltekit.head%
 	</head>

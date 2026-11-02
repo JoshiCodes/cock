@@ -1,8 +1,15 @@
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { themeScript } from './src/lib/state/theme-script.js';
+
+// The no-flash theme script is injected by a hook, not by SvelteKit, so its
+// hash has to be allowed by hand. It follows the script, so it cannot go stale.
+const themeScriptHash =
+	`sha256-${createHash('sha256').update(themeScript).digest('base64')}` as const;
 
 export default defineConfig({
 	resolve: {
@@ -29,6 +36,27 @@ export default defineConfig({
 
 			// The preview site runs as a Node server in Docker; see Dockerfile.
 			adapter: adapter(),
+
+			// Hashes every inline script SvelteKit writes. Prerendered pages get the
+			// policy as a <meta> tag; server.js adds the parts a meta tag cannot carry.
+			csp: {
+				mode: 'hash',
+				directives: {
+					'default-src': ['self'],
+					'script-src': ['self', themeScriptHash],
+					// Svelte transitions and style: directives write inline styles.
+					'style-src': ['self', 'unsafe-inline'],
+					'img-src': ['self', 'data:'],
+					// Vite inlines small font files as data: URIs.
+					'font-src': ['self', 'data:'],
+					'connect-src': ['self'],
+					'object-src': ['none'],
+					'base-uri': ['self'],
+					'form-action': ['self'],
+					// Left out of <meta> by SvelteKit, where browsers ignore it; server.js covers those.
+					'frame-ancestors': ['none']
+				}
+			},
 
 			prerender: {
 				handleMissingId: ({ path, message }) => {
