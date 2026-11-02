@@ -625,6 +625,20 @@ export const components: ComponentMeta[] = [
 
 	/* -- data ---------------------------------------------------------------- */
 	{
+		name: 'Table',
+		slug: 'table',
+		category: 'data',
+		summary: 'Styling for plain table markup, in two tones.',
+		description:
+			'It styles `thead` and `tbody`; the markup stays yours. Sorting and selection are deliberately left out, because every project wants them slightly differently.',
+		notes: [
+			'`tone="accent"` carries the theme colour into the header, the stripes and the hover state.',
+			'`<tr aria-selected="true">` marks a selected row in either tone.',
+			'The wrapper scrolls sideways, so a wide table does not break the page on a phone.'
+		],
+		related: ['pagination', 'stat']
+	},
+	{
 		name: 'DataTable',
 		slug: 'data-table',
 		category: 'data',
@@ -638,20 +652,6 @@ export const components: ComponentMeta[] = [
 			'Everything happens in the browser. For thousands of rows or server-side paging, sort and slice on the server and give it one page at a time with `pageSize={0}`.'
 		],
 		related: ['table', 'pagination', 'checkbox']
-	},
-	{
-		name: 'Table',
-		slug: 'table',
-		category: 'data',
-		summary: 'Styling for plain table markup, in two tones.',
-		description:
-			'It styles `thead` and `tbody`; the markup stays yours. Sorting and selection are deliberately left out, because every project wants them slightly differently.',
-		notes: [
-			'`tone="accent"` carries the theme colour into the header, the stripes and the hover state.',
-			'`<tr aria-selected="true">` marks a selected row in either tone.',
-			'The wrapper scrolls sideways, so a wide table does not break the page on a phone.'
-		],
-		related: ['pagination', 'stat']
 	},
 	{
 		name: 'Stat',
