@@ -77,6 +77,7 @@ export { default as Tabs } from './components/navigation/Tabs.svelte';
 
 /* -- data ----------------------------------------------------------------- */
 export { default as Stat } from './components/data/Stat.svelte';
+export { default as DataTable } from './components/data/DataTable.svelte';
 export { default as Heatmap } from './components/data/Heatmap.svelte';
 export { default as Sparkline } from './components/data/Sparkline.svelte';
 export { default as Table } from './components/data/Table.svelte';
@@ -125,6 +126,11 @@ export type { SegmentedOption } from './components/forms/SegmentedControl.svelte
 export type { SelectOption } from './components/forms/Select.svelte';
 export type { ComboboxOption } from './components/forms/Combobox.svelte';
 export type { StepperStep } from './components/forms/Stepper.svelte';
+export type {
+	DataTableColumn,
+	DataTableSort,
+	SortDirection
+} from './components/data/DataTable.svelte';
 export type { Crumb } from './components/navigation/Breadcrumb.svelte';
 export type { TabsVariant } from './components/navigation/Tabs.svelte';
 export type { NavbarOrientation, NavbarCollapse } from './components/navigation/Navbar.svelte';

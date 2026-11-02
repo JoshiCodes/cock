@@ -606,6 +606,21 @@ export const components: ComponentMeta[] = [
 
 	/* -- data ---------------------------------------------------------------- */
 	{
+		name: 'DataTable',
+		slug: 'data-table',
+		category: 'data',
+		summary: 'Table with sorting, row selection, search and pages.',
+		description:
+			'`Table` with the behaviour most screens end up writing by hand. Give it rows and column definitions and it sorts, filters by a search string, selects rows by a key you choose, and pages with `Pagination`. Every cell can be rendered through one snippet, so badges and links still fit.',
+		notes: [
+			'Sorting compares numbers as numbers, dates as dates and text in natural order, so "Hen 10" comes after "Hen 9". Empty values stay at the bottom either way.',
+			'A third click on a sorted header returns the rows to the order they came in. The header carries `aria-sort`, so screen readers announce the direction.',
+			'Selection is a bound array of row keys. It survives sorting, searching and paging; "select all" covers every row that matches the search, not just the page on screen.',
+			'Everything happens in the browser. For thousands of rows or server-side paging, sort and slice on the server and give it one page at a time with `pageSize={0}`.'
+		],
+		related: ['table', 'pagination', 'checkbox']
+	},
+	{
 		name: 'Table',
 		slug: 'table',
 		category: 'data',
@@ -756,6 +771,7 @@ const titles: Record<string, string> = {
 	ContextMenu: 'Svelte right-click context menu',
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
+	DataTable: 'Svelte data table: sorting, selection, paging',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',
