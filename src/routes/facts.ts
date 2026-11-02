@@ -1,38 +1,27 @@
 /**
- * Measured, not estimated.
+ * Every number the site states about the kit, derived rather than typed in.
  *
- * Produced by `bun run measure` — see scripts/measure-bundle.ts — which builds
- * each entry point against the packaged `dist`, minified, with Svelte external,
- * and gzips the result. Re-run it after a release and paste the block in;
- * nudging a number by hand defeats the point of having it.
+ * `bundle.json` is written by scripts/measure-bundle.ts, which `bun run build`
+ * runs against the packaged `dist` before building the site. The counts come
+ * from the catalog, the same list that feeds the sitemap and llms.txt, and the
+ * version from package.json.
  */
-export const bundle = {
-	measuredAt: '2026-11-01',
-	version: '1.0.0',
-	rows: [
-		{ label: 'clsx + tailwind-merge (shared baseline)', exports: 0, raw: 37.6, gzip: 9.6 },
-		{ label: 'One Button', exports: 1, raw: 41.2, gzip: 10.9 },
-		{
-			label: 'A form: Field, Input, Select, Checkbox, Switch, Button',
-			exports: 6,
-			raw: 53,
-			gzip: 13.5
-		},
-		{
-			label: 'A typical app screen: card, table, modal, menu, tabs, toasts',
-			exports: 20,
-			raw: 68.5,
-			gzip: 17.9
-		},
-		{ label: 'Everything the package exports', exports: 88, raw: 173.4, gzip: 41.5 }
-	],
-	css: { raw: 9.4, gzip: 2.8 }
-};
+import measured from './bundle.json';
+import pkg from '../../package.json';
+import { componentCount, components } from './components/catalog.js';
+
+export const bundle = measured;
+
+export const version = pkg.version;
+
+const baseline = bundle.rows[0].gzip;
+const everything = bundle.rows[bundle.rows.length - 1].gzip;
 
 export const stats = {
-	components: 85,
-	pages: 66,
-	runtimeDependencies: 2,
-	/** Beyond the shared baseline, averaged over all 85. */
-	perComponentGzipKb: 0.48
+	components: componentCount,
+	/** One page per catalog entry; parts share their component's page. */
+	pages: components.length,
+	runtimeDependencies: Object.keys(pkg.dependencies).length,
+	/** Beyond the shared baseline, averaged over every component. */
+	perComponentGzipKb: Number(((everything - baseline) / componentCount).toFixed(2))
 };

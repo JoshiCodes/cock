@@ -2,7 +2,7 @@
 	import { Badge, Button, Card, Marquee, Terminal, cn } from '@joshicodes/cock';
 	import CodeBlock from './showcase/CodeBlock.svelte';
 	import Seo from './showcase/Seo.svelte';
-	import { bundle, stats } from './facts.js';
+	import { bundle, stats, version } from './facts.js';
 	import { components } from './components/catalog.js';
 	import { rivals } from './docs/comparison/rivals.js';
 	import { site as meta } from './seo.js';
@@ -48,6 +48,10 @@
 			codeRepository: meta.repo,
 			programmingLanguage: ['TypeScript', 'Svelte'],
 			runtimePlatform: 'SvelteKit',
+			version,
+			keywords: 'Svelte 5, Tailwind CSS 4, component library, UI kit, accessible, dark mode, OKLCH',
+			image: new URL(meta.image, meta.url).href,
+			sameAs: [meta.repo, 'https://www.npmjs.com/package/@joshicodes/cock'],
 			license: 'https://opensource.org/licenses/MIT',
 			author: { '@type': 'Person', ...meta.author }
 		},
@@ -87,7 +91,7 @@
 			startOnView={false}
 			lines={[
 				{ kind: 'command', text: 'bun add @joshicodes/cock', delay: 600 },
-				{ text: `+ @joshicodes/cock@${bundle.version}`, tone: 'success' },
+				{ text: `+ @joshicodes/cock@${version}`, tone: 'success' },
 				{
 					text: `${stats.components} components, ${stats.runtimeDependencies} dependencies, no surprises`,
 					tone: 'muted'

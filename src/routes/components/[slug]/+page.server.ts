@@ -2,6 +2,7 @@ import { error } from '@sveltejs/kit';
 import { bySlug, components } from '../catalog.js';
 import { componentDocs } from '../props.server.js';
 import { typeNames } from '../../docs/types/extract.server.js';
+import { lastmod } from '../../lastmod.server.js';
 
 /** Tells the prerenderer about every component page up front. */
 export const entries = () => components.map((entry) => ({ slug: entry.slug }));
@@ -15,5 +16,8 @@ export function load({ params }) {
 		.map((name) => componentDocs[name])
 		.filter((doc) => doc !== undefined);
 
-	return { meta, docs, typeNames };
+	// The same date the sitemap gives, for the article's dateModified.
+	const modified = lastmod(`/components/${meta.slug}`);
+
+	return { meta, docs, typeNames, modified };
 }
