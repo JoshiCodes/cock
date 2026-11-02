@@ -93,8 +93,11 @@ const rows = [
 const kb = (bytes: number) => Number((bytes / 1024).toFixed(1));
 
 async function measure(source: string): Promise<{ raw: number; gzip: number }> {
-	// Inside the project: a folder in /tmp cannot resolve clsx or svelte.
-	const dir = mkdtempSync(join(root, 'node_modules/.cache/cock-measure-'));
+	// Inside the project: a folder in /tmp cannot resolve clsx or svelte. The
+	// cache folder does not exist on a fresh checkout, such as in CI.
+	const cache = join(root, 'node_modules/.cache');
+	mkdirSync(cache, { recursive: true });
+	const dir = mkdtempSync(join(cache, 'cock-measure-'));
 	const entry = join(dir, 'entry.js');
 	const out = join(dir, 'out');
 	writeFileSync(entry, source);
