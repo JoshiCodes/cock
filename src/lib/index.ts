@@ -118,15 +118,7 @@ export { lockScroll } from './utils/scrollLock.js';
 export { confetti, type ConfettiOptions } from './utils/confetti.js';
 export { onHotkey, matchesHotkey, formatHotkey } from './utils/hotkey.js';
 export { focusRing, focusRingInset, disabled, transition } from './utils/styles.js';
-export {
-	parseColor,
-	formatOklch,
-	oklchToHex,
-	oklchToRgb,
-	inGamut,
-	fitToGamut,
-	type Oklch
-} from './utils/oklch.js';
+export { parseColor, formatOklch, oklchToHex, type Oklch } from './utils/oklch.js';
 
 /* -- component types ------------------------------------------------------ */
 export type { ButtonVariant, ButtonSize } from './components/primitives/Button.svelte';

@@ -247,19 +247,17 @@ export const components: ComponentMeta[] = [
 		name: 'ColorPicker',
 		slug: 'color-picker',
 		category: 'forms',
-		summary: 'An OKLCH colour picker that shows where sRGB ends.',
+		summary: 'A small colour picker: one area, one hue slider, one text field.',
 		description:
-			'Picks colours the way the theme is built: in OKLCH, where equal steps in lightness look equal. The area plots lightness against chroma for the current hue and draws everything a normal screen cannot show faintly, so the edge of sRGB is right there instead of a surprise later.',
-		exports: ['parseColor', 'formatOklch', 'oklchToHex', 'inGamut', 'fitToGamut'],
+			'Drag in the area for saturation and lightness, slide for the hue, or type a value. It works in OKLCH like the theme does, and every point in the area is a colour a normal screen can show.',
+		exports: ['parseColor', 'formatOklch', 'oklchToHex'],
 		keyboard: [
-			['← →', 'Less or more chroma, in the area'],
+			['← →', 'Less or more saturation, in the area'],
 			['↑ ↓', 'Lighter or darker, in the area'],
 			['Shift', 'Held with an arrow, moves ten times as far']
 		],
 		notes: [
-			'`value` is an `oklch(…)` string. The text field also takes hex and percentages, and converts them.',
-			'A colour outside sRGB is allowed, since wide-gamut screens can show it. The picker says so and offers to lower the chroma until it fits; the hex readout is always the nearest sRGB colour.',
-			'The maths is exported too: `parseColor`, `formatOklch`, `oklchToHex`, `inGamut` and `fitToGamut` work without the component.',
+			'`value` is an `oklch(…)` string. The text field also takes hex, and converts it.',
 			'It renders inline. For a swatch that opens a picker, put it in a `Popover`.'
 		],
 		related: ['popover', 'slider']
@@ -793,7 +791,7 @@ const titles: Record<string, string> = {
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',
-	ColorPicker: 'OKLCH colour picker for Svelte',
+	ColorPicker: 'Svelte colour picker component',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',

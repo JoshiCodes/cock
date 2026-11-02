@@ -46,15 +46,21 @@ const decode = (channel: number) =>
 	channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
 
 /** Whether the colour exists in sRGB, the gamut almost every screen can show. */
-export function inGamut(color: Oklch): boolean {
+function inGamut(color: Oklch): boolean {
 	return toLinearRgb(color).every((channel) => channel >= -0.0005 && channel <= 1.0005);
 }
 
-/** Lower chroma until the colour fits in sRGB, instead of letting the browser clip it. */
-export function fitToGamut([l, c, h]: Oklch): Oklch {
-	let chroma = c;
-	while (chroma > 0 && !inGamut([l, chroma, h])) chroma -= 0.002;
-	return [l, Math.max(0, chroma), h];
+/** The most chroma this lightness and hue can have and still be shown in sRGB. */
+export function maxChroma(l: number, h: number): number {
+	let low = 0;
+	let high = 0.4;
+	// Fourteen halvings get within a ten-thousandth, finer than a screen can show.
+	for (let i = 0; i < 14; i++) {
+		const middle = (low + high) / 2;
+		if (inGamut([l, middle, h])) low = middle;
+		else high = middle;
+	}
+	return low;
 }
 
 /** sRGB channels from 0 to 255, clamped when the colour is out of gamut. */
