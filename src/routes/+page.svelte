@@ -2,7 +2,7 @@
 	import { Badge, Button, Card, Marquee, Terminal, cn } from '@joshicodes/cock';
 	import CodeBlock from './showcase/CodeBlock.svelte';
 	import Seo from './showcase/Seo.svelte';
-	import { bundle, stats } from './facts.js';
+	import { bundle, stats, version } from './facts.js';
 	import { components } from './components/catalog.js';
 	import { rivals } from './docs/comparison/rivals.js';
 	import { site as meta } from './seo.js';
@@ -87,7 +87,7 @@
 			startOnView={false}
 			lines={[
 				{ kind: 'command', text: 'bun add @joshicodes/cock', delay: 600 },
-				{ text: `+ @joshicodes/cock@${bundle.version}`, tone: 'success' },
+				{ text: `+ @joshicodes/cock@${version}`, tone: 'success' },
 				{
 					text: `${stats.components} components, ${stats.runtimeDependencies} dependencies, no surprises`,
 					tone: 'muted'

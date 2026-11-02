@@ -39,7 +39,7 @@ ENV NODE_ENV=production \
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
-COPY package.json ./
+COPY package.json server.js ./
 
 USER node
 EXPOSE 3000
@@ -47,4 +47,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
 	CMD wget -qO- http://127.0.0.1:3000/robots.txt > /dev/null || exit 1
 
-CMD ["node", "build"]
+# server.js wraps the build to add security headers; see the file.
+CMD ["node", "server.js"]

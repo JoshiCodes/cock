@@ -52,8 +52,8 @@
 	],
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && bun run prepack",
-		"build:site": "vite build",
+		"build": "bun run prepack && bun run measure && vite build",
+		"build:site": "bun run build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
@@ -73,6 +73,8 @@
 	},
 	"devDependencies": {
 		"@fontsource-variable/hanken-grotesk": "^5.3.0",
+		"@fontsource/hanken-grotesk": "^5.3.0",
+		"@resvg/resvg-js": "^2.6.2",
 		"@sveltejs/adapter-node": "^6.0.1",
 		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/package": "^2.5.8",
@@ -83,6 +85,7 @@
 		"prettier-plugin-svelte": "^4.1.0",
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"publint": "^0.3.21",
+		"satori": "^0.63.2",
 		"svelte": "^5.57.2",
 		"svelte-check": "^4.6.0",
 		"tailwindcss": "^4.3.0",

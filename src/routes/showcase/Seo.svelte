@@ -14,6 +14,9 @@
 		noindex?: boolean;
 		/** schema.org objects, written as JSON-LD. */
 		structured?: Record<string, unknown>[];
+		/** Path of the link preview image. Defaults to the site-wide one. */
+		image?: string;
+		imageAlt?: string;
 	}
 
 	let {
@@ -21,14 +24,16 @@
 		description = site.description,
 		path = '/',
 		noindex = false,
-		structured = []
+		structured = [],
+		image: imagePath = site.image,
+		imageAlt = site.imageAlt
 	}: Props = $props();
 
 	let fullTitle = $derived(
 		!title ? site.title : title.includes(site.name) ? title : `${title} · ${site.name}`
 	);
 	let url = $derived(new URL(path, site.url).href);
-	const image = new URL(site.image, site.url).href;
+	let image = $derived(new URL(imagePath, site.url).href);
 
 	// Built in parts so the closing tag never appears inside this component's own script.
 	const open = '<script type="application/ld+json">';
@@ -55,12 +60,13 @@
 	<meta property="og:image" content={image} />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content={site.imageAlt} />
+	<meta property="og:image:alt" content={imageAlt} />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={fullTitle} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content={image} />
+	<meta name="twitter:image:alt" content={imageAlt} />
 
 	{#each jsonLd as script, index (index)}
 		{@html script}

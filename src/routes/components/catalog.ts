@@ -935,6 +935,15 @@ export function pageTitle(entry: ComponentMeta): string {
 
 export const bySlug = new Map(components.map((entry) => [entry.slug, entry]));
 
+/**
+ * Components including their parts: Card and CardHeader count as two. The one
+ * number every count on the site is derived from.
+ */
+export const componentCount = components.reduce(
+	(sum, entry) => sum + 1 + (entry.parts?.length ?? 0),
+	0
+);
+
 export function categoryOf(id: string): CategoryMeta {
 	return categories.find((category) => category.id === id)!;
 }

@@ -46,6 +46,8 @@
 	title={pageTitle(meta)}
 	path="/components/{meta.slug}"
 	structured={[breadcrumbs]}
+	image="/og/{meta.slug}.png"
+	imageAlt="{meta.name}, from cock: {meta.summary.replaceAll('`', '')}"
 	description="{meta.name} for Svelte 5 and Tailwind 4. {meta.summary.replaceAll(
 		'`',
 		''
