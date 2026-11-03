@@ -47,6 +47,9 @@
 	let paused = $state(false);
 	let hovering = $state(false);
 	let focused = $state(false);
+	/** How far the autoplay is towards the next slide, from 0 to 1. */
+	let progress = $state(0);
+	let motion = $state(true);
 
 	setContext<CarouselContext>(CAROUSEL, {
 		register: () => total++,
@@ -71,6 +74,7 @@
 			behavior: reducedMotion() ? 'auto' : 'smooth'
 		});
 		current = target;
+		progress = 0;
 	}
 
 	/** Whichever slide's left edge is closest to the track's, after a swipe or scroll. */
@@ -85,19 +89,39 @@
 				const gap = Math.abs(slide.offsetLeft - track!.offsetLeft - track!.scrollLeft);
 				if (gap < distance) [best, distance] = [index, gap];
 			});
+			if (best !== current) progress = 0;
 			current = best;
 		});
 	}
 
 	// Rotation stops while someone is reading or interacting, and for good when they asked
 	// the system for less motion.
-	let rotating = $derived(autoplay > 0 && !paused && !hovering && !focused && total > 1);
+	let rotating = $derived(autoplay > 0 && !paused && !hovering && !focused && total > 1 && motion);
 
 	$effect(() => {
-		if (!rotating || reducedMotion()) return;
-		const timer = setInterval(() => go(current + 1 >= total ? 0 : current + 1), autoplay);
-		return () => clearInterval(timer);
+		motion = !reducedMotion();
 	});
+
+	// Counts up in frames rather than a fixed interval, so a pause keeps the time already
+	// spent and the active dot can show it filling up.
+	$effect(() => {
+		if (!rotating) return;
+		let last = performance.now();
+		let raf = requestAnimationFrame(function tick(now) {
+			progress = Math.min(1, progress + (now - last) / autoplay);
+			last = now;
+			if (progress >= 1) go(current + 1 >= total ? 0 : current + 1);
+			raf = requestAnimationFrame(tick);
+		});
+		return () => cancelAnimationFrame(raf);
+	});
+
+	/** Whether it is moving, and if not why, shown next to the controls. */
+	let status = $derived(
+		!motion ? '' : paused ? 'Stopped' : hovering || focused ? 'Paused' : 'Playing'
+	);
+
+	let showProgress = $derived(autoplay > 0 && motion && total > 1 && !paused);
 
 	let atStart = $derived(!loop && current <= 0);
 	let atEnd = $derived(!loop && current >= total - 1);
@@ -181,24 +205,37 @@
 						{/if}
 					</svg>
 				</button>
+				{#if status}
+					<span class="text-xs text-fg-subtle" aria-hidden="true">{status}</span>
+				{/if}
 			{/if}
 		</div>
 
 		{#if dots && total > 1}
 			<div class="flex items-center gap-1.5">
 				{#each { length: total }, index (index)}
+					{@const active = index === current}
 					<button
 						type="button"
 						aria-label="Go to slide {index + 1}"
-						aria-current={index === current ? 'true' : undefined}
+						aria-current={active ? 'true' : undefined}
 						onclick={() => go(index)}
 						class={cn(
-							'h-2 cursor-pointer rounded-full',
-							transition,
+							'relative h-2 cursor-pointer overflow-hidden rounded-full transition-[width,background-color] duration-300 ease-out',
 							focusRing,
-							index === current ? 'w-5 bg-accent' : 'w-2 bg-border-strong hover:bg-fg-subtle'
+							active
+								? cn('w-6', showProgress ? 'bg-accent/25' : 'bg-accent')
+								: 'w-2 bg-border-strong hover:bg-fg-subtle'
 						)}
-					></button>
+					>
+						{#if active && showProgress}
+							<!-- The time until the next slide; it stops filling while rotation is paused. -->
+							<span
+								class="absolute inset-y-0 left-0 rounded-full bg-accent"
+								style:width="{Math.max(progress, 0.15) * 100}%"
+							></span>
+						{/if}
+					</button>
 				{/each}
 			</div>
 		{/if}

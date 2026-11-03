@@ -14,7 +14,7 @@
 	];
 </script>
 
-<Carousel label="Hen of the month" autoplay={5000} loop class="w-full max-w-md">
+<Carousel label="Hen of the month" autoplay={5000} loop class="w-full">
 	{#each hens as hen (hen.name)}
 		<CarouselSlide>
 			<div class="mr-3 rounded-lg border border-border bg-bg p-6">
