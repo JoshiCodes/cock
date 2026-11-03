@@ -718,7 +718,8 @@ export const components: ComponentMeta[] = [
 			'Sorting compares numbers as numbers, dates as dates and text in natural order, so "Hen 10" comes after "Hen 9". Empty values stay at the bottom either way.',
 			'A third click on a sorted header returns the rows to the order they came in. The header carries `aria-sort`, so screen readers announce the direction.',
 			'Selection is a bound array of row keys. It survives sorting, searching and paging; "select all" covers every row that matches the search, not just the page on screen.',
-			'Everything happens in the browser. For thousands of rows or server-side paging, sort and slice on the server and give it one page at a time with `pageSize={0}`.'
+			'Everything happens in the browser. For thousands of rows or server-side paging, sort and slice on the server and give it one page at a time with `pageSize={0}`.',
+			'`tone`, `striped`, `dense` and `caption` are passed on to `Table` and look the same there: `tone="accent"` carries the theme color into the header, the stripes and the hover state.'
 		],
 		related: ['table', 'pagination', 'checkbox']
 	},
@@ -733,6 +734,7 @@ export const components: ComponentMeta[] = [
 		notes: [
 			'Follows the ARIA carousel pattern: the region and every slide carry a role description, and each slide is labeled "2 of 5".',
 			'`autoplay` stops while the pointer is over it or focus is inside, comes with a button to stop it for good, and never starts when the visitor prefers reduced motion.',
+			'While it rotates, the active dot fills up until the next slide, and a label next to the controls says whether it is playing, paused or stopped.',
 			'A slide is full width by default. Give `CarouselSlide` a class like `basis-1/2` to show two at a time.',
 			'Use it for things people may skip. Anything they must see belongs on the page, not on slide four.'
 		],
@@ -764,7 +766,9 @@ export const components: ComponentMeta[] = [
 		summary: 'A trend line that fills its container, without a chart library.',
 		notes: [
 			'The line keeps its stroke width while the SVG stretches, and the end dot stays round.',
-			'Give it a `label`: to a screen reader a sparkline is a picture and needs describing.'
+			'Give it a `label`: to a screen reader a sparkline is a picture and needs describing.',
+			'`min` and `max` fix the scale, so several sparklines can be compared; a `baseline` outside the data widens the range until it fits.',
+			'`animate` draws the line in once, and is skipped when the visitor prefers reduced motion.'
 		],
 		related: ['stat', 'heatmap']
 	},

@@ -4,6 +4,6 @@
 	let volume = $state(65);
 </script>
 
-<div class="w-full max-w-sm">
+<div class="w-full">
 	<Slider bind:value={volume} label="Morning crow volume" showValue format={(v) => `${v}%`} />
 </div>
