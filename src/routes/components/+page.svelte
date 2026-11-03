@@ -32,7 +32,7 @@
 		<h1 class="text-3xl font-semibold tracking-tight text-fg">Components</h1>
 		<p class="text-lg leading-relaxed text-fg-muted">
 			{stats.components} components across {stats.pages} pages — a few, like the card and its header,
-			are documented together. Each page covers the props, the keyboard behaviour and the things worth
+			are documented together. Each page covers the props, the keyboard behavior and the things worth
 			knowing before you use it.
 		</p>
 	</header>

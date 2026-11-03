@@ -46,7 +46,7 @@
 		url: new URL(`/components/${meta.slug}`, site.url).href,
 		image: new URL(`/og/${meta.slug}.png`, site.url).href,
 		...(data.modified ? { dateModified: data.modified } : {}),
-		inLanguage: 'en-GB',
+		inLanguage: 'en-US',
 		proficiencyLevel: 'Beginner',
 		author: { '@type': 'Person', ...site.author },
 		isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
@@ -75,7 +75,7 @@
 	description="{meta.name} for Svelte 5 and Tailwind 4. {meta.summary.replaceAll(
 		'`',
 		''
-	)} Props, examples and keyboard behaviour."
+	)} Props, examples and keyboard behavior."
 />
 
 <article class="max-w-3xl space-y-12 py-10 lg:py-14">
@@ -120,7 +120,7 @@
 
 	{#if meta.notes?.length}
 		<section class="space-y-3">
-			<h2 class="text-xl font-semibold tracking-tight text-fg">Behaviour</h2>
+			<h2 class="text-xl font-semibold tracking-tight text-fg">Behavior</h2>
 			<ul class="space-y-2.5">
 				{#each meta.notes as note (note)}
 					<li class="flex gap-3 text-sm leading-relaxed text-fg-muted">

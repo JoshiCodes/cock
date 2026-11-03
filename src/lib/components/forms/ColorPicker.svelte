@@ -6,7 +6,7 @@
 	interface Props {
 		/** An `oklch(…)` string. Hex is accepted too and converted on the first change. */
 		value?: string;
-		/** Colours offered as one-click choices, in any format `value` accepts. */
+		/** Colors offered as one-click choices, in any format `value` accepts. */
 		swatches?: string[];
 		/** Names the picker for screen readers. */
 		label?: string;
@@ -17,7 +17,7 @@
 	let {
 		value = $bindable('oklch(0.62 0.17 316)'),
 		swatches = [],
-		label = 'Colour',
+		label = 'Color',
 		class: className,
 		onchange
 	}: Props = $props();
@@ -25,7 +25,7 @@
 	/**
 	 * Lightness, saturation and hue. Saturation is chroma as a share of the most
 	 * this lightness and hue can have on screen, so every point of the area is a
-	 * colour the screen can actually show.
+	 * color the screen can actually show.
 	 */
 	let lightness = $state(0.62);
 	let saturation = $state(0.5);
@@ -185,7 +185,7 @@
 		<input
 			bind:value={draft}
 			onchange={commit}
-			aria-label="Colour value"
+			aria-label="Color value"
 			spellcheck="false"
 			class={cn(
 				'h-8 min-w-0 flex-1 rounded-md border border-border bg-surface px-2 font-mono text-[0.8125rem] text-fg shadow-xs',

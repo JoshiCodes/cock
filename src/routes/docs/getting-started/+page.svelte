@@ -216,11 +216,11 @@ export const handle = async ({ event, resolve }) =>
 	<h2 id="next">Where to go next</h2>
 	<ul>
 		<li>
-			<a href="/docs/theming">Theming</a> — the three colours everything else is mixed from, and the runtime
+			<a href="/docs/theming">Theming</a> — the three colors everything else is mixed from, and the runtime
 			API.
 		</li>
 		<li>
-			<a href="/components">Components</a> — every component with examples, props and keyboard behaviour.
+			<a href="/components">Components</a> — every component with examples, props and keyboard behavior.
 		</li>
 		<li>
 			<a href="/docs/utilities">Helpers and actions</a> — the exports that are not components:

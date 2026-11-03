@@ -5,7 +5,7 @@
 	const eggs = [14, 17, 13, 19, 22, 18, 24, 21, 26, 23, 20, 27, 25, 29, 26, 31, 28, 30];
 
 	let curve = $state<'linear' | 'smooth' | 'step'>('smooth');
-	let colour = $state('text-accent');
+	let color = $state('text-accent');
 	let fill = $state(true);
 	let dot = $state(true);
 	let target = $state(true);
@@ -30,7 +30,7 @@
 			min={fromZero ? 0 : undefined}
 			animate
 			label="Eggs per day, up from 14 to 30 over two and a half weeks"
-			class={colour}
+			class={color}
 		/>
 	{/key}
 
@@ -47,9 +47,9 @@
 				]}
 			/>
 		</Field>
-		<Field label="Colour">
+		<Field label="Color">
 			<SegmentedControl
-				bind:value={colour}
+				bind:value={color}
 				size="sm"
 				stretch
 				options={[

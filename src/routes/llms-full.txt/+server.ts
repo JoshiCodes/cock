@@ -100,7 +100,7 @@ export function GET() {
 			);
 		}
 		if (meta.notes?.length) {
-			parts.push('**Behaviour**', '', ...meta.notes.map((note) => `- ${note}`), '');
+			parts.push('**Behavior**', '', ...meta.notes.map((note) => `- ${note}`), '');
 		}
 	}
 

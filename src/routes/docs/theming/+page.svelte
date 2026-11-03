@@ -39,15 +39,15 @@ theme.clearTokens();                            // back to the stylesheet`;
 }`;
 
 	const described: { token: string; what: string }[] = [
-		{ token: '--ck-bg', what: 'The page colour before the accent is mixed in.' },
+		{ token: '--ck-bg', what: 'The page color before the accent is mixed in.' },
 		{ token: '--ck-fg', what: 'Body text. Everything secondary is mixed from it.' },
 		{ token: '--ck-accent', what: 'Buttons, focus rings, links, selected rows.' },
 		{
 			token: '--ck-accent-hover',
-			what: 'The accent on hover. Not derived: contrast is a judgement call.'
+			what: 'The accent on hover. Not derived: contrast is a judgment call.'
 		},
 		{ token: '--ck-accent-fg', what: 'Text on top of the accent.' },
-		{ token: '--ck-tint', what: 'How much accent reaches the neutrals. 0% gives a grey page.' },
+		{ token: '--ck-tint', what: 'How much accent reaches the neutrals. 0% gives a gray page.' },
 		{
 			token: '--ck-tint-base',
 			what: 'What gets mixed in. Dark mode uses a deepened accent so the page keeps its weight.'
@@ -57,7 +57,7 @@ theme.clearTokens();                            // back to the stylesheet`;
 			what: "Multiplies Tailwind's radius scale. 0 squares everything off."
 		},
 		{ token: '--ck-elevate', what: 'How far a raised surface lifts off the canvas.' },
-		{ token: '--ck-success', what: 'Status colours. Plain values, not derived.' },
+		{ token: '--ck-success', what: 'Status colors. Plain values, not derived.' },
 		{ token: '--ck-warning', what: '' },
 		{ token: '--ck-danger', what: '' },
 		{ token: '--ck-info', what: '' },
@@ -66,7 +66,7 @@ theme.clearTokens();                            // back to the stylesheet`;
 	];
 
 	const derivedDocs: Record<string, string> = {
-		'--ck-canvas': 'The real page colour: --ck-bg with the tint mixed in.',
+		'--ck-canvas': 'The real page color: --ck-bg with the tint mixed in.',
 		'--ck-surface': 'Cards, inputs, menus — anything sitting on the canvas.',
 		'--ck-muted': 'Quiet fills: hover states, table stripes, skeletons.',
 		'--ck-border': 'Hairlines.',
@@ -74,7 +74,7 @@ theme.clearTokens();                            // back to the stylesheet`;
 		'--ck-fg-muted': 'Secondary text.',
 		'--ck-fg-subtle': 'Placeholders and captions.',
 		'--ck-accent-soft': 'The accent as a background tint.',
-		'--ck-ring': 'Focus ring colour. Follows the accent unless you set it.'
+		'--ck-ring': 'Focus ring color. Follows the accent unless you set it.'
 	};
 
 	let handSet = $derived(described.filter((entry) => entry.token in data.light));
@@ -92,11 +92,11 @@ theme.clearTokens();                            // back to the stylesheet`;
 <Prose>
 	<h1 class="text-3xl font-semibold tracking-tight text-fg">Theming</h1>
 	<p class="text-lg">
-		Three colours are set by hand. Surfaces, borders and secondary text are mixed from them with
+		Three colors are set by hand. Surfaces, borders and secondary text are mixed from them with
 		<Code>color-mix</Code>, so changing the background re-skins everything that sits on it.
 	</p>
 
-	<h2 id="basics">The three colours</h2>
+	<h2 id="basics">The three colors</h2>
 	<div class="mt-5 overflow-hidden rounded-lg border border-border">
 		<CodeBlock code={base} label="src/app.css" />
 	</div>
@@ -135,7 +135,7 @@ theme.clearTokens();                            // back to the stylesheet`;
 		The contrast ratios are tokens too: {mixRatios
 			.map((token) => token.replace('--ck-mix-', ''))
 			.join(', ')}
-		control how far each derived colour sits from the canvas. Raise them for more contrast, lower them
+		control how far each derived color sits from the canvas. Raise them for more contrast, lower them
 		for a flatter look.
 	</p>
 
@@ -173,8 +173,8 @@ theme.clearTokens();                            // back to the stylesheet`;
 
 	<h2 id="accent">A custom accent</h2>
 	<p>
-		Set the hover shade and the text colour alongside it. Neither is derived, because readable
-		contrast on a coloured button is a decision rather than a formula.
+		Set the hover shade and the text color alongside it. Neither is derived, because readable
+		contrast on a colored button is a decision rather than a formula.
 	</p>
 	<div class="mt-5 overflow-hidden rounded-lg border border-border">
 		<CodeBlock code={customAccent} label="src/app.css" />
@@ -215,7 +215,7 @@ theme.clearTokens();                            // back to the stylesheet`;
 	<p>
 		A custom accent is the easy thing to get wrong, because <Code>--ck-accent-fg</Code> has to work on
 		top of it and the accent itself has to work as link text. The
-		<a href="/themes">theme generator</a> measures both, on the colours the browser actually paints, and
+		<a href="/themes">theme generator</a> measures both, on the colors the browser actually paints, and
 		can keep rolling until everything passes.
 	</p>
 

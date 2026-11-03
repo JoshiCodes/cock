@@ -3,7 +3,7 @@
 	import { cn } from '../../utils/cn.js';
 
 	interface Props {
-		/** `accent` carries the theme colour into the header, stripes and hover. */
+		/** `accent` carries the theme color into the header, stripes and hover. */
 		tone?: 'neutral' | 'accent';
 		/** Tint every other row. */
 		striped?: boolean;
@@ -56,7 +56,7 @@
 </div>
 
 <style>
-	/* Everything below reads three local variables, so the tones only swap colours. */
+	/* Everything below reads three local variables, so the tones only swap colors. */
 	.ck-table {
 		--row-line: var(--ck-border);
 		--head-bg: color-mix(in oklab, var(--ck-muted) 55%, transparent);

@@ -5,7 +5,7 @@ export const site = {
 	url: 'https://cock.joshicodes.de',
 	name: 'cock',
 	title: 'cock — the Svelte 5 and Tailwind 4 component kit',
-	description: `An open-source Svelte 5 and Tailwind 4 component kit: ${componentCount} accessible components, dark mode, theming from three colours and a theme generator.`,
+	description: `An open-source Svelte 5 and Tailwind 4 component kit: ${componentCount} accessible components, dark mode, theming from three colors and a theme generator.`,
 	repo: 'https://github.com/JoshiCodes/cock',
 	author: { name: 'JoshiCodes', url: 'https://github.com/JoshiCodes' },
 	image: '/og.png',

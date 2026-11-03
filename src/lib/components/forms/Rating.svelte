@@ -9,6 +9,10 @@
 		readonly?: boolean;
 		disabled?: boolean;
 		size?: 'sm' | 'md' | 'lg';
+		/** Theme color of the filled stars. */
+		tone?: 'warning' | 'accent' | 'success' | 'danger' | 'neutral';
+		/** Any CSS color for the filled stars, e.g. `#e11d48` or `var(--brand)`. Wins over `tone`. */
+		color?: string;
 		/** Names the group for screen readers. */
 		label?: string;
 		/** Submits the value with a form. */
@@ -23,6 +27,8 @@
 		readonly = false,
 		disabled = false,
 		size = 'md',
+		tone = 'warning',
+		color,
 		label = 'Rating',
 		name = uid('rating'),
 		class: className,
@@ -33,6 +39,13 @@
 	let shown = $derived(hovered ?? value);
 
 	const sizes = { sm: 'size-4', md: 'size-5', lg: 'size-7' };
+	const tones = {
+		warning: 'text-warning',
+		accent: 'text-accent',
+		success: 'text-success',
+		danger: 'text-danger',
+		neutral: 'text-fg'
+	};
 	const star = 'M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z';
 
 	function choose(next: number) {
@@ -46,7 +59,12 @@
 </script>
 
 {#snippet icon(n: number)}
-	<svg viewBox="0 0 24 24" aria-hidden="true" class={cn(sizes[size], 'shrink-0')}>
+	<svg
+		viewBox="0 0 24 24"
+		aria-hidden="true"
+		class={cn(sizes[size], 'shrink-0', !color && tones[tone])}
+		style:color
+	>
 		<defs>
 			<clipPath id="{name}-clip-{n}">
 				<rect width={24 * fill(n)} height="24" />
@@ -61,7 +79,7 @@
 		<path
 			d={star}
 			clip-path="url(#{name}-clip-{n})"
-			class="fill-warning stroke-warning"
+			class="fill-current stroke-current"
 			stroke-width="1"
 			stroke-linejoin="round"
 		/>

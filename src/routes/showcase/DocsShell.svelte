@@ -10,7 +10,7 @@
 	let menuOpen = $state(false);
 	let sidebar = $state<HTMLElement>();
 
-	// On a fresh load the current page can sit far down the list. Centre it,
+	// On a fresh load the current page can sit far down the list. Center it,
 	// but leave the list alone when the entry is already in view, so it does
 	// not jump away under the pointer after a click.
 	$effect(() => {

@@ -118,7 +118,7 @@ confetti({
 
 	<h2 id="confetti">confetti</h2>
 	<p>
-		A canvas burst, drawn in the theme's accent and status colours unless you pass your own. It
+		A canvas burst, drawn in the theme's accent and status colors unless you pass your own. It
 		returns a promise that resolves when the last piece has faded, and it does nothing at all when
 		the visitor has reduced motion turned on — so you can call it without a guard.
 	</p>

@@ -4,7 +4,7 @@
 	interface Props {
 		/**
 		 * The `<title>`, written for what people search for rather than for the
-		 * brand; the name is appended so the result is still recognisable. Left
+		 * brand; the name is appended so the result is still recognizable. Left
 		 * out on the home page, which uses the site title.
 		 */
 		title?: string;
@@ -55,7 +55,7 @@
 	<meta name="author" content={site.author.name} />
 
 	<meta property="og:type" content="website" />
-	<meta property="og:locale" content="en_GB" />
+	<meta property="og:locale" content="en_US" />
 	<meta property="og:site_name" content={site.name} />
 	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={description} />

@@ -1,5 +1,5 @@
 /**
- * OKLCH maths for the colour picker: parsing, formatting and the trip to and
+ * OKLCH math for the color picker: parsing, formatting and the trip to and
  * from sRGB. Formulas from Björn Ottosson's OKLab, which is what browsers use.
  */
 
@@ -33,7 +33,7 @@ function fromLinearRgb([r, g, b]: [number, number, number]): Oklch {
 
 	const c = Math.hypot(A, B);
 	const h = ((Math.atan2(B, A) * 180) / Math.PI + 360) % 360;
-	// Greys have no hue; 0 is as good as any and keeps the output stable.
+	// Grays have no hue; 0 is as good as any and keeps the output stable.
 	return [L, c < 0.0005 ? 0 : c, c < 0.0005 ? 0 : h];
 }
 
@@ -45,7 +45,7 @@ const encode = (channel: number) => {
 const decode = (channel: number) =>
 	channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
 
-/** Whether the colour exists in sRGB, the gamut almost every screen can show. */
+/** Whether the color exists in sRGB, the gamut almost every screen can show. */
 function inGamut(color: Oklch): boolean {
 	return toLinearRgb(color).every((channel) => channel >= -0.0005 && channel <= 1.0005);
 }
@@ -63,7 +63,7 @@ export function maxChroma(l: number, h: number): number {
 	return low;
 }
 
-/** sRGB channels from 0 to 255, clamped when the colour is out of gamut. */
+/** sRGB channels from 0 to 255, clamped when the color is out of gamut. */
 export function oklchToRgb(color: Oklch): [number, number, number] {
 	const [r, g, b] = toLinearRgb(color).map((channel) => Math.round(encode(channel) * 255));
 	return [r, g, b];

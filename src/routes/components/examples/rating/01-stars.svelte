@@ -10,7 +10,7 @@
 		'Over a bit quickly.',
 		'Did the job.',
 		'Would come again.',
-		'Life-changing. The neighbours heard.'
+		'Life-changing. The neighbors heard.'
 	];
 </script>
 

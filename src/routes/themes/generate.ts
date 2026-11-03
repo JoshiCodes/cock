@@ -35,7 +35,7 @@ export interface Locks {
 	shape: boolean;
 }
 
-/* -- colour maths --------------------------------------------------------- */
+/* -- color math --------------------------------------------------------- */
 
 function toLinearRgb([l, c, h]: Oklch): [number, number, number] {
 	const rad = (h * Math.PI) / 180;
@@ -57,7 +57,7 @@ function inGamut(color: Oklch): boolean {
 	return toLinearRgb(color).every((channel) => channel >= -0.0005 && channel <= 1.0005);
 }
 
-/** Lower chroma until the colour fits in sRGB, instead of letting the browser clip it. */
+/** Lower chroma until the color fits in sRGB, instead of letting the browser clip it. */
 function fit([l, c, h]: Oklch): Oklch {
 	let chroma = c;
 	while (chroma > 0 && !inGamut([l, chroma, h])) chroma -= 0.004;

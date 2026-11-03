@@ -1,4 +1,4 @@
-<!-- Thin scrollbars in the theme's colours, and a shadow on whichever edge still has more to give. -->
+<!-- Thin scrollbars in the theme's colors, and a shadow on whichever edge still has more to give. -->
 <script lang="ts">
 	import { ScrollArea } from '@joshicodes/cock';
 

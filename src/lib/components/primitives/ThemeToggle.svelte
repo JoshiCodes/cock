@@ -32,7 +32,7 @@
 	<div
 		class={cn('inline-flex items-center gap-0.5 rounded-md bg-muted p-0.5', className)}
 		role="group"
-		aria-label="Colour scheme"
+		aria-label="Color scheme"
 	>
 		{#each modes as mode (mode.value)}
 			<button
@@ -68,7 +68,7 @@
 	<button
 		type="button"
 		onclick={() => theme.toggle()}
-		aria-label="Toggle colour scheme"
+		aria-label="Toggle color scheme"
 		class={cn(
 			'inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border bg-surface text-fg-muted shadow-xs hover:bg-muted hover:text-fg',
 			transition,

@@ -34,8 +34,8 @@ export function svgImage(svg: string, width: number, height: number): Node {
 	};
 }
 
-// The dark theme's colours, which every preview uses.
-const colours = {
+// The dark theme's colors, which every preview uses.
+const colors = {
 	bg: '#121014',
 	glow: '#3a1f45',
 	fg: '#f3f1f4',
@@ -48,7 +48,7 @@ const colours = {
 const lockup = readFileSync(join(process.cwd(), 'static/brand/logo-dark.svg'), 'utf8');
 
 export interface Preview {
-	/** A short line above the title, in the accent colour. */
+	/** A short line above the title, in the accent color. */
 	eyebrow?: string;
 	title: string;
 	/** Smaller for a sentence, larger for a single name. */
@@ -72,9 +72,9 @@ export function preview({ eyebrow, title, titleSize, subtitle, url }: Preview): 
 			justifyContent: 'space-between',
 			boxSizing: 'border-box',
 			padding: '64px 80px 56px',
-			backgroundColor: colours.bg,
-			backgroundImage: `radial-gradient(circle at 25% 10%, ${colours.glow}, ${colours.bg} 70%)`,
-			color: colours.fg,
+			backgroundColor: colors.bg,
+			backgroundImage: `radial-gradient(circle at 25% 10%, ${colors.glow}, ${colors.bg} 70%)`,
+			color: colors.fg,
 			fontFamily: 'Hanken Grotesk'
 		},
 		svgImage(lockup, 252, 70),
@@ -82,7 +82,7 @@ export function preview({ eyebrow, title, titleSize, subtitle, url }: Preview): 
 			'div',
 			{ display: 'flex', flexDirection: 'column', gap: '24px' },
 			...(eyebrow
-				? [h('div', { fontSize: 30, fontWeight: 600, color: colours.accent }, eyebrow)]
+				? [h('div', { fontSize: 30, fontWeight: 600, color: colors.accent }, eyebrow)]
 				: []),
 			h(
 				'div',
@@ -91,7 +91,7 @@ export function preview({ eyebrow, title, titleSize, subtitle, url }: Preview): 
 			),
 			h(
 				'div',
-				{ fontSize: 34, color: colours.muted, lineHeight: 1.35, maxWidth: '1000px' },
+				{ fontSize: 34, color: colors.muted, lineHeight: 1.35, maxWidth: '1000px' },
 				subtitle
 			)
 		),
@@ -100,13 +100,13 @@ export function preview({ eyebrow, title, titleSize, subtitle, url }: Preview): 
 			{
 				display: 'flex',
 				justifyContent: 'space-between',
-				borderTop: `2px solid ${colours.border}`,
+				borderTop: `2px solid ${colors.border}`,
 				paddingTop: '28px',
 				fontSize: 26,
-				color: colours.muted
+				color: colors.muted
 			},
 			h('div', {}, 'Svelte 5 · Tailwind 4'),
-			h('div', { color: colours.accent }, url)
+			h('div', { color: colors.accent }, url)
 		)
 	);
 }

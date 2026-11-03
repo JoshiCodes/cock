@@ -96,7 +96,7 @@
 				<span class="tabular-nums">{row.status === 'Rooster' ? 'Tries his best' : value}</span>
 			{:else if column.key === 'joined'}
 				<span class="text-fg-muted tabular-nums">
-					{row.joined.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
+					{row.joined.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
 				</span>
 			{:else}
 				{value}

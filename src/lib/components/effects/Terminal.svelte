@@ -82,7 +82,7 @@
 			return;
 		}
 
-		let cancelled = false;
+		let canceled = false;
 		let timer: ReturnType<typeof setTimeout>;
 		const wait = (ms: number) =>
 			new Promise<void>((resolve) => {
@@ -94,12 +94,12 @@
 				shown = [];
 				for (const line of script) {
 					await wait(line.delay ?? lineDelay);
-					if (cancelled) return;
+					if (canceled) return;
 
 					if (line.kind === 'command') {
 						shown = [...shown, { line, text: '' }];
 						typing = true;
-						for (let i = 1; i <= line.text.length && !cancelled; i++) {
+						for (let i = 1; i <= line.text.length && !canceled; i++) {
 							shown[shown.length - 1].text = line.text.slice(0, i);
 							await wait(speed * (0.6 + Math.random() * 0.8));
 						}
@@ -109,12 +109,12 @@
 					}
 				}
 				if (loop) await wait(4000);
-			} while (loop && !cancelled);
+			} while (loop && !canceled);
 		}
 
 		play();
 		return () => {
-			cancelled = true;
+			canceled = true;
 			clearTimeout(timer);
 		};
 	});

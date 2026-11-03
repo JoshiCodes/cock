@@ -6,7 +6,7 @@
 	<Tooltip content="Don't just hover around it.">
 		<Button variant="outline" size="sm">Top</Button>
 	</Tooltip>
-	<Tooltip content="Appears below. No judgement." placement="bottom">
+	<Tooltip content="Appears below. No judgment." placement="bottom">
 		<Button variant="outline" size="sm">Bottom</Button>
 	</Tooltip>
 	<Tooltip content="Leans to the left, like most." placement="left">

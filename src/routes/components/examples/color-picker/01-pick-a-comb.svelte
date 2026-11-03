@@ -14,7 +14,7 @@
 </script>
 
 <div class="flex w-full flex-wrap items-center gap-8">
-	<ColorPicker bind:value={comb} {swatches} label="Comb colour" />
+	<ColorPicker bind:value={comb} {swatches} label="Comb color" />
 
 	<svg viewBox="0 0 64 64" class="size-28" aria-hidden="true">
 		<path

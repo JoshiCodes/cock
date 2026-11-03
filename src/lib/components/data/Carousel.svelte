@@ -47,7 +47,7 @@
 	let paused = $state(false);
 	let hovering = $state(false);
 	let focused = $state(false);
-	/** How far the autoplay is towards the next slide, from 0 to 1. */
+	/** How far the autoplay is toward the next slide, from 0 to 1. */
 	let progress = $state(0);
 	let motion = $state(true);
 

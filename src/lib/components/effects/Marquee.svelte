@@ -9,7 +9,7 @@
 		pauseOnHover?: boolean;
 		/** Space between items, any CSS length. */
 		gap?: string;
-		/** Fade the content out towards both edges. */
+		/** Fade the content out toward both edges. */
 		fade?: boolean;
 		class?: string;
 		children: Snippet;

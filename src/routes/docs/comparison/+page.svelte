@@ -71,12 +71,12 @@
 	<ul>
 		<li>
 			<strong class="font-medium text-fg">Not headless.</strong> It has opinions about how things look.
-			If you want behaviour with no styling, Bits UI is the better answer, and this kit does not try to
+			If you want behavior with no styling, Bits UI is the better answer, and this kit does not try to
 			compete with it.
 		</li>
 		<li>
 			<strong class="font-medium text-fg">Not as deep on hard widgets.</strong> The combobox is new and
-			filters a list you already have; it does not fetch as you type. There is no date picker, virtualised
+			filters a list you already have; it does not fetch as you type. There is no date picker, virtualized
 			list or tree. Those are months of accessibility work each, and the libraries above have already
 			done it.
 		</li>

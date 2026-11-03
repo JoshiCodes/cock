@@ -1,5 +1,5 @@
 export interface ConfettiOptions {
-	/** Where the burst starts: an element's centre, or a point in viewport pixels. */
+	/** Where the burst starts: an element's center, or a point in viewport pixels. */
 	origin?: HTMLElement | { x: number; y: number };
 	/** Number of pieces. */
 	count?: number;
@@ -13,7 +13,7 @@ export interface ConfettiOptions {
 	gravity?: number;
 	/** Size of the pieces, as a multiplier. */
 	scale?: number;
-	/** CSS colours. Defaults to the theme's accent and status colours. */
+	/** CSS colors. Defaults to the theme's accent and status colors. */
 	colors?: string[];
 	/** Milliseconds until every piece has faded. */
 	duration?: number;
@@ -105,7 +105,7 @@ export function confetti(options: ConfettiOptions = {}): Promise<void> {
 		let previous = start;
 
 		const frame = (now: number) => {
-			// Normalise to 60 fps so the physics feel the same on any refresh rate.
+			// Normalize to 60 fps so the physics feel the same on any refresh rate.
 			const step = Math.min(3, (now - previous) / (1000 / 60));
 			previous = now;
 			const progress = (now - start) / duration;

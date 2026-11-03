@@ -1,6 +1,6 @@
 /**
  * Small syntax highlighter for the snippets on this page. It knows just enough
- * Svelte and JavaScript to colour markup; it is not a general purpose lexer.
+ * Svelte and JavaScript to color markup; it is not a general purpose lexer.
  */
 
 const TOKEN = new RegExp(
