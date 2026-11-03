@@ -5,7 +5,7 @@
 	interface Props {
 		label: string;
 		value: string | number;
-		/** e.g. `+12.5%` — coloured by `trend`. */
+		/** e.g. `+12.5%` — colored by `trend`. */
 		change?: string;
 		trend?: 'up' | 'down' | 'flat';
 		hint?: string;

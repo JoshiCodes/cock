@@ -54,7 +54,7 @@ Import the tokens after Tailwind in your global stylesheet:
 </Card>
 ```
 
-Three colours are set by hand, everything else is mixed from them with `color-mix`:
+Three colors are set by hand, everything else is mixed from them with `color-mix`:
 
 ```css
 :root {

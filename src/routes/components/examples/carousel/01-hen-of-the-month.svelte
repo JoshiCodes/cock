@@ -4,13 +4,13 @@
 
 	const hens = [
 		{ name: 'Mabel', month: 'September', note: '31 eggs in 30 days. Nobody knows how.' },
-		{ name: 'Doris', month: 'October', note: 'Stared down a fox. The fox apologised.' },
+		{ name: 'Doris', month: 'October', note: 'Stared down a fox. The fox apologized.' },
 		{
 			name: 'Gertrude',
 			month: 'November',
 			note: 'Broody all month. Achieved nothing. Proud of it.'
 		},
-		{ name: 'Big Red', month: 'Honourable mention', note: 'Not a hen. Insisted on being included.' }
+		{ name: 'Big Red', month: 'Honorable mention', note: 'Not a hen. Insisted on being included.' }
 	];
 </script>
 

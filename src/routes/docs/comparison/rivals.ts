@@ -9,7 +9,7 @@ export const rivals = [
 		styling: 'Tailwind 4, included',
 		theming: 'Three CSS variables, the rest mixed with color-mix',
 		scope: `${stats.components} components, including motion effects`,
-		pick: 'you want styled components you can upgrade, themed from three colours.'
+		pick: 'you want styled components you can upgrade, themed from three colors.'
 	},
 	{
 		name: 'shadcn-svelte',
@@ -26,8 +26,8 @@ export const rivals = [
 		delivery: 'npm dependency',
 		styling: 'None. Headless by design',
 		theming: 'Whatever you write',
-		scope: 'Behaviour and accessibility primitives',
-		pick: 'you want the behaviour and will bring your own look.'
+		scope: 'Behavior and accessibility primitives',
+		pick: 'you want the behavior and will bring your own look.'
 	},
 	{
 		name: 'Skeleton',

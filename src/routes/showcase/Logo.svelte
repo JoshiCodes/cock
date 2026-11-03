@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '@joshicodes/cock';
 
-	// Same drawing as static/brand/*.svg, in theme colours so it follows the accent.
+	// Same drawing as static/brand/*.svg, in theme colors so it follows the accent.
 	interface Props {
 		/** Show the wordmark next to the mark. */
 		wordmark?: boolean;

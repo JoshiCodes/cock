@@ -40,7 +40,7 @@
 		if (!shared) theme = generate();
 	});
 
-	// The audit measures painted colours, so it can only run in the browser. The
+	// The audit measures painted colors, so it can only run in the browser. The
 	// flag keeps the server's empty result and the first client frame identical.
 	let reports = $derived(
 		mounted
@@ -235,7 +235,7 @@
 	<section class="mt-16">
 		<h2 class="text-2xl font-semibold tracking-tight text-fg">Contrast</h2>
 		<p class="mt-2 max-w-2xl text-sm leading-relaxed text-fg-muted">
-			Measured on the colours the browser actually paints, including the ones mixed with color-mix.
+			Measured on the colors the browser actually paints, including the ones mixed with color-mix.
 			WCAG AA asks for 4.5:1 on text and 3:1 on borders and controls.
 		</p>
 

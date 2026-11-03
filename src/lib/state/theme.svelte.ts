@@ -118,7 +118,7 @@ class ThemeState {
 		this.#apply();
 	}
 
-	/** Set a token for both schemes — for things like radius that are not a colour. */
+	/** Set a token for both schemes — for things like radius that are not a color. */
 	setSharedToken(name: string, value: string) {
 		this.#tokens.light[name] = value;
 		this.#tokens.dark[name] = value;
@@ -172,7 +172,7 @@ class ThemeState {
 		if (animate) this.#crossfade(root);
 	}
 
-	/** Let the page ease into the new colours instead of snapping to them. */
+	/** Let the page ease into the new colors instead of snapping to them. */
 	#crossfade(root: HTMLElement) {
 		root.classList.add('ck-theming');
 		clearTimeout(this.#timer);

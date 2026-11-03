@@ -27,7 +27,7 @@ export interface ComponentMeta {
 	exports?: string[];
 	/** `[keys, what happens]`. Only where the component adds something. */
 	keyboard?: [string, string][];
-	/** Behaviour worth knowing before you reach for it. */
+	/** Behavior worth knowing before you reach for it. */
 	notes?: string[];
 	related?: string[];
 }
@@ -61,7 +61,7 @@ export const components: ComponentMeta[] = [
 		category: 'primitives',
 		summary: 'Six variants, five sizes, a loading state and an anchor mode.',
 		description:
-			'The one component everything else borrows from. Pass `href` and it renders an `<a>` with the same look, which saves wrapping buttons in links and getting the keyboard behaviour wrong.',
+			'The one component everything else borrows from. Pass `href` and it renders an `<a>` with the same look, which saves wrapping buttons in links and getting the keyboard behavior wrong.',
 		notes: [
 			'`loading` disables the button and shows a spinner, so a double submit is not possible while a request is in flight.',
 			'With `href` the component renders an `<a>`; `disabled` then becomes `aria-disabled` plus `tabindex="-1"`, because a link cannot be disabled.',
@@ -112,14 +112,14 @@ export const components: ComponentMeta[] = [
 		name: 'Spinner',
 		slug: 'spinner',
 		category: 'primitives',
-		summary: 'A borrowed-border spinner that takes the current text colour.',
+		summary: 'A borrowed-border spinner that takes the current text color.',
 		related: ['progress-ring', 'skeleton', 'button']
 	},
 	{
 		name: 'Skeleton',
 		slug: 'skeleton',
 		category: 'primitives',
-		summary: 'Grey placeholder blocks, with a shortcut for stacked text lines.',
+		summary: 'Gray placeholder blocks, with a shortcut for stacked text lines.',
 		related: ['spinner', 'empty-state']
 	},
 	{
@@ -180,7 +180,7 @@ export const components: ComponentMeta[] = [
 		],
 		notes: [
 			'Sizes and limits are percentages of the group. Panels without a `size` share what the others leave.',
-			'Dragging respects both neighbours: a handle stops when either panel reaches its `min` or `max`.',
+			'Dragging respects both neighbors: a handle stops when either panel reaches its `min` or `max`.',
 			'Each handle is a focusable `separator` that reports the panel size, which is the ARIA pattern for a splitter.',
 			'The group fills its parent, so give the parent a height. `onresize` hands you the sizes to store if the layout should survive a reload.'
 		],
@@ -259,7 +259,7 @@ export const components: ComponentMeta[] = [
 		category: 'forms',
 		summary: 'The native select, styled, with an options array or your own markup.',
 		notes: [
-			'A real `<select>`, so the phone opens its own picker and the keyboard behaviour is the platform one.'
+			'A real `<select>`, so the phone opens its own picker and the keyboard behavior is the platform one.'
 		],
 		related: ['combobox', 'field', 'dropdown-menu']
 	},
@@ -267,9 +267,9 @@ export const components: ComponentMeta[] = [
 		name: 'ColorPicker',
 		slug: 'color-picker',
 		category: 'forms',
-		summary: 'A small colour picker: one area, one hue slider, one text field.',
+		summary: 'A small color picker: one area, one hue slider, one text field.',
 		description:
-			'Drag in the area for saturation and lightness, slide for the hue, or type a value. It works in OKLCH like the theme does, and every point in the area is a colour a normal screen can show.',
+			'Drag in the area for saturation and lightness, slide for the hue, or type a value. It works in OKLCH like the theme does, and every point in the area is a color a normal screen can show.',
 		exports: ['parseColor', 'formatOklch', 'oklchToHex'],
 		keyboard: [
 			['← →', 'Less or more saturation, in the area'],
@@ -331,7 +331,8 @@ export const components: ComponentMeta[] = [
 		notes: [
 			'Built from real radio buttons, so the arrow keys, form submission and screen readers behave as they do for any radio group.',
 			'Clicking the current rating again clears it, which a plain radio group cannot do.',
-			'`readonly` draws fractions, so an average of 3.6 shows three stars and most of a fourth, and is announced as "3.6 out of 5".'
+			'`readonly` draws fractions, so an average of 3.6 shows three stars and most of a fourth, and is announced as "3.6 out of 5".',
+			'`tone` takes the filled stars into a theme color and follows light and dark mode; `color` takes any CSS color instead, including a variable of your own.'
 		],
 		related: ['radio-group', 'slider']
 	},
@@ -496,7 +497,7 @@ export const components: ComponentMeta[] = [
 		name: 'Modal',
 		slug: 'modal',
 		category: 'overlays',
-		summary: 'A centred dialog with a backdrop, focus trap and footer slot.',
+		summary: 'A centered dialog with a backdrop, focus trap and footer slot.',
 		keyboard: [
 			['Esc', 'Closes, unless `dismissible` is false'],
 			['Tab', 'Cycles inside the dialog']
@@ -700,7 +701,7 @@ export const components: ComponentMeta[] = [
 		description:
 			'It styles `thead` and `tbody`; the markup stays yours. Sorting and selection are deliberately left out, because every project wants them slightly differently.',
 		notes: [
-			'`tone="accent"` carries the theme colour into the header, the stripes and the hover state.',
+			'`tone="accent"` carries the theme color into the header, the stripes and the hover state.',
 			'`<tr aria-selected="true">` marks a selected row in either tone.',
 			'The wrapper scrolls sideways, so a wide table does not break the page on a phone.'
 		],
@@ -712,7 +713,7 @@ export const components: ComponentMeta[] = [
 		category: 'data',
 		summary: 'Table with sorting, row selection, search and pages.',
 		description:
-			'`Table` with the behaviour most screens end up writing by hand. Give it rows and column definitions and it sorts, filters by a search string, selects rows by a key you choose, and pages with `Pagination`. Every cell can be rendered through one snippet, so badges and links still fit.',
+			'`Table` with the behavior most screens end up writing by hand. Give it rows and column definitions and it sorts, filters by a search string, selects rows by a key you choose, and pages with `Pagination`. Every cell can be rendered through one snippet, so badges and links still fit.',
 		notes: [
 			'Sorting compares numbers as numbers, dates as dates and text in natural order, so "Hen 10" comes after "Hen 9". Empty values stay at the bottom either way.',
 			'A third click on a sorted header returns the rows to the order they came in. The header carries `aria-sort`, so screen readers announce the direction.',
@@ -730,7 +731,7 @@ export const components: ComponentMeta[] = [
 			'Built on native scroll snapping, so swiping, trackpads and momentum behave as they do everywhere else on the device. Buttons and dots move it for everyone without a touch screen.',
 		parts: ['CarouselSlide'],
 		notes: [
-			'Follows the ARIA carousel pattern: the region and every slide carry a role description, and each slide is labelled "2 of 5".',
+			'Follows the ARIA carousel pattern: the region and every slide carry a role description, and each slide is labeled "2 of 5".',
 			'`autoplay` stops while the pointer is over it or focus is inside, comes with a button to stop it for good, and never starts when the visitor prefers reduced motion.',
 			'A slide is full width by default. Give `CarouselSlide` a class like `basis-1/2` to show two at a time.',
 			'Use it for things people may skip. Anything they must see belongs on the page, not on slide four.'
@@ -745,7 +746,7 @@ export const components: ComponentMeta[] = [
 		parts: ['TimelineItem'],
 		notes: [
 			'An ordered list underneath, and `time` renders a `<time>` element; give it `datetime` and machines can read it too.',
-			'`tone` colours the marker; an `icon` snippet replaces the dot.'
+			'`tone` colors the marker; an `icon` snippet replaces the dot.'
 		],
 		related: ['stepper', 'stat']
 	},
@@ -893,7 +894,7 @@ const titles: Record<string, string> = {
 	ScrollArea: 'Custom scrollbars for Svelte, themed',
 	Stepper: 'Svelte stepper and multi-step form wizard',
 	DataTable: 'Svelte data table: sorting, selection, paging',
-	ColorPicker: 'Svelte colour picker component',
+	ColorPicker: 'Svelte color picker component',
 	CommandPalette: 'Svelte command palette, Ctrl+K search',
 	CopyButton: 'Copy to clipboard button for Svelte',
 	CountUp: 'Animated number counter for Svelte',

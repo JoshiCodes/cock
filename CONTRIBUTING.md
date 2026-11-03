@@ -54,7 +54,7 @@ library and runs `publint` over the result.
 1. Write it in `src/lib/components/<group>/Name.svelte` and export it from
    `src/lib/index.ts`.
 2. Describe it in `src/routes/components/catalog.ts`: the summary, the keyboard
-   behaviour, what it is related to. Props are not listed there —
+   behavior, what it is related to. Props are not listed there —
    `props.server.ts` reads them out of the component source, so the table on the
    page cannot drift from the real signature.
 3. Bump `components` and `pages` in `src/routes/facts.ts`. The home page, the
@@ -74,7 +74,7 @@ Open any existing component and follow it. The parts that matter:
 - Take a `class` prop and merge it last through `cn`, so a caller's utility wins
   instead of fighting the default.
 - Use the theme tokens (`bg-surface`, `text-fg-muted`, `border-border`,
-  `bg-accent/12`), never raw colours. A component that hardcodes a colour breaks
+  `bg-accent/12`), never raw colors. A component that hardcodes a color breaks
   the moment somebody changes `--ck-accent`.
 - Reuse the shared fragments from `src/lib/utils/styles.ts` (`focusRing`,
   `focusRingInset`, `disabled`, `transition`) so everything rings and disables

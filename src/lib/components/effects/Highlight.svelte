@@ -6,7 +6,7 @@
 	interface Props {
 		/** A broad marker stroke behind the text, or a line under it. */
 		variant?: 'marker' | 'underline';
-		/** Any CSS colour. Defaults to a translucent accent. */
+		/** Any CSS color. Defaults to a translucent accent. */
 		color?: string;
 		duration?: number;
 		delay?: number;

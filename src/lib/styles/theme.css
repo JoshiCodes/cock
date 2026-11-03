@@ -6,7 +6,7 @@
      @import 'tailwindcss';
      @import 'cock/theme.css';
 
-   Three colours are set by hand: --ck-bg, --ck-fg and --ck-accent. Surfaces,
+   Three colors are set by hand: --ck-bg, --ck-fg and --ck-accent. Surfaces,
    borders and secondary text are mixed from them, so changing the background is
    enough to re-skin the kit. Override any single token if you want it exact.
 
@@ -30,7 +30,7 @@
 	--ck-accent-hover: oklch(0.47 0.18 316);
 	--ck-accent-fg: oklch(0.99 0 0);
 
-	/* How much of the accent bleeds into the neutrals. 0% is a grey page.
+	/* How much of the accent bleeds into the neutrals. 0% is a gray page.
 	   --ck-tint-base is what gets mixed in: on dark backgrounds a deepened
 	   accent, so the page picks up the hue without getting lighter. */
 	--ck-tint: 1.5%;
@@ -65,7 +65,7 @@
 
 	/* Code panels stay dark in both modes, so they read as a different material.
 	   On a light page a softer dark, so the panel does not punch a hole in it;
-	   every colour below still clears 4.5:1 against it. */
+	   every color below still clears 4.5:1 against it. */
 	--ck-code-bg: oklch(0.29 0.013 258);
 	--ck-code-fg: oklch(0.89 0.012 265);
 	--ck-code-line: oklch(0.37 0.011 237);
@@ -112,12 +112,12 @@
 }
 
 /* Derived from --ck-bg, --ck-fg and --ck-accent. Both modes reuse the formulas;
-   only the ratios above differ. --ck-canvas is the page colour everything else
+   only the ratios above differ. --ck-canvas is the page color everything else
    is mixed against, which is how the accent reaches the neutrals.
 
    Custom properties resolve where they are declared, so these have to be
    declared again on every element that starts a theme — otherwise a subtree
-   would inherit surfaces computed from the root's colours. */
+   would inherit surfaces computed from the root's colors. */
 :root,
 .dark,
 [data-ck-theme] {

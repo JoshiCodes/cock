@@ -1,4 +1,4 @@
-/** Colour helpers for the control panel. Browser only. */
+/** Color helpers for the control panel. Browser only. */
 
 let context: CanvasRenderingContext2D | null = null;
 
@@ -11,7 +11,7 @@ function canvas(): CanvasRenderingContext2D | null {
 }
 
 /**
- * Resolve any CSS colour to `#rrggbb`.
+ * Resolve any CSS color to `#rrggbb`.
  *
  * Reading `getComputedStyle().color` is not enough: browsers hand back
  * `oklch(...)` unchanged, and parsing the numbers out of that gives nonsense.

@@ -13,7 +13,7 @@
 		strokeWidth?: number;
 		/** Describe the trend for screen readers, e.g. "Up 12% this week". */
 		label?: string;
-		/** Colour comes from `currentColor`; the default is the accent. */
+		/** Color comes from `currentColor`; the default is the accent. */
 		class?: string;
 	}
 

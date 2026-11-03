@@ -13,9 +13,9 @@
 		/** Smallest a cell may get while fitting. Below that the grid scrolls. */
 		minCell?: number;
 		gap?: number;
-		/** Number of colour steps above zero. */
+		/** Number of color steps above zero. */
 		levels?: number;
-		/** Value that counts as full colour. Defaults to the largest value. */
+		/** Value that counts as full color. Defaults to the largest value. */
 		max?: number;
 		/** Tooltip text for a cell. */
 		describe?: (value: number, index: number) => string;

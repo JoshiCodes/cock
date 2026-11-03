@@ -150,7 +150,7 @@
 						<button
 							type="button"
 							{...attrs}
-							aria-label="Change the {field.label.toLowerCase()} colour"
+							aria-label="Change the {field.label.toLowerCase()} color"
 							class="flex w-full cursor-pointer items-center gap-3 rounded-md border border-border bg-bg p-2.5 text-left transition-colors hover:border-border-strong"
 						>
 							<span

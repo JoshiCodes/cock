@@ -64,7 +64,7 @@
 			return;
 		}
 
-		let cancelled = false;
+		let canceled = false;
 		let timer: ReturnType<typeof setTimeout>;
 		const wait = (ms: number) =>
 			new Promise<void>((resolve) => {
@@ -79,16 +79,16 @@
 			await wait(delay);
 			let index = 0;
 
-			while (!cancelled) {
+			while (!canceled) {
 				const target = list[index] ?? '';
 
 				typing = true;
-				for (let i = 1; i <= target.length && !cancelled; i++) {
+				for (let i = 1; i <= target.length && !canceled; i++) {
 					shown = target.slice(0, i);
 					await wait(beat(speed));
 				}
 				typing = false;
-				if (cancelled) return;
+				if (canceled) return;
 
 				if (index === list.length - 1 && !repeat) {
 					done = true;
@@ -99,7 +99,7 @@
 				await wait(pause);
 
 				typing = true;
-				for (let i = target.length - 1; i >= 0 && !cancelled; i--) {
+				for (let i = target.length - 1; i >= 0 && !canceled; i--) {
 					shown = target.slice(0, i);
 					await wait(deleteSpeed);
 				}
@@ -113,7 +113,7 @@
 		run();
 
 		return () => {
-			cancelled = true;
+			canceled = true;
 			clearTimeout(timer);
 		};
 	});

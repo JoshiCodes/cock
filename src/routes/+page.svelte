@@ -21,7 +21,7 @@
 
 	const showcase = [
 		{ title: 'Forms that wire themselves up', href: '/components/field', demo: FormExample },
-		{ title: 'Tables in your theme colour', href: '/components/table', demo: TableExample },
+		{ title: 'Tables in your theme color', href: '/components/table', demo: TableExample },
 		{ title: 'Numbers without a chart library', href: '/components/sparkline', demo: StatExample },
 		{ title: 'Tabs that answer to the arrow keys', href: '/components/tabs', demo: TabsExample }
 	];
@@ -29,7 +29,7 @@
 	// The bars are relative to the largest row, which is the whole package.
 	const heaviest = Math.max(...bundle.rows.map((row) => row.gzip));
 
-	const measured = new Date(bundle.measuredAt).toLocaleDateString('en-GB', {
+	const measured = new Date(bundle.measuredAt).toLocaleDateString('en-US', {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric'
@@ -116,11 +116,11 @@
 		<div class="lg:sticky lg:top-28">
 			<Badge variant="outline">Theming</Badge>
 			<h2 class="mt-4 text-3xl font-semibold tracking-tight text-fg">
-				Three colours. Everything else follows.
+				Three colors. Everything else follows.
 			</h2>
 			<p class="mt-4 leading-relaxed text-fg-muted">
 				Surfaces, borders, hover states and secondary text are mixed from the background, the text
-				colour and the accent with <code class="font-mono text-sm text-accent">color-mix</code>. No
+				color and the accent with <code class="font-mono text-sm text-accent">color-mix</code>. No
 				theme file, no build step, and it works on a subtree as happily as on the page.
 			</p>
 			<div class="mt-6 flex flex-wrap gap-3">

@@ -13,7 +13,7 @@ export async function GET() {
 		preview({
 			title: 'The Svelte 5 and Tailwind 4 component kit.',
 			titleSize: 72,
-			subtitle: `${stats.components} components · dark mode · themes from three colours`,
+			subtitle: `${stats.components} components · dark mode · themes from three colors`,
 			url: 'cock.joshicodes.de'
 		})
 	);
