@@ -1,6 +1,6 @@
 <!-- Click a header to sort, a second time to flip it, a third to undo. Selection survives sorting, searching and paging. -->
 <script lang="ts">
-	import { Badge, DataTable, Input, type DataTableColumn } from '@joshicodes/cock';
+	import { Badge, DataTable, Input, Switch, type DataTableColumn } from '@joshicodes/cock';
 
 	interface Bird {
 		id: string;
@@ -61,11 +61,14 @@
 		Rooster: 'accent'
 	} as const;
 
+	let accented = $state(true);
 	let query = $state('');
 	let selected = $state<string[]>([]);
 </script>
 
-<div class="w-full space-y-3">
+<div class="w-full space-y-4">
+	<Switch bind:checked={accented}>Accent</Switch>
+
 	<div class="flex flex-wrap items-center justify-between gap-3">
 		<Input bind:value={query} placeholder="Search the coop" class="max-w-60" />
 		<p class="text-sm text-fg-muted">
@@ -83,6 +86,7 @@
 		bind:selected
 		selectable
 		pageSize={6}
+		tone={accented ? 'accent' : 'neutral'}
 		empty="No bird by that name. Maybe they flew the coop."
 	>
 		{#snippet cell({ row, column, value })}
