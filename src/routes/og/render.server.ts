@@ -34,9 +34,81 @@ export function svgImage(svg: string, width: number, height: number): Node {
 	};
 }
 
-/** The square mark, in whichever accent the preview uses. */
-export function logo(accent: string): string {
-	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="${accent}"/><g fill="#fff"><ellipse cx="11.7" cy="8.4" rx="1.9" ry="2.9" transform="rotate(-28 11.7 8.4)"/><ellipse cx="15.5" cy="6.7" rx="2.1" ry="3.3" transform="rotate(-6 15.5 6.7)"/><ellipse cx="19.2" cy="8" rx="1.8" ry="2.7" transform="rotate(18 19.2 8)"/><path d="M20.6 11.4 27.8 14.5 20.6 16.6Z"/><ellipse cx="22.7" cy="25.3" rx="1.6" ry="2.3" transform="rotate(-16 22.7 25.3)"/><circle cx="17.6" cy="15.7" r="1.3"/></g><path d="M21.6 13.6A7.2 7.2 0 1 0 21.6 22.6" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg>`;
+// The dark theme's colours, which every preview uses.
+const colours = {
+	bg: '#121014',
+	glow: '#3a1f45',
+	fg: '#f3f1f4',
+	muted: '#a7a1ab',
+	border: '#2c2730',
+	accent: '#c58ce0'
+};
+
+// The logo and wordmark together, as the brand folder ships it for dark backgrounds.
+const lockup = readFileSync(join(process.cwd(), 'static/brand/logo-dark.svg'), 'utf8');
+
+export interface Preview {
+	/** A short line above the title, in the accent colour. */
+	eyebrow?: string;
+	title: string;
+	/** Smaller for a sentence, larger for a single name. */
+	titleSize: number;
+	subtitle: string;
+	/** Shown without the protocol. */
+	url: string;
+}
+
+/**
+ * The one layout every link preview shares: lockup on top, the page's own
+ * words in the middle, the address at the bottom. Only the words change.
+ */
+export function preview({ eyebrow, title, titleSize, subtitle, url }: Preview): Node {
+	return h(
+		'div',
+		{
+			...size,
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			boxSizing: 'border-box',
+			padding: '64px 80px 56px',
+			backgroundColor: colours.bg,
+			backgroundImage: `radial-gradient(circle at 25% 10%, ${colours.glow}, ${colours.bg} 70%)`,
+			color: colours.fg,
+			fontFamily: 'Hanken Grotesk'
+		},
+		svgImage(lockup, 252, 70),
+		h(
+			'div',
+			{ display: 'flex', flexDirection: 'column', gap: '24px' },
+			...(eyebrow
+				? [h('div', { fontSize: 30, fontWeight: 600, color: colours.accent }, eyebrow)]
+				: []),
+			h(
+				'div',
+				{ fontSize: titleSize, fontWeight: 600, letterSpacing: '-0.03em', lineHeight: 1.05 },
+				title
+			),
+			h(
+				'div',
+				{ fontSize: 34, color: colours.muted, lineHeight: 1.35, maxWidth: '1000px' },
+				subtitle
+			)
+		),
+		h(
+			'div',
+			{
+				display: 'flex',
+				justifyContent: 'space-between',
+				borderTop: `2px solid ${colours.border}`,
+				paddingTop: '28px',
+				fontSize: 26,
+				color: colours.muted
+			},
+			h('div', {}, 'Svelte 5 · Tailwind 4'),
+			h('div', { color: colours.accent }, url)
+		)
+	);
 }
 
 /** Renders a tree to a 1200×630 PNG response. */
