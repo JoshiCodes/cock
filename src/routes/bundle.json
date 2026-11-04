@@ -1,5 +1,5 @@
 {
-	"measuredAt": "2026-11-03",
+	"measuredAt": "2026-11-04",
 	"version": "1.4.0",
 	"rows": [
 		{
@@ -28,9 +28,9 @@
 		},
 		{
 			"label": "Everything the package exports",
-			"exports": 110,
-			"raw": 246.2,
-			"gzip": 59.5
+			"exports": 113,
+			"raw": 251.5,
+			"gzip": 60.8
 		}
 	],
 	"css": {
