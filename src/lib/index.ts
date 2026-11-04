@@ -10,9 +10,11 @@ export { default as Button } from './components/primitives/Button.svelte';
 export { default as Code } from './components/primitives/Code.svelte';
 export { default as CopyButton } from './components/primitives/CopyButton.svelte';
 export { default as Kbd } from './components/primitives/Kbd.svelte';
+export { default as RelativeTime } from './components/primitives/RelativeTime.svelte';
 export { default as Separator } from './components/primitives/Separator.svelte';
 export { default as Skeleton } from './components/primitives/Skeleton.svelte';
 export { default as Spinner } from './components/primitives/Spinner.svelte';
+export { default as StatusDot } from './components/primitives/StatusDot.svelte';
 export { default as ThemeToggle } from './components/primitives/ThemeToggle.svelte';
 
 /* -- layout --------------------------------------------------------------- */
@@ -86,6 +88,7 @@ export { default as TreeView } from './components/navigation/TreeView.svelte';
 export { default as Stat } from './components/data/Stat.svelte';
 export { default as DataTable } from './components/data/DataTable.svelte';
 export { default as Heatmap } from './components/data/Heatmap.svelte';
+export { default as HistoryBar } from './components/data/HistoryBar.svelte';
 export { default as Sparkline } from './components/data/Sparkline.svelte';
 export { default as Table } from './components/data/Table.svelte';
 export { default as Carousel } from './components/data/Carousel.svelte';
@@ -133,6 +136,7 @@ export { parseColor, formatOklch, oklchToHex, type Oklch } from './utils/oklch.j
 /* -- component types ------------------------------------------------------ */
 export type { ButtonVariant, ButtonSize } from './components/primitives/Button.svelte';
 export type { BadgeVariant } from './components/primitives/Badge.svelte';
+export type { StatusTone } from './components/primitives/StatusDot.svelte';
 export type { AlertVariant } from './components/feedback/Alert.svelte';
 export type { SegmentedOption } from './components/forms/SegmentedControl.svelte';
 export type { SelectOption } from './components/forms/Select.svelte';

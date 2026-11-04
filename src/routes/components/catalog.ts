@@ -74,7 +74,34 @@ export const components: ComponentMeta[] = [
 		slug: 'badge',
 		category: 'primitives',
 		summary: 'A small status label, with an optional leading dot.',
-		related: ['alert', 'stat']
+		related: ['alert', 'stat', 'status-dot']
+	},
+	{
+		name: 'StatusDot',
+		slug: 'status-dot',
+		category: 'primitives',
+		summary: 'A colored dot for up, down and everything in between.',
+		description:
+			'For the places a whole badge is too much: a row in a list of services, a line in a table, next to a name. It sits still. If something is on fire, the color says so.',
+		notes: [
+			'With text next to it the dot is decoration and hidden from screen readers. On its own it is an image, and `label` is what gets read out.',
+			'Uses the same tones as `Badge`, `Alert` and `HistoryBar`, so a status means the same color everywhere.'
+		],
+		related: ['badge', 'avatar', 'history-bar']
+	},
+	{
+		name: 'RelativeTime',
+		slug: 'relative-time',
+		category: 'primitives',
+		summary: '"5 minutes ago", kept current, with the exact time on hover.',
+		description:
+			"A `<time>` element that says how long ago something was, in the visitor's language, and keeps saying it correctly while the tab stays open.",
+		notes: [
+			'Built on `Intl.RelativeTimeFormat`, so there are no locale files to ship; `numeric="auto"` gives "yesterday" instead of "1 day ago".',
+			'The server renders with its own clock and the browser corrects the text after hydration. Pass `now` to pin the reference point, in tests or screenshots.',
+			'Updates every second for the first minute, then less often as the wording changes less often.'
+		],
+		related: ['timeline', 'tooltip']
 	},
 	{
 		name: 'Avatar',
@@ -780,7 +807,21 @@ export const components: ComponentMeta[] = [
 		notes: [
 			'`fit` fills the width, down to `minCell`; past that the grid scrolls instead of becoming unreadable.'
 		],
-		related: ['sparkline', 'stat']
+		related: ['sparkline', 'stat', 'history-bar']
+	},
+	{
+		name: 'HistoryBar',
+		slug: 'history-bar',
+		category: 'data',
+		summary: 'One bar per day, colored by how it went.',
+		description:
+			'The row of bars from every status page, without the status page. Each bar takes a tone, so it works just as well for uptime, CI runs, backups or anything else that happens on a schedule and sometimes goes wrong.',
+		notes: [
+			'The bars share the width between them, down to `minBar`; past that the row scrolls instead of turning into a gray smear.',
+			'`null` is a period without data and renders muted, which is not the same as a good day.',
+			'`describe` sets the tooltip of each bar. Give the whole thing a `label` too, because to a screen reader it is one picture.'
+		],
+		related: ['heatmap', 'status-dot', 'sparkline']
 	},
 
 	/* -- effects ------------------------------------------------------------- */
