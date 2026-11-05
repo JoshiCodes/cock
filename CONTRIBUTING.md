@@ -57,8 +57,9 @@ library and runs `publint` over the result.
    behavior, what it is related to. Props are not listed there —
    `props.server.ts` reads them out of the component source, so the table on the
    page cannot drift from the real signature.
-3. Bump `components` and `pages` in `src/routes/facts.ts`. The home page, the
-   SEO description and the component index all count from there.
+3. Update the count in `README.md` and the `description` in `package.json`.
+   Those two are typed by hand; everything on the site counts from the catalog
+   through `src/routes/facts.ts`.
 4. Add at least one example under
    `src/routes/components/examples/<slug>/01-name.svelte`. The number orders the
    examples and the rest of the filename becomes the heading; an opening HTML
