@@ -2,19 +2,36 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { Alert, Button, Kbd, Switch, Table, theme as site, toast, cn } from '@joshicodes/cock';
+	import {
+		Alert,
+		Button,
+		Collapsible,
+		Kbd,
+		Select,
+		SegmentedControl,
+		Slider,
+		Switch,
+		Table,
+		theme as site,
+		toast,
+		cn
+	} from '@joshicodes/cock';
 	import CodeBlock from '../showcase/CodeBlock.svelte';
 	import Seo from '../showcase/Seo.svelte';
 	import ThemePreview from './ThemePreview.svelte';
 	import { audit, passesAA } from './contrast.js';
 	import {
 		decode,
+		defaultPreferences,
 		encode,
 		generate,
+		retune,
 		stylesheet,
 		toHex,
 		tokens,
+		tuningOf,
 		type Locks,
+		type Preferences,
 		type Theme
 	} from './generate.js';
 
@@ -28,16 +45,22 @@
 
 	const shared = decode(page.url.searchParams.get('t') ?? '');
 
-	let theme = $state<Theme>(shared ?? decode(first)!);
+	const initial = shared ?? decode(first)!;
+
+	let theme = $state<Theme>(initial);
 	let locks = $state<Locks>({ accent: false, background: false, shape: false });
+	let prefs = $state<Preferences>({ ...defaultPreferences });
+	// Mirrors the current theme so the sliders have something to bind to; `show`
+	// pulls it back in step whenever the dice take over again.
+	let tuning = $state(tuningOf(initial));
 	let history = $state<Theme[]>([]);
-	let accessibleOnly = $state(false);
+	let accessibleOnly = $state(true);
 	let mounted = $state(false);
 
 	onMount(() => {
 		mounted = true;
 		// Arriving without a shared theme should still feel like a roll of the dice.
-		if (!shared) theme = generate();
+		if (!shared) show(propose());
 	});
 
 	// The audit measures painted colors, so it can only run in the browser. The
@@ -62,23 +85,27 @@
 
 	function show(next: Theme) {
 		theme = next;
+		tuning = tuningOf(next);
 		fading = true;
 		clearTimeout(timer);
 		timer = setTimeout(() => (fading = false), 340);
 	}
 
-	function roll() {
-		history = [theme, ...history].slice(0, 12);
-
-		let next = generate(theme, locks);
+	function propose(previous?: Theme) {
+		let next = generate(previous, previous && locks, prefs);
 		if (accessibleOnly) {
 			// Rerolling is cheap; after this many tries the locks are probably
 			// what is making it impossible, so keep the last one and say so.
 			for (let tries = 0; tries < 40 && !passesAA(next); tries++) {
-				next = generate(theme, locks);
+				next = generate(previous, previous && locks, prefs);
 			}
 		}
-		show(next);
+		return next;
+	}
+
+	function roll() {
+		history = [theme, ...history].slice(0, 12);
+		show(propose(theme));
 	}
 
 	function restore(index: number) {
@@ -118,6 +145,31 @@
 			goto(`?t=${code}`, { replace: true, shallow: true });
 		}
 	});
+
+	const percent = (value: number) => `${Math.round(value * 100)}%`;
+
+	function tune() {
+		theme = retune(theme, tuning);
+	}
+
+	const depths = [
+		{ value: 'charcoal', label: 'Charcoal' },
+		{ value: 'deep', label: 'Deep' },
+		{ value: 'black', label: 'Black' }
+	];
+	const vividness = [
+		{ value: 'muted', label: 'Muted' },
+		{ value: 'balanced', label: 'Balanced' },
+		{ value: 'vivid', label: 'Vivid' }
+	];
+	const moods = [
+		{ value: 'any', label: 'Surprise me' },
+		{ value: 'neutral', label: 'Neutral' },
+		{ value: 'tinted', label: 'Tinted' },
+		{ value: 'cool', label: 'Cool' },
+		{ value: 'warm', label: 'Warm' },
+		{ value: 'split', label: 'Split' }
+	];
 
 	let css = $derived(stylesheet(theme));
 </script>
@@ -192,7 +244,51 @@
 		</div>
 	</div>
 
-	<div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+	<div class="mt-6 grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_auto]">
+		<label class="block">
+			<span class="text-sm font-medium text-fg">Dark background</span>
+			<span class="mt-0.5 block text-xs text-fg-subtle">
+				How far down the dark scheme goes. Black is for OLED.
+			</span>
+			<SegmentedControl
+				bind:value={prefs.depth}
+				options={depths}
+				size="sm"
+				stretch
+				label="Dark background"
+				class="mt-2"
+			/>
+		</label>
+
+		<label class="block">
+			<span class="text-sm font-medium text-fg">Accent strength</span>
+			<span class="mt-0.5 block text-xs text-fg-subtle">
+				Chroma the roll is allowed to reach for.
+			</span>
+			<SegmentedControl
+				bind:value={prefs.vividness}
+				options={vividness}
+				size="sm"
+				stretch
+				label="Accent strength"
+				class="mt-2"
+			/>
+		</label>
+
+		<label class="block lg:w-64">
+			<span class="text-sm font-medium text-fg">Neutrals</span>
+			<span class="mt-0.5 block text-xs text-fg-subtle">Where the greys lean.</span>
+			<Select
+				bind:value={prefs.mood}
+				options={moods}
+				size="sm"
+				aria-label="Neutrals"
+				class="mt-2"
+			/>
+		</label>
+	</div>
+
+	<div class="mt-6 flex flex-wrap items-center justify-between gap-4">
 		<Switch bind:checked={accessibleOnly} description="Rerolls until every contrast check passes.">
 			Only accessible themes
 		</Switch>
@@ -213,6 +309,113 @@
 				</div>
 			</figure>
 		{/each}
+	</div>
+
+	<div class="mt-8 border-t border-border pt-2">
+		<Collapsible title="Dial it in by hand">
+			<div class="grid gap-x-12 gap-y-6 pt-2 pb-4 sm:grid-cols-2">
+				<Slider
+					bind:value={tuning.hue}
+					onchange={tune}
+					min={0}
+					max={360}
+					step={1}
+					label="Accent hue"
+					showValue
+					format={(v) => `${Math.round(v)}°`}
+				/>
+				<Slider
+					bind:value={tuning.chroma}
+					onchange={tune}
+					min={0}
+					max={0.3}
+					step={0.005}
+					label="Accent chroma"
+					showValue
+					format={(v) => v.toFixed(3)}
+				/>
+				<Slider
+					bind:value={tuning.lightBg}
+					onchange={tune}
+					min={0.9}
+					max={1}
+					step={0.002}
+					label="Light background"
+					showValue
+					format={percent}
+				/>
+				<Slider
+					bind:value={tuning.darkBg}
+					onchange={tune}
+					min={0}
+					max={0.28}
+					step={0.002}
+					label="Dark background"
+					showValue
+					format={percent}
+				/>
+				<Slider
+					bind:value={tuning.tone}
+					onchange={tune}
+					min={0}
+					max={0.04}
+					step={0.001}
+					label="Neutral tone"
+					showValue
+					format={(v) => v.toFixed(3)}
+				/>
+				<Slider
+					bind:value={tuning.lightBorder}
+					onchange={tune}
+					min={4}
+					max={28}
+					step={1}
+					label="Light border weight"
+					showValue
+					format={(v) => `${v}%`}
+				/>
+				<Slider
+					bind:value={tuning.darkBorder}
+					onchange={tune}
+					min={4}
+					max={32}
+					step={1}
+					label="Dark border weight"
+					showValue
+					format={(v) => `${v}%`}
+				/>
+				<Slider
+					bind:value={tuning.radius}
+					onchange={tune}
+					min={0}
+					max={2}
+					step={0.25}
+					label="Corner scale"
+					showValue
+					format={(v) => `${v}×`}
+				/>
+				<Slider
+					bind:value={tuning.lightTint}
+					onchange={tune}
+					min={0}
+					max={8}
+					step={0.5}
+					label="Light surface tint"
+					showValue
+					format={(v) => `${v}%`}
+				/>
+				<Slider
+					bind:value={tuning.darkTint}
+					onchange={tune}
+					min={0}
+					max={16}
+					step={0.5}
+					label="Dark surface tint"
+					showValue
+					format={(v) => `${v}%`}
+				/>
+			</div>
+		</Collapsible>
 	</div>
 
 	{#if history.length > 0}
