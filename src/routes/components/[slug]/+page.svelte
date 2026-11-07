@@ -96,6 +96,19 @@
 		</div>
 	</header>
 
+	{#if meta.setup}
+		<section class="space-y-3">
+			<h2 class="text-xl font-semibold tracking-tight text-fg">Setup</h2>
+			<p class="text-sm leading-relaxed text-fg-muted">
+				Once per app, in <code class="font-mono text-xs text-accent">{meta.setup.file}</code>. The
+				examples below rely on it; this site already has it.
+			</p>
+			<div class="overflow-hidden rounded-lg border border-border">
+				<CodeBlock code={meta.setup.code} label={meta.setup.file} />
+			</div>
+		</section>
+	{/if}
+
 	{#if examples.length}
 		<div class="space-y-10">
 			{#each examples as example (example.id)}

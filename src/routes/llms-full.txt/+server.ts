@@ -74,6 +74,17 @@ export function GET() {
 			''
 		);
 
+		if (meta.setup) {
+			parts.push(
+				`Setup, once in \`${meta.setup.file}\`:`,
+				'',
+				'```svelte',
+				meta.setup.code,
+				'```',
+				''
+			);
+		}
+
 		for (const doc of docs) {
 			if (docs.length > 1) parts.push(`### <${doc.name}>`, '');
 
