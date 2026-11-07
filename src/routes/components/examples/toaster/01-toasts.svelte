@@ -1,4 +1,4 @@
-<!-- Toaster itself is mounted once in the root layout; this page already has one. -->
+<!-- Needs the Toaster from the setup above. -->
 <script lang="ts">
 	import { Button, toast } from '@joshicodes/cock';
 </script>

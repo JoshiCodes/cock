@@ -25,6 +25,8 @@ export interface ComponentMeta {
 	parts?: string[];
 	/** Other exports the page covers, e.g. the `toast` helper. */
 	exports?: string[];
+	/** Code the component needs somewhere else before the examples work, e.g. a layout. */
+	setup?: { file: string; code: string };
 	/** `[keys, what happens]`. Only where the component adds something. */
 	keyboard?: [string, string][];
 	/** Behavior worth knowing before you reach for it. */
@@ -502,7 +504,23 @@ export const components: ComponentMeta[] = [
 		description:
 			'Mount `Toaster` once in your root layout, then call `toast()` from anywhere — including outside a component, since the queue is plain state rather than context.',
 		exports: ['toast'],
+		setup: {
+			file: 'src/routes/+layout.svelte',
+			code:
+				`<script lang="ts">
+	import { Toaster } from '@joshicodes/cock';
+
+	let { children } = $props();
+<` +
+				`/script>
+
+{@render children()}
+
+<Toaster position="bottom-right" />`
+		},
 		notes: [
+			'Without a mounted `Toaster`, `toast()` still queues the message but nothing shows up. Mount it once; a second one shows every toast twice.',
+			'`toast.success`, `toast.warning`, `toast.error` and `toast.info` set the variant. All of them take the same options as `toast()`.',
 			'`duration: 0` keeps a toast until it is dismissed, which is what you want for an error with a retry action.',
 			'`toast()` returns an id that `toast.dismiss(id)` takes.'
 		],
