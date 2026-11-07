@@ -67,7 +67,22 @@ export const components: ComponentMeta[] = [
 			'With `href` the component renders an `<a>`; `disabled` then becomes `aria-disabled` plus `tabindex="-1"`, because a link cannot be disabled.',
 			'Every other attribute is forwarded, so `type="submit"`, `form` and `onclick` work as usual.'
 		],
-		related: ['copy-button', 'theme-toggle', 'dropdown-menu']
+		related: ['link', 'copy-button', 'theme-toggle', 'dropdown-menu']
+	},
+	{
+		name: 'Link',
+		slug: 'link',
+		category: 'primitives',
+		summary: 'An inline text link that knows when it leaves the site.',
+		description:
+			'For links inside running text, footers and fine print. A URL that starts with `https://` opens in a new tab, gets a small arrow and the `rel` that goes with it; everything else stays a plain link.',
+		notes: [
+			'An external link gets `target="_blank"` and `rel="noopener noreferrer"` unless you pass your own. Screen readers hear `newTabLabel` after the text, so nobody is surprised by the new tab.',
+			'Every absolute URL counts as external, your own domain included. Pass `external={false}` for those, or `external` to mark a relative one.',
+			'The underline sits at 35% of the text color and fills in on hover, so a paragraph full of links still reads as a paragraph.',
+			'Wants to look like a button? Use `Button` with `href` instead.'
+		],
+		related: ['button', 'breadcrumb', 'navbar']
 	},
 	{
 		name: 'Badge',

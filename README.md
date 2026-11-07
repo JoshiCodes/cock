@@ -26,7 +26,7 @@
 
 ---
 
-88 components for Svelte 5 and Tailwind 4, written in TypeScript. Forms, dialogs,
+89 components for Svelte 5 and Tailwind 4, written in TypeScript. Forms, dialogs,
 menus, tables and a few effects, with the keyboard handling and dark mode already
 done. Two runtime dependencies: `clsx` and `tailwind-merge`.
 

@@ -10,6 +10,7 @@ export { default as Button } from './components/primitives/Button.svelte';
 export { default as Code } from './components/primitives/Code.svelte';
 export { default as CopyButton } from './components/primitives/CopyButton.svelte';
 export { default as Kbd } from './components/primitives/Kbd.svelte';
+export { default as Link } from './components/primitives/Link.svelte';
 export { default as RelativeTime } from './components/primitives/RelativeTime.svelte';
 export { default as Separator } from './components/primitives/Separator.svelte';
 export { default as Skeleton } from './components/primitives/Skeleton.svelte';
@@ -136,6 +137,7 @@ export { parseColor, formatOklch, oklchToHex, type Oklch } from './utils/oklch.j
 /* -- component types ------------------------------------------------------ */
 export type { ButtonVariant, ButtonSize } from './components/primitives/Button.svelte';
 export type { BadgeVariant } from './components/primitives/Badge.svelte';
+export type { LinkVariant } from './components/primitives/Link.svelte';
 export type { StatusTone } from './components/primitives/StatusDot.svelte';
 export type { AlertVariant } from './components/feedback/Alert.svelte';
 export type { SegmentedOption } from './components/forms/SegmentedControl.svelte';
