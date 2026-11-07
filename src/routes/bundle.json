@@ -1,6 +1,6 @@
 {
-	"measuredAt": "2026-11-04",
-	"version": "1.4.0",
+	"measuredAt": "2026-11-07",
+	"version": "1.6.0",
 	"rows": [
 		{
 			"label": "clsx + tailwind-merge (shared baseline)",
@@ -28,9 +28,9 @@
 		},
 		{
 			"label": "Everything the package exports",
-			"exports": 113,
-			"raw": 251.5,
-			"gzip": 60.8
+			"exports": 114,
+			"raw": 253.5,
+			"gzip": 61.3
 		}
 	],
 	"css": {
