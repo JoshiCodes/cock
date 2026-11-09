@@ -9,7 +9,10 @@
 		fade="radial"
 		class="flex h-48 items-center justify-center rounded-md border border-border"
 	>
-		<span class="text-sm text-fg-muted">diagonal</span>
+		<span
+			class="rounded-md bg-surface/85 px-3 py-1 text-sm text-fg-muted shadow-[0_0_20px_14px] shadow-surface/85"
+			>diagonal</span
+		>
 	</GridBackground>
 	<GridBackground
 		animation="pan"
@@ -20,6 +23,9 @@
 		fade="top"
 		class="flex h-48 items-center justify-center rounded-md border border-border"
 	>
-		<span class="text-sm text-fg-muted">up, twice as fast</span>
+		<span
+			class="rounded-md bg-surface/85 px-3 py-1 text-sm text-fg-muted shadow-[0_0_20px_14px] shadow-surface/85"
+			>up, twice as fast</span
+		>
 	</GridBackground>
 </div>
