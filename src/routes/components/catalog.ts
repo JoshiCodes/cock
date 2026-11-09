@@ -940,6 +940,23 @@ export const components: ComponentMeta[] = [
 		related: ['highlight', 'marquee']
 	},
 	{
+		name: 'GridBackground',
+		slug: 'grid-background',
+		category: 'effects',
+		summary: 'A line or dot grid behind a section, still, drifting or lit by the pointer.',
+		description:
+			'Draws graph paper behind whatever you put inside it. Lines or dots, any spacing, an optional fade toward the edges, and two kinds of motion: `pan` lets the pattern drift, `spotlight` lights up the part under the pointer.',
+		notes: [
+			'Pure CSS gradients, no canvas and no SVG, so a full-page grid costs next to nothing.',
+			'Dots sit exactly where the lines would cross, so switching `variant` keeps the rhythm of the layout.',
+			'`spotlight` follows the pointer on the window, so it keeps working when cards and buttons sit on top of the grid.',
+			'For a page background, give it `class="fixed inset-0 -z-10"` and no children.',
+			'Text straight on the pattern gets hard to read. Put it on a panel such as `bg-surface/85 shadow-[0_0_20px_14px] shadow-surface/85`, or fade the grid out behind it.',
+			'`pan` stands still when the visitor has reduced motion turned on.'
+		],
+		related: ['marquee', 'reveal']
+	},
+	{
 		name: 'Highlight',
 		slug: 'highlight',
 		category: 'effects',
