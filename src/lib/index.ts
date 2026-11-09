@@ -100,6 +100,7 @@ export { default as TimelineItem } from './components/data/TimelineItem.svelte';
 /* -- effects -------------------------------------------------------------- */
 export { default as Caret } from './components/effects/Caret.svelte';
 export { default as CountUp } from './components/effects/CountUp.svelte';
+export { default as GridBackground } from './components/effects/GridBackground.svelte';
 export { default as Highlight } from './components/effects/Highlight.svelte';
 export { default as Marquee } from './components/effects/Marquee.svelte';
 export { default as Odometer } from './components/effects/Odometer.svelte';
