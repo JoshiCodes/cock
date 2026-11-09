@@ -68,7 +68,8 @@ const guides: Record<string, string[]> = {
 	'/docs/types': ['src/routes/docs/types/'],
 	'/docs/comparison': ['src/routes/docs/comparison/'],
 	'/components': ['src/routes/components/+page.svelte', 'src/routes/components/catalog.ts'],
-	'/themes': ['src/routes/themes/']
+	'/themes': ['src/routes/themes/'],
+	'/templates': ['src/routes/templates/']
 };
 
 /** A component page is its own source, its parts, and its examples. */
@@ -84,6 +85,14 @@ const sources = new Map<string, string[]>([
 	...Object.entries(guides),
 	...components.map(
 		(entry) => [`/components/${entry.slug}`, componentSources(entry)] as [string, string[]]
+	),
+	// A template page is its one file; the number in front only sets the order.
+	...Object.keys(import.meta.glob('./templates/library/*/*.svelte')).map(
+		(path) =>
+			[
+				`/templates/${path.split('/').pop()!.replace(/^\d+-/, '').replace('.svelte', '')}`,
+				[path.slice(2)]
+			] as [string, string[]]
 	)
 ]);
 
