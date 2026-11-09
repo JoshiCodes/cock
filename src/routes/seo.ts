@@ -1,5 +1,10 @@
 import { componentCount, components } from './components/catalog.js';
 
+// File names only; the sitemap has no use for the components themselves.
+const templateSlugs = Object.keys(import.meta.glob('./templates/library/*/*.svelte')).map((path) =>
+	path.split('/').pop()!.replace(/^\d+-/, '').replace('.svelte', '')
+);
+
 /** One place for everything search engines and link previews read. */
 export const site = {
 	url: 'https://cock.joshicodes.de',
@@ -24,6 +29,8 @@ export const pages = [
 	'/docs/types',
 	'/docs/comparison',
 	'/components',
+	'/templates',
 	'/themes',
-	...components.map((entry) => `/components/${entry.slug}`)
+	...components.map((entry) => `/components/${entry.slug}`),
+	...templateSlugs.map((slug) => `/templates/${slug}`)
 ];
