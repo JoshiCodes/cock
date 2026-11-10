@@ -1,6 +1,7 @@
 import { components, categoryOf } from '../components/catalog.js';
 import { componentDocs, type PropDoc } from '../components/props.server.js';
 import { site } from '../seo.js';
+import { categoryNames, templates } from '../templates/registry.js';
 
 export const prerender = true;
 
@@ -113,6 +114,24 @@ export function GET() {
 		if (meta.notes?.length) {
 			parts.push('**Behavior**', '', ...meta.notes.map((note) => `- ${note}`), '');
 		}
+	}
+
+	parts.push(
+		'## Templates',
+		'',
+		'Whole screens built from the components above. Each is a single Svelte file; the',
+		'source is on its page.',
+		''
+	);
+	for (const template of templates) {
+		parts.push(
+			`### ${template.title}`,
+			'',
+			...(template.description ? [template.description, ''] : []),
+			`Category: ${categoryNames[template.category]}. Page: ${site.url}/templates/${template.slug}`,
+			...(template.uses.length ? ['', `Uses: ${template.uses.join(', ')}`] : []),
+			''
+		);
 	}
 
 	return new Response(parts.join('\n'), {

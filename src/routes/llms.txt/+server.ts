@@ -1,5 +1,6 @@
 import { grouped } from '../components/catalog.js';
 import { site } from '../seo.js';
+import { categories, templates } from '../templates/registry.js';
 
 export const prerender = true;
 
@@ -24,6 +25,7 @@ export function GET() {
 			`- [How it compares](${site.url}/docs/comparison): next to shadcn-svelte, Bits UI and Skeleton, with measured bundle sizes`,
 			`- [Component index](${site.url}/components): all components with examples and props`,
 			`- [Theme generator](${site.url}/themes): generate a palette and copy the CSS`,
+			`- [Templates](${site.url}/templates): whole screens built from the kit, one Svelte file each`,
 			`- [Full API as one file](${site.url}/llms-full.txt): every component, prop, default and keyboard shortcut`
 		]),
 		...grouped.map((group) =>
@@ -32,6 +34,17 @@ export function GET() {
 				group.items.map(
 					(item) => `- [${item.name}](${site.url}/components/${item.slug}): ${item.summary}`
 				)
+			)
+		),
+		...categories.map((category) =>
+			section(
+				`Templates: ${category.name}`,
+				templates
+					.filter((template) => template.category === category.slug)
+					.map(
+						(template) =>
+							`- [${template.title}](${site.url}/templates/${template.slug})${template.description ? `: ${template.description}` : ''}`
+					)
 			)
 		)
 	].join('\n');
