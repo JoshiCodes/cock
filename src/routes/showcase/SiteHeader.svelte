@@ -5,6 +5,7 @@
 	import ControlPanel from './ControlPanel.svelte';
 	import Logo from './Logo.svelte';
 	import { site } from './site.svelte.js';
+	import { version } from '../../../package.json';
 
 	function isActive(href: string) {
 		const section = href.split('/')[1];
@@ -23,9 +24,18 @@
 	<!-- Docs spans several paths, so the links compare by section rather than by `current`. -->
 	<Navbar collapse="sm" class="mx-auto max-w-7xl border-b-0 lg:px-8">
 		{#snippet brand()}
-			<a href="/" aria-label="cock, home">
-				<Logo wordmark />
-			</a>
+			<span class="flex items-center gap-3">
+				<a href="/" aria-label="cock, home">
+					<Logo wordmark />
+				</a>
+				<a
+					href="https://www.npmjs.com/package/@joshicodes/cock/v/{version}"
+					title="Version {version} on npm"
+					class="border-l border-border pl-3 text-xs font-medium text-fg-subtle tabular-nums transition-colors hover:text-fg"
+				>
+					<span class="sr-only">Version </span>v{version}
+				</a>
+			</span>
 		{/snippet}
 
 		{#each links as link (link.href)}
