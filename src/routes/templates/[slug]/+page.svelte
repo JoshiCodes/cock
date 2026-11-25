@@ -23,10 +23,11 @@
 		return components.find((entry) => entry.name === name || entry.parts?.includes(name));
 	}
 
+	let code = $state('');
 	let copied = $state(false);
 	async function copy() {
 		try {
-			await navigator.clipboard.writeText(template.source);
+			await navigator.clipboard.writeText(code || template.source);
 			copied = true;
 			setTimeout(() => (copied = false), 1600);
 		} catch {
@@ -60,7 +61,7 @@
 	</header>
 
 	<div class="mt-8">
-		<TemplateBlock {template} />
+		<TemplateBlock {template} bind:code />
 	</div>
 
 	{#if template.uses.length}
