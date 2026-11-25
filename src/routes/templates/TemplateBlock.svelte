@@ -2,8 +2,16 @@
 	import { Button, Input, Select, SegmentedControl, Switch } from '@joshicodes/cock';
 	import CodeBlock from '../showcase/CodeBlock.svelte';
 	import type { Template, TemplateOption } from './registry.js';
+	import { resolveSource } from './resolve.js';
 
-	let { template }: { template: Template } = $props();
+	let {
+		template,
+		code = $bindable('')
+	}: {
+		template: Template;
+		/** The source with the options picked above the preview baked in. */
+		code?: string;
+	} = $props();
 
 	let view = $state('preview');
 	let viewport = $state('desktop');
@@ -18,7 +26,13 @@
 	);
 	let changed = $state<Record<string, string | boolean>>({});
 	let values = $derived({ ...defaults, ...changed });
+	let resolved = $derived(resolveSource(template.source, values));
+	let customized = $derived(Object.keys(changed).some((name) => changed[name] !== defaults[name]));
 	const Demo = $derived(template.component);
+
+	$effect.pre(() => {
+		code = resolved;
+	});
 
 	// A new template keeps nothing from the one before it.
 	$effect.pre(() => {
@@ -150,6 +164,18 @@
 	</div>
 
 	{#if view === 'code'}
-		<CodeBlock code={template.source} label="{template.slug}.svelte" />
+		{#if customized}
+			<p class="border-b border-border px-3 py-2 text-xs text-fg-muted sm:px-4">
+				With the options you picked in the preview.
+				<button
+					type="button"
+					onclick={() => (changed = {})}
+					class="cursor-pointer text-fg underline decoration-border-strong underline-offset-4 hover:decoration-current"
+				>
+					Reset to defaults
+				</button>
+			</p>
+		{/if}
+		<CodeBlock code={resolved} label="{template.slug}.svelte" />
 	{/if}
 </div>
