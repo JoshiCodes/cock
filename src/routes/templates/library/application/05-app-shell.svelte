@@ -72,7 +72,7 @@
 
 {#snippet link(item: { name: string; icon: string; count?: number })}
 	<a
-		href="#{item.name.toLowerCase()}"
+		href="/"
 		aria-current={current === item.name ? 'page' : undefined}
 		aria-label={width === 'rail' ? item.name : undefined}
 		onclick={(event) => {
